@@ -20,13 +20,13 @@ class Player {
 
     void updatePlayer() {
         velocity.setMag(0);
-        if (keys['a'])     // move left when allowed
+        if (keys['a'] || keys['A'])     // move left when allowed
         velocity.x = - playerSpeed;
-        if (keys['d'])    // move right when allowed
+        if (keys['d'] || keys['D'])    // move right when allowed
         velocity.x = playerSpeed;
-        if (keys['w'])      // move up when allowed
+        if (keys['w'] || keys['W'])      // move up when allowed
         velocity.y = - playerSpeed;
-        if (keys['s'])   // move down when allowed
+        if (keys['s'] || keys['S'])   // move down when allowed
         velocity.y = playerSpeed;
         integrate();
     }

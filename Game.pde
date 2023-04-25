@@ -12,7 +12,7 @@ final int BLUE = #5588ff;
 // use a boolean array to register key presses
 // complies with the ASCII table
 boolean[] keys = new boolean[128];
-boolean shiftpressed, ctrlpressed, enterpressed;
+boolean shiftpressed, enterpressed;
 
 float proportion = 1.0;
 int default_width = 1600;
@@ -48,9 +48,6 @@ void keyPressed() {
   if (keyCode == SHIFT) {
     shiftpressed = true;
   }
-  if (keyCode == CONTROL) {
-    ctrlpressed = true;
-  }
   if (keyCode == ENTER) {
     enterpressed = true;
   }
@@ -62,9 +59,6 @@ void keyReleased() {
   }
   if (keyCode == SHIFT) {
     shiftpressed = false;
-  }
-  if (keyCode == CONTROL) {
-    ctrlpressed = false;
   }
   if (keyCode == ENTER) {
     enterpressed = false;
@@ -86,4 +80,22 @@ void drawMouse() {
   text("Mouse location: (" + mouseX + ", " + mouseY + ")", mouseX + 15, mouseY + 30); // show mouse coord and fps 
   text("FPS: " + nf(frameRate, 0, 2), mouseX + 15, mouseY + 50);
   text("Screen resolution: " + width + " x " + height, mouseX + 15, mouseY + 70); // show screen resolution
+  String pressedKeys = "Keys pressed: ";
+  for (int i = 0; i < keys.length; i++) {
+
+    if (keys[i] && i != 10 && i != 32) {
+      pressedKeys += ' ';
+      pressedKeys += char(i);
+    }
+  }
+  if (shiftpressed) {
+    pressedKeys += " SHIFT ";
+  }
+  if (keys[32]) {
+    pressedKeys += " SPACE ";
+  }
+  if (keys[10]) {
+    pressedKeys += " ENTER ";
+  }
+  text(pressedKeys, mouseX + 15, mouseY + 90);
 }
