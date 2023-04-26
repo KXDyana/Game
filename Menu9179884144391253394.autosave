@@ -1,0 +1,53 @@
+static class Menu {
+
+  final String[] OPTIONS = {"Start New Game", "Load Game", "Quit Game"};
+
+  static void showMenu(PApplet applet) {
+   push();
+  textSetup();
+  textSize(70);
+  text('RHYTHM TYPER', width/2, height/3 + 50);
+  pop();
+  
+  push();
+  textSetup();
+  if (mouseY >= 3*height/5 && mouseY <= 3*height/5 + 60) {
+      if (mouseX >= width/2 - 550 && mouseX <= width/2 - 270) {
+        fill('yellow');
+      } 
+    }
+  text('Easy (60 wpm)', width/2 - 400, 3*height/5 + 50);
+  pop();
+  
+  push();
+  textSetup();
+  if (mouseY >= 3*height/5 && mouseY <= 3*height/5 + 60) {
+      if (mouseX >= width/2 - 170 && mouseX <= width/2 + 170) {
+        fill('yellow');
+      }
+    }
+  text('Medium (90 wpm)', width/2, 3*height/5 + 50);
+  pop();
+  
+  push();
+  textSetup();
+  if (mouseY >= 3*height/5 && mouseY <= 3*height/5 + 60) {
+      if (mouseX >= width/2 + 250 && mouseX <= width/2 + 550) {
+        fill('yellow');
+      }
+    }
+  text('Hard (120 wpm)', width / 2 + 400, 3*height/5 + 50);
+  pop();
+  
+  push();
+  textSetup();
+  if (mouseY >= 5*height/6 - 50 && mouseY <= 5*height/6 + 20) {
+      if (mouseX >= width/2 - 80 && mouseX <= width/2 + 80) {
+        fill('yellow');
+      }
+    }
+  text("Credits", width/2, 5*height/6);
+  pop();
+    }
+  }
+}
