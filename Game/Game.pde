@@ -114,8 +114,8 @@ void drawMouse() {
   noCursor(); // hide cursor
   stroke(YELLOW);
   strokeWeight(1);
-  line(mouseX - proportion * 15, mouseY, mouseX + proportion * 15, mouseY);  // draw a cross
-  line(mouseX, mouseY - proportion * 15, mouseX, mouseY + proportion * 15);
+  line(mouseX - proportion * 12, mouseY, mouseX + proportion * 12, mouseY);  // draw a cross
+  line(mouseX, mouseY - proportion * 12, mouseX, mouseY + proportion * 12);
   noFill(); // Set fill color to transparent
   rectMode(CENTER);
   rect(mouseX, mouseY, 14, 14);
