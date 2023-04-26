@@ -7,11 +7,18 @@ static class Collision {
     }
     
     static boolean pointCollideRect(PVector pointPos, float rectX, float rectY, float rectW, float rectH) {
-        // assuming rect is drawn at the corner
-        if (pointPos.x >= rectX && pointPos.x <= rectX + rectW && pointPos.y >= rectY && pointPos.y <= rectY + rectH) {
+        // assuming rect is drawn at the center
+        float rectHalfW = rectW / 2;
+        float rectHalfH = rectH / 2;
+        if (pointPos.x >= rectX - rectHalfW && pointPos.x <= rectX + rectHalfW && 
+            pointPos.y >= rectY - rectHalfH && pointPos.y <= rectY + rectHalfH) {
             return true;
-        } else return false;
+        } else {
+            return false;
+        }
     }
+    
+    
     
     static boolean CircleCollideRect(float circleX, float circleY, float radius, float rectX, float rectY, float rectW, float rectH) {
         // assuming both are drawn at center
@@ -42,12 +49,12 @@ static class Collision {
         }
         return false;
     }
-        
-        static boolean RectCollideRect(float rect1X, float rect1Y, float rect1W, float rect1H, float rect2X, float rect2Y, float rect2W, float rect2H) {
-            if (rect1X + rect1W / 2 >= rect2X - rect2W / 2 && rect1X - rect1W / 2 <= rect2X + rect2W / 2 && rect1Y + rect1H / 2 >= rect2Y - rect2H / 2 && rect1Y - rect1H / 2 <= rect2Y + rect2H / 2) {
-                return true;
-            }
-            return false;
+    
+    static boolean RectCollideRect(float rect1X, float rect1Y, float rect1W, float rect1H, float rect2X, float rect2Y, float rect2W, float rect2H) {
+        if (rect1X + rect1W / 2 >= rect2X - rect2W / 2 && rect1X - rect1W / 2 <= rect2X + rect2W / 2 && rect1Y + rect1H / 2 >= rect2Y - rect2H / 2 && rect1Y - rect1H / 2 <= rect2Y + rect2H / 2) {
+            return true;
         }
-            
-        }
+        return false;
+    }
+    
+}

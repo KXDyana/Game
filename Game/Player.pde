@@ -38,4 +38,3 @@ class Player {
         position.add(velocity);
     }
 }
-

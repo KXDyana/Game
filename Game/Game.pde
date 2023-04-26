@@ -11,11 +11,11 @@ static final int BLUE = #5588ff;
 
 // states
 final int STATE_MENU = 0;
-final int STATE_GAME = 1;
+final int STATE_LEVEL = 1;
 final int STATE_GAMELOADING = 2;
 final int STATE_GAMEOVER = 3;
 final int STATE_GAMEPAUSE = 4;
-int state = 0;  // initial state
+static int state = 0;  // initial state
 
 // use a boolean array to register key presses
 boolean[] keys = new boolean[128];
@@ -23,14 +23,13 @@ boolean[] keys = new boolean[128];
 boolean shiftpressed, enterpressed;
 
 float proportion = 1.0;
-int default_width = 1600;
-int default_height = 900;
 
 Player player = new Player(50, 50, 50);
 Menu menu;
+LevelView levelView;
 
 void settings() {
-  size(default_width, default_height);
+  fullScreen();
 }
 
 void setup() {
@@ -39,6 +38,7 @@ void setup() {
   player.position.x = width / 2;
   player.position.y = height / 2;
   menu = new Menu(this);
+  levelView = new LevelView();
 }
 
 void draw(){
@@ -46,8 +46,8 @@ void draw(){
   switch (state) {
     case STATE_MENU:
     showMenu(); break;
-    case STATE_GAME:
-    showGame(); break;
+    case STATE_LEVEL:
+    showLevel(); break;
     case STATE_GAMELOADING:
     showLoading(); break;
     case STATE_GAMEOVER:
@@ -64,8 +64,9 @@ void showMenu() {
   menu.drawMenu();
 }
 
-void showGame() {
+void showLevel() {
   player.drawPlayer();
+  levelView.drawLevelView();
 }
 
 void showLoading() {
@@ -144,4 +145,6 @@ void drawMouse() {
     pressedKeys += " ENTER";
   }
   text(pressedKeys, mouseX + 15, mouseY + 90);
+  text("Screen Proportion: " + proportion, mouseX + 15, mouseY + 110);
+  text("Game State: " + state, mouseX + 15, mouseY + 130);
 }

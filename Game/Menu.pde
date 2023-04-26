@@ -6,6 +6,15 @@ class Menu {
     int optionHeight = 60;
     int optionSpacing = 0;
     final MenuOption[] rootOptions;
+    final MenuOption[] settingOptions;
+    final MenuOption[] loadOptions;
+    
+    // states
+    static final int STATE_ROOT = 0;
+    static final int STATE_SETTING = 1;
+    static final int STATE_LOAD = 2;  
+    static final int STATE_RESOLUTION = 3;  
+    public int menuState = 0;  // initial state
     
     
     Menu(PApplet game) {
@@ -14,36 +23,53 @@ class Menu {
         
         int spaceCounter = 0;
         this.rootOptions = new MenuOption[] {
-            new MenuOption("Start New Game", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight),
-            new MenuOption("Load Game", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight),
-            new MenuOption("Settings", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight),
-            new MenuOption("Quit Game", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight)
-        };
-
+            new MenuOption("Start New Game", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight, this),
+                new MenuOption("Load Game", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight, this),
+                new MenuOption("Settings", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight, this),
+                new MenuOption("Quit Game", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight, this)
+            };
+        
         spaceCounter = 0;
-        rootOptions[2].subOptions = new MenuOption[] {
-            new MenuOption("Resolution", menuX, rootOptions[2].menuOptionY + ++ spaceCounter * (optionHeight + optionSpacing), optionWidth, optionHeight),
-            new MenuOption("Music Volumn", menuX, rootOptions[2].menuOptionY + ++spaceCounter * (optionHeight + optionSpacing), optionWidth, optionHeight),
-        };
-
+        this.settingOptions = new MenuOption[] {
+            new MenuOption("Back", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight, this),
+                new MenuOption("Effect Volumn", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight, this),
+                new MenuOption("Music Volumn", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight, this),
+            };
+        
+        spaceCounter = 0;
+        this.loadOptions = new MenuOption[] {
+            new MenuOption("Back", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight, this),
+                new MenuOption("Load Game 1", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight, this),
+                new MenuOption("Load Game 2", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight, this),
+                new MenuOption("Load Game 3", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight, this),
+            };
+        
+        spaceCounter = 0;
         
     }
     
+    
     void drawMenu() {
         
-        // Draw menu options
-        for (int i = 0; i < rootOptions.length; i++) {
-            rootOptions[i].drawMenuOption();
-        }
-
-        if (rootOptions[2].selected) {
-            rootOptions[0].ommited = true;
-            rootOptions[1].ommited = true;
-            rootOptions[3].ommited = true;
-        } else {
-            rootOptions[0].ommited = false;
-            rootOptions[1].ommited = false;
-            rootOptions[3].ommited = false;
+        switch(menuState) {
+            case STATE_ROOT:
+                for (int i = 0; i < rootOptions.length; i++) {
+                    rootOptions[i].drawMenuOption();
+                }
+                break;
+            case STATE_SETTING:
+                for (int i = 0; i < settingOptions.length; i++) {
+                    settingOptions[i].drawMenuOption();
+                }
+                break;
+            case STATE_LOAD:
+                for (int i = 0; i < loadOptions.length; i++) {
+                        loadOptions[i].drawMenuOption();
+                    }
+                break;
+            
         }
     }
+    
+    
 }

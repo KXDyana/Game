@@ -5,12 +5,13 @@ class MenuOption {
     float optionTextSize, selectedOptionTextSize, notSelectedOptionTextSize;
     String optionText;
     boolean selected, anyChildSelected, ommited;
-    MenuOption[] subOptions;
     MenuOption parentOption;
     float optionColorOpa;
     int optionColor = LIGHT_PURPLE;
+    Menu menu;
+    boolean prevMousePressed = false;
     
-    MenuOption(String optionText, int menuOptionX, int menuOptionY, int optionWidth, int optionHeight) {
+    MenuOption(String optionText, int menuOptionX, int menuOptionY, int optionWidth, int optionHeight, Menu menu) {
         this.menuOptionX = menuOptionX;
         this.menuOptionY = menuOptionY;
         this.optionWidth = optionWidth;
@@ -19,14 +20,11 @@ class MenuOption {
         this.notSelectedOptionTextSize = optionTextSize;
         this.selectedOptionTextSize = optionTextSize * 1.1;
         this.optionText = optionText;
+        this.menu = menu;
         
     }
     
     void drawMenuOption() {
-
-        if (ommited) {
-            return;
-        }
         updateOption();
         noStroke();
         
@@ -35,48 +33,47 @@ class MenuOption {
             optionColorOpa = lerp(optionColorOpa, 120, 0.1);
             optionTextSize = lerp(optionTextSize, selectedOptionTextSize, 0.1);
             fill(optionColor, optionColorOpa);
-            rect(menuOptionX, menuOptionY, optionWidth, optionHeight, 10, 10, 10, 10);
-            textAlign(CENTER, CENTER); 
+            rect(menuOptionX, menuOptionY, optionWidth, optionHeight);
+            textAlign(LEFT, CENTER); 
             textSize(optionTextSize);
             fill(YELLOW);
-            text(optionText, menuOptionX, menuOptionY);
-            
-            if (subOptions != null) {
-                for (int i = 0; i < subOptions.length; i++) {
-                    subOptions[i].drawMenuOption();
-                }
-            }
+            text(optionText, menuOptionX - optionWidth / 2.2, menuOptionY);
             
         } else{
             optionColorOpa = lerp(optionColorOpa, 0.0, 0.1);
             optionTextSize = lerp(optionTextSize, notSelectedOptionTextSize, 0.1);
             fill(optionColor, optionColorOpa);
-            rect(menuOptionX, menuOptionY, optionWidth, optionHeight, 10, 10, 10, 10);
-            textAlign(CENTER, CENTER); 
+            rect(menuOptionX, menuOptionY, optionWidth, optionHeight);
+            textAlign(LEFT, CENTER); 
             textSize(optionTextSize);
             fill(YELLOW);
-            text(optionText, menuOptionX, menuOptionY);
+            text(optionText, menuOptionX - optionWidth / 2.2, menuOptionY);
         }
     }
     
     void updateOption() {
         // Check if mouse is within bounds of the rectangle
-        if (mouseX >= menuOptionX - optionWidth / 2 && mouseX <= menuOptionX + optionWidth / 2 && 
-            mouseY >= menuOptionY - optionHeight / 2 && mouseY <= menuOptionY + optionHeight / 2) {
+        if (Collision.pointCollideRect(new PVector(mouseX, mouseY), menuOptionX, menuOptionY, optionWidth, optionHeight)) {
             selected = true;
-        } else if (subOptions != null) {
-            anyChildSelected = false;
             
-            for (int i = 0; i < subOptions.length; i++) {
-                if (subOptions[i].selected) {
-                    anyChildSelected = true;
+            if (mousePressed && mouseButton == LEFT && !prevMousePressed) {
+                switch(optionText) {
+                    case "Settings":
+                        menu.menuState = Menu.STATE_SETTING; break;
+                    case "Back":
+                        menu.menuState = Menu.STATE_ROOT; break;
+                    case "Quit Game":
+                        exit(); break;
+                    case "Load Game":
+                        menu.menuState = Menu.STATE_LOAD; break;
+                    case "Start New Game":
+                        Game.state = STATE_LEVEL; break; 
                 }
-                selected = anyChildSelected;
             }
-        } else {
+        }
+        else {
             selected = false;
         }
-        
-        
+    prevMousePressed = mousePressed;
     }
 }
