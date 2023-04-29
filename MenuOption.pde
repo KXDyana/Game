@@ -61,19 +61,23 @@ class MenuOption {
                     case "Settings":
                         menu.menuState = Menu.STATE_SETTING; break;
                     case "Back":
-                        menu.menuState = Menu.STATE_ROOT; break;
+                        menu.menuState = Menu.STATE_ROOT; 
+                        player.targetPosition = menu.menuPlayerPosition;
+                        break;
                     case "Quit Game":
                         exit(); break;
                     case "Load Game":
                         menu.menuState = Menu.STATE_LOAD; break;
                     case "Start New Game":
-                        Game.state = STATE_LEVEL; break; 
+                        Game.state = STATE_LEVEL;
+                        player.targetPosition = levelSelect.levelSelectPlayerPosition;
+                        break; 
                 }
             }
         }
         else {
             selected = false;
         }
-    prevMousePressed = mousePressed;
+        prevMousePressed = mousePressed;
     }
 }

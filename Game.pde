@@ -8,6 +8,7 @@ static final int LIGHT_PURPLE = #8c71e9;
 static final int RED = #b20000;
 static final int PINK = #c15858;
 static final int BLUE = #5588ff;
+static final int GREEN = #00b200;
 
 // states
 final int STATE_MENU = 0;
@@ -24,9 +25,9 @@ boolean shiftpressed, enterpressed;
 
 float proportion = 1.0;
 
-Player player = new Player(50, 50, 50);
+Player player = new Player(new PVector(0,0),proportion * width * 0.4);
 Menu menu;
-LevelView levelView;
+LevelSelect levelSelect;
 
 void settings() {
   fullScreen();
@@ -36,9 +37,9 @@ void setup() {
   background(DARK_GREY);
   frameRate(60);
   player.position.x = width / 2;
-  player.position.y = height / 2;
+  player.position.y = height * 4/ 5;
   menu = new Menu(this);
-  levelView = new LevelView();
+  levelSelect = new LevelSelect(this);
 }
 
 void draw(){
@@ -66,7 +67,7 @@ void showMenu() {
 
 void showLevel() {
   player.drawPlayer();
-  levelView.drawLevelView();
+  levelSelect.drawLevelView();
 }
 
 void showLoading() {

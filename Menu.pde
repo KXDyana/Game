@@ -16,10 +16,14 @@ class Menu {
     static final int STATE_RESOLUTION = 3;  
     public int menuState = 0;  // initial state
     
+    public PVector menuPlayerPosition = new PVector(0, 0);
+    
     
     Menu(PApplet game) {
         this.menuX = game.width * 1 / 8;
         this.menuY = game.height * 1 / 10;
+        
+        this.menuPlayerPosition = new PVector(game.width / 2,  game.height * 4 / 5);
         
         int spaceCounter = 0;
         this.rootOptions = new MenuOption[] {
@@ -64,8 +68,8 @@ class Menu {
                 break;
             case STATE_LOAD:
                 for (int i = 0; i < loadOptions.length; i++) {
-                        loadOptions[i].drawMenuOption();
-                    }
+                    loadOptions[i].drawMenuOption();
+                }
                 break;
             
         }

@@ -1,33 +1,56 @@
 class Player {
     boolean isAtLeftBorder, isAtRightBorder, isAtTopBorder, isAtBottomBorder; // to control movement
-    float playerRadius, playerSpeed;
-    PVector position, velocity;
+    float playerRadius, playerSpeed, detectionRadius1, detectionRadius2, detectionRadius3;
+    PVector position, velocity, targetPosition;
+    int playerColor;
+    float lastParryTimeStamp;
+    boolean isParrying;
     
-    Player(float x, float y, float playerRadius) {
-        this.position = new PVector(x, y);
+    Player(PVector initialPos, float playerRadius) {
+        this.position = initialPos;
+        this.targetPosition = this.position;
         this.velocity = new PVector(0, 0);
         this.playerRadius = playerRadius;
         this.playerSpeed = playerRadius * 0.04;
+        this.detectionRadius1 = playerRadius * 3;
+        this.detectionRadius2 = playerRadius * 4;
+        this.detectionRadius3 = playerRadius * 5;
+        this.playerColor = LIGHT_PURPLE;
     }
     
     void drawPlayer() {
         updatePlayer();                                               // update player state
-        ellipseMode(CENTER);      
-        fill(LIGHT_PURPLE);
+        ellipseMode(CENTER);   
+        
+        // Draw detection circles
+        fill(YELLOW, 10);
         noStroke();
+        ellipse(position.x, position.y, detectionRadius3, detectionRadius3); 
+        
+        fill(GREEN, 20);
+        ellipse(position.x, position.y, detectionRadius2, detectionRadius2); 
+        
+        fill(YELLOW, 50);
+        ellipse(position.x, position.y, detectionRadius1, detectionRadius1);
+        
+        
+        
+        fill(playerColor);
         ellipse(position.x, position.y, playerRadius, playerRadius);  // draw player body
     }
     
     void updatePlayer() {
+        if (!isParrying) playerColor = lerpColor(playerColor, LIGHT_PURPLE, 0.1);
+        position.x = lerp(position.x, targetPosition.x, 0.01);
+        position.y = lerp(position.y, targetPosition.y, 0.01);
         velocity.setMag(0);
-        if (keys['a'] || keys['A'])     // move left when allowed
-            velocity.x = -playerSpeed;
-        if (keys['d'] || keys['D'])    // move right when allowed
-            velocity.x = playerSpeed;
-        if (keys['w'] || keys['W'])      // move up when allowed
-            velocity.y = -playerSpeed;
-        if (keys['s'] || keys['S'])   // move down when allowed
-            velocity.y = playerSpeed;
+        
+        if (keys[' ']) {               // parry 
+            isParrying = true;
+            parry();
+            lastParryTimeStamp = millis();
+        } else isParrying = false;
+        
         integrate();
     }
     
@@ -37,4 +60,9 @@ class Player {
         // otherwise, update the position
         position.add(velocity);
     }
+    
+    void parry() {
+        playerColor = RED; // immediately change color to red
+    }
+
 }
