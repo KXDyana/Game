@@ -11,11 +11,12 @@ static final int BLUE = #5588ff;
 static final int GREEN = #00b200;
 
 // states
-final int STATE_MENU = 0;
-final int STATE_LEVEL = 1;
-final int STATE_GAMELOADING = 2;
-final int STATE_GAMEOVER = 3;
-final int STATE_GAMEPAUSE = 4;
+static final int STATE_MENU = 0;
+static final int STATE_LEVEL = 1;
+static final int STATE_GAMELOADING = 2;
+static final int STATE_INGAME = 3;
+static final int STATE_GAMEOVER = 4;
+static final int STATE_GAMEPAUSE = 5;
 static int state = 0;  // initial state
 
 // use a boolean array to register key presses
@@ -23,11 +24,11 @@ boolean[] keys = new boolean[128];
 // special key presses
 boolean shiftpressed, enterpressed;
 
-float proportion = 1.0;
+static float proportion = 1.0;
 
-Player player = new Player(new PVector(0,0),proportion * width * 0.4);
-Menu menu;
-LevelSelect levelSelect;
+static Player player;
+static Menu menu;
+static LevelSelect levelSelect;
 
 void settings() {
   fullScreen();
@@ -36,6 +37,7 @@ void settings() {
 void setup() {
   background(DARK_GREY);
   frameRate(60);
+  player = new Player(new PVector(0,0), proportion * width * 0.05);
   player.position.x = width / 2;
   player.position.y = height * 4/ 5;
   menu = new Menu(this);

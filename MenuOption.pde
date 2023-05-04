@@ -21,7 +21,6 @@ class MenuOption {
         this.selectedOptionTextSize = optionTextSize * 1.1;
         this.optionText = optionText;
         this.menu = menu;
-        
     }
     
     void drawMenuOption() {

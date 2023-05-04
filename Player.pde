@@ -11,7 +11,7 @@ class Player {
         this.targetPosition = this.position;
         this.velocity = new PVector(0, 0);
         this.playerRadius = playerRadius;
-        this.playerSpeed = playerRadius * 0.04;
+        this.playerSpeed = playerRadius * 0.1;
         this.detectionRadius1 = playerRadius * 3;
         this.detectionRadius2 = playerRadius * 4;
         this.detectionRadius3 = playerRadius * 5;
