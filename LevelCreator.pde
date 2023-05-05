@@ -109,9 +109,6 @@ class LevelCreator {
         
     }
     
-    
-    
-    
     void display() {
         if (isSelectingSong) {
             displaySongSelection();
