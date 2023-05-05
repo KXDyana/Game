@@ -1,4 +1,4 @@
-class Level1 implements ILevelBoss {
+class Level1 extends LevelBoss {
 
     
 

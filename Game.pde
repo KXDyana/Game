@@ -53,6 +53,8 @@ void draw(){
     showLevel(); break;
     case STATE_GAMELOADING:
     showLoading(); break;
+    case STATE_INGAME:
+    showInGame(); break;
     case STATE_GAMEOVER:
     showGameover(); break;
     case STATE_GAMEPAUSE:
@@ -76,6 +78,10 @@ void showLoading() {
   fill(ORANGE);
   textSize(50);
   text("Loading", width / 2, height / 2);
+}
+
+void showInGame() {
+  player.drawPlayer();
 }
 
 void showGameover() {

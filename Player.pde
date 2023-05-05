@@ -1,7 +1,7 @@
 class Player {
     boolean isAtLeftBorder, isAtRightBorder, isAtTopBorder, isAtBottomBorder; // to control movement
     float playerRadius, playerSpeed, detectionRadius1, detectionRadius2, detectionRadius3;
-    PVector position, velocity, targetPosition;
+    PVector position, targetPosition;
     int playerColor;
     float lastParryTimeStamp;
     boolean isParrying;
@@ -9,12 +9,11 @@ class Player {
     Player(PVector initialPos, float playerRadius) {
         this.position = initialPos;
         this.targetPosition = this.position;
-        this.velocity = new PVector(0, 0);
         this.playerRadius = playerRadius;
         this.playerSpeed = playerRadius * 0.1;
-        this.detectionRadius1 = playerRadius * 3;
-        this.detectionRadius2 = playerRadius * 4;
-        this.detectionRadius3 = playerRadius * 5;
+        this.detectionRadius1 = playerRadius * 2;
+        this.detectionRadius2 = playerRadius * 3;
+        this.detectionRadius3 = playerRadius * 4;
         this.playerColor = LIGHT_PURPLE;
     }
     
@@ -43,7 +42,6 @@ class Player {
         if (!isParrying) playerColor = lerpColor(playerColor, LIGHT_PURPLE, 0.1);
         position.x = lerp(position.x, targetPosition.x, 0.01);
         position.y = lerp(position.y, targetPosition.y, 0.01);
-        velocity.setMag(0);
         
         if (keys[' ']) {               // parry 
             isParrying = true;
@@ -51,15 +49,8 @@ class Player {
             lastParryTimeStamp = millis();
         } else isParrying = false;
         
-        integrate();
     }
     
-    void integrate() {
-        // if velocity = 0, no need to integrate
-        if (velocity.mag() == 0) return;
-        // otherwise, update the position
-        position.add(velocity);
-    }
     
     void parry() {
         playerColor = RED; // immediately change color to red
