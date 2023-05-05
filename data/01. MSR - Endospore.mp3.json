@@ -1,0 +1,60 @@
+{
+  "hits": [
+    {
+      "ID": 1,
+      "type": 1,
+      "timestamp": 1460,
+      "hold": false
+    },
+    {
+      "ID": 2,
+      "type": 1,
+      "timestamp": 1710,
+      "hold": false
+    },
+    {
+      "duration": 1200,
+      "ID": 3,
+      "type": 1,
+      "timestamp": 2910,
+      "hold": true
+    },
+    {
+      "duration": 1149,
+      "ID": 4,
+      "type": 1,
+      "timestamp": 4394,
+      "hold": true
+    },
+    {
+      "duration": 1167,
+      "ID": 5,
+      "type": 1,
+      "timestamp": 5793,
+      "hold": true
+    },
+    {
+      "duration": 1134,
+      "ID": 6,
+      "type": 1,
+      "timestamp": 7193,
+      "hold": true
+    },
+    {
+      "duration": 1167,
+      "ID": 7,
+      "type": 1,
+      "timestamp": 8543,
+      "hold": true
+    },
+    {
+      "duration": 1266,
+      "ID": 8,
+      "type": 1,
+      "timestamp": 9927,
+      "hold": true
+    }
+  ],
+  "level_name": "01. MSR - Endospore.mp3",
+  "music_file": "res/songs/01. MSR - Endospore.mp3"
+}

@@ -1,73 +1,305 @@
 import processing.core.*;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
+import java.io.File;
+import java.nio.file.Paths;
+import ddf.minim.*;
+
 
 class LevelCreator {
-  PApplet game;
-  String levelName;
-  String musicFile;
-  int bpm;
-  ArrayList<Hit> hits;
-  PFont font;
-
-  LevelCreator(PApplet game, String levelName, String musicFile, int bpm) {
-    this.game = game;
-    this.levelName = levelName;
-    this.musicFile = musicFile;
-    this.bpm = bpm;
-    this.hits = new ArrayList<Hit>();
-    this.font = game.createFont("Arial", 16);
-  }
-
-  void update() {
-    // Check for keyboard input and add a hit object accordingly
-    if (game.keyPressed) {
-      if (game.key == '1') {
-        hits.add(new Hit(game.millis(), 1));
-      } else if (game.key == '2') {
-        hits.add(new Hit(game.millis(), 2));
-      }
+    PApplet game;
+    String musicFile;
+    ArrayList<Hit> hits;
+    PFont font;
+    ArrayList<SongButton> songButtons;
+    boolean isSelectingSong = true;
+    boolean isCreatingLevel = false;
+    Minim minim;
+    AudioPlayer audioPlayer;
+    boolean spaceReleased = true;
+    boolean holdFlag = false;
+    int timestampTemp = 0;
+    int timestampStart = 0;
+    int timestampCurrent = 0;
+    int holdThreshold = 800;
+    String currentLevelName;
+    
+    int spaceButtonColor;
+    int enterButtonColor;
+    int normalButtonColor = 255;
+    int activeButtonColor = 0;
+    int holdButtonColor = PINK;
+    
+    boolean prevEPressed = false;
+    
+    LevelCreator(PApplet game) {
+        this.game = game;
+        this.hits = new ArrayList<Hit>();
+        this.font = game.createFont("Arial", 16);
+        this.songButtons = new ArrayList<SongButton>();
+        minim = new Minim(game);
+        
+        spaceButtonColor = normalButtonColor;
+        enterButtonColor = normalButtonColor;
+        
+        loadSongs();
     }
-  }
-
-  void display() {
-    game.background(0);
-    game.fill(255);
-    game.textFont(font);
-    game.text("Press '1' for hit type 1, '2' for hit type 2.", 10, 30);
-    game.text("Press 's' to save the level as a JSON file.", 10, 60);
-
-    if (game.keyPressed && game.key == 's') {
-      saveLevelAsJSON();
+    
+    void update() {
+        
+        
+        if (isSelectingSong) {
+            for (SongButton songButton : songButtons) {
+                if (songButton.isMouseHovering() && game.mousePressed && game.mouseButton == PConstants.LEFT) {
+                    musicFile = songButton.getSongPath();
+                    currentLevelName = songButton.songName;
+                    isSelectingSong = false;
+                    isCreatingLevel = true;
+                    audioPlayer = minim.loadFile(musicFile, 2048);
+                    audioPlayer.play();
+                    timestampStart = game.millis();
+                    
+                    
+                    break;
+                }
+                if (keys['e'] && !prevEPressed) {
+                    Game.state = Game.STATE_LEVEL; 
+                }
+            }
+        } else if (isCreatingLevel) {
+            timestampCurrent = game.millis() - timestampStart;
+            
+            if (keys[' '] && spaceReleased) { 
+                spaceReleased = false;
+                timestampTemp = timestampCurrent;
+                spaceButtonColor = activeButtonColor;
+            } else if (keys[' ']) {
+                spaceButtonColor = activeButtonColor;
+                if (timestampCurrent - timestampTemp >= 800) {
+                    spaceButtonColor = holdButtonColor;
+                }
+            } else {
+                spaceButtonColor = normalButtonColor;
+            }
+            
+            if (!keys[' '] && !spaceReleased) {
+                spaceReleased = true;
+                int duration = timestampCurrent - timestampTemp;
+                if (duration >= 800) {
+                    hits.add(new Hit(timestampTemp, 1, true, duration));
+                } else {
+                    hits.add(new Hit(timestampTemp, 1, false));
+                }
+            }
+            
+            if (enterpressed) { // ENTER key pressed
+                hits.add(new Hit(timestampCurrent, 2, false));
+                enterButtonColor = activeButtonColor;
+            } else {
+                enterButtonColor = normalButtonColor;
+            }
+            
+            if (keys['e'] && !prevEPressed) {
+                returnToSongSelector();
+            }
+        }
+        prevEPressed = keys['e'];
+        
+        
     }
-  }
-
-  void saveLevelAsJSON() {
-    JSONObject level = new JSONObject();
-    level.setString("level_name", levelName);
-    level.setString("music_file", musicFile);
-    level.setInt("bpm", bpm);
-
-    JSONArray hitArray = new JSONArray();
-    for (Hit hit : hits) {
-      JSONObject hitObject = new JSONObject();
-      hitObject.setInt("timestamp", hit.timestamp);
-      hitObject.setInt("type", hit.type);
-      hitArray.append(hitObject);
+    
+    
+    
+    
+    void display() {
+        if (isSelectingSong) {
+            displaySongSelection();
+        } else if (isCreatingLevel) {
+            game.background(0);
+            game.fill(255);
+            game.textFont(font);
+            game.textAlign(PConstants.LEFT, PConstants.CENTER); // Add this line to center the text vertically
+            
+            game.text("Press SPACE for hit type 1, ENTER for hit type 2.", 10, 30);
+            game.text("Press S to save the level as a JSON file.", 10, 60);
+            game.text("Press E to return", 10, 90);
+            
+            
+            if (game.keyPressed && game.key == 's') {
+                saveLevelAsJSON();
+            }
+            
+            drawButtons();
+            drawTimestamp();
+        }
     }
-    level.setJSONArray("hits", hitArray);
-
-    game.saveJSONObject(level, "data/" + levelName + ".json");
-    System.out.println("Level saved as " + levelName + ".json");
-  }
+    
+    
+    void loadSongs() {
+        String sketchFolderPath = game.sketchPath("") + File.separator;
+        String resourcePath = sketchFolderPath + "res" + File.separator + "songs";
+        File folder = new File(resourcePath);
+        File[] listOfFiles = folder.listFiles();
+        if (listOfFiles == null || listOfFiles.length == 0) {
+            System.out.println("No songs found in the resource folder.");
+            return;
+        }
+        
+        float y = 100;
+        for (File file : listOfFiles) {
+            if (file.isFile() && (file.getName().endsWith(".mp3") || file.getName().endsWith(".wav"))) {
+                songButtons.add(new SongButton(game, file.getName(), 10, y, resourcePath));
+                y += 30;
+            }
+        }
+    }
+    
+    
+    
+    
+    void displaySongSelection() {
+        game.background(0);
+        game.fill(255);
+        game.textFont(font);
+        game.textAlign(PConstants.LEFT, PConstants.TOP);
+        game.text("Select a song to create a level:", 10, 30);
+        game.text("Press E to return", 10, 50);
+        
+        
+        for (SongButton songButton : songButtons) {
+            songButton.display();
+        }
+    }
+    
+    void saveLevelAsJSON() {
+        JSONObject level = new JSONObject();
+        level.setString("level_name", currentLevelName);
+        level.setString("music_file", musicFile);
+        
+        JSONArray hitArray = new JSONArray();
+        for (Hit hit : hits) {
+            JSONObject hitObject = new JSONObject();
+            hitObject.setInt("timestamp", hit.timestamp);
+            hitObject.setInt("type", hit.type);
+            if (hit.type == 1) {
+                hitObject.setBoolean("hold", hit.hold);
+                if (hit.hold) {
+                    hitObject.setInt("duration", hit.duration);
+                }
+            }
+            hitObject.setInt("ID", hit.ID);
+            hitArray.append(hitObject);
+        }
+        level.setJSONArray("hits", hitArray);
+        
+        game.saveJSONObject(level, "data/" + currentLevelName + ".json");
+        System.out.println("Level saved as " + currentLevelName + ".json");
+        if (audioPlayer != null) {
+            audioPlayer.close();
+        }
+        minim.stop();
+    }
+    
+    void drawButtons() {
+        game.rectMode(PConstants.CENTER);
+        game.fill(spaceButtonColor);
+        game.rect(game.width / 2 - 100, game.height / 2, 100, 50); // Space button
+        game.fill(enterButtonColor);
+        game.rect(game.width / 2 + 100, game.height / 2, 100, 50); // Enter button
+        
+        game.textAlign(PConstants.CENTER, PConstants.CENTER);
+        
+        game.fill(YELLOW);
+        game.text("SPACE", game.width / 2 - 100, game.height / 2);
+        game.text("ENTER", game.width / 2 + 100, game.height / 2);
+        
+        
+    }
+    
+    void drawTimestamp() {
+        game.fill(YELLOW);
+        game.textAlign(PConstants.CENTER, PConstants.CENTER);
+        game.text("Timestamp: " + timestampCurrent, game.width / 2, game.height / 2 - 100);
+    }
+    
+    void returnToSongSelector() {
+        isCreatingLevel = false;
+        isSelectingSong = true;
+        hits.clear();
+        Hit.hitCounter = 1;
+        if (audioPlayer != null) {
+            audioPlayer.close();
+        }
+        minim.stop();
+    }
+    
+    
 }
 
-class Hit {
-  int timestamp;
-  int type;
+static class Hit {
+    int timestamp;
+    int type;
+    boolean hold;
+    int duration;
+    int ID;
+    static int hitCounter = 1;
+    
+    Hit(int timestamp, int type, boolean hold) {
+        this.timestamp = timestamp;
+        this.type = type;
+        this.hold = hold;
+        ID = hitCounter++;
+    }
+    Hit(int timestamp, int type, boolean hold, int duration) {
+        this.timestamp = timestamp;
+        this.type = type;
+        this.hold = hold;
+        this.duration = duration;
+        ID = hitCounter++;
+    }
+}
 
-  Hit(int timestamp, int type) {
-    this.timestamp = timestamp;
-    this.type = type;
-  }
+class SongButton {
+    PApplet game;
+    String songName;
+    float x,y;
+    int textColor;
+    PFont font;
+    String resourcePath;
+    
+    SongButton(PApplet game, String songName, float x, float y, String resourcePath) {
+        this.game = game;
+        this.songName = songName;
+        this.x = x;
+        this.y = y;
+        this.textColor = game.color(255);
+        this.font = game.createFont("Arial", 16);
+        this.resourcePath = resourcePath;
+    }
+    
+    
+    void display() {
+        if (isMouseHovering()) {
+            textColor = game.lerpColor(textColor, game.color(255, 0, 0), 0.1f);
+        } else {
+            textColor = game.lerpColor(textColor, game.color(255), 0.1f);
+        }
+        
+        game.fill(textColor);
+        game.textFont(font);
+        game.textAlign(PConstants.LEFT, PConstants.CENTER); // Add this line to center the text vertically
+        game.text(songName, x, y);
+    }
+    
+    
+    boolean isMouseHovering() {
+        float halfTextSize = font.getSize() / 2;
+        return game.mouseX >= x && game.mouseX <= x + game.textWidth(songName) && game.mouseY >= y - halfTextSize && game.mouseY <= y + halfTextSize;
+    }
+    
+    
+    String getSongPath() {
+        return new String("res/songs/" + songName);
+    }
+    
 }

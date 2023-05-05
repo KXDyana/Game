@@ -3,18 +3,16 @@ import java.util.Arrays;
 class LevelSelect {
     
     PApplet game;
-    // int menuButtomX = 40;
-    // int menuButtomY = 40;
-    // int menuButtomW = 60;
-    // int menuButtomH = 60;
-    int menuColor = PURPLE;
+    int menuButtonColor = LIGHT_PURPLE;
+    int levelCreatorButtonColor = BLUE;
     boolean prevMousePressed = false;
     public PVector levelSelectPlayerPosition = new PVector(0, 0);
     public LevelBoss[] levels;
-    public MenuButton menuButton = new MenuButton(40, 40, 60, 60);
+    public MenuButton menuButton = new MenuButton(40, 40, 60, 60, menuButtonColor);
+    public MenuButton levelCreatorButton = new MenuButton(120, 40, 60, 60, levelCreatorButtonColor); 
     
     public int[] levelColors = {PINK, PINK, PINK, PINK, PINK};
-    public int[] levelCurrentColors = Arrays.copyOf(levelColors, levelColors.length);
+    public int[] levelCurrentColors = {PINK, PINK, PINK, PINK, PINK};
     int levelColorHover = RED;
     LevelButton[] levelButtons;
     float levelRadius;
@@ -43,9 +41,10 @@ class LevelSelect {
         updateLevelView();
         drawLevels();
         menuButton.draw();
+        levelCreatorButton.draw();
     }
     
-
+    
     void drawLevels() {
         // distribute the levels in a circle
         float angle = TWO_PI / levels.length;
@@ -63,7 +62,28 @@ class LevelSelect {
     
     void updateLevelView() {
         
-        menuButton.draw();
+
+        if (Collision.pointCollideRect(new PVector(game.mouseX, game.mouseY), menuButton.x, menuButton.y, menuButton.w, menuButton.h)) {
+            menuButton.buttonColor = game.lerpColor( menuButton.buttonColor, RED, 0.1);
+            if (game.mousePressed && game.mouseButton == LEFT && !prevMousePressed) {
+                Game.state = Game.STATE_MENU; 
+                resetAlphaValues();
+                Game.player.targetPosition = menu.menuPlayerPosition;
+            }
+        }
+        else{
+             menuButton.buttonColor = game.lerpColor(menuButton.buttonColor, menuButtonColor, 0.1);
+        }
+
+        if (Collision.pointCollideRect(new PVector(game.mouseX, game.mouseY), levelCreatorButton.x, levelCreatorButton.y, levelCreatorButton.w, levelCreatorButton.h)) {
+            levelCreatorButton.buttonColor = game.lerpColor(levelCreatorButton.buttonColor, RED, 0.1f);
+            if (game.mousePressed && game.mouseButton == PConstants.LEFT && !prevMousePressed) {
+                Game.state = Game.STATE_LEVEL_CREATOR;
+                resetAlphaValues();
+            }
+        } else {
+            levelCreatorButton.buttonColor = game.lerpColor(levelCreatorButton.buttonColor, levelCreatorButtonColor, 0.1f);
+        }
         
         for (LevelButton levelButton : levelButtons) {
             if (levelButton.isMouseHovering() && game.mousePressed && game.mouseButton == LEFT && !prevMousePressed) {
@@ -78,28 +98,18 @@ class LevelSelect {
     class MenuButton {
         float x, y;
         float w, h;
+        int buttonColor;
         
-        MenuButton(float x, float y, float w, float h) {
+        MenuButton(float x, float y, float w, float h, int buttonColor) {
             this.x = x;
             this.y = y;
             this.w = w;
             this.h = h; 
+            this.buttonColor = buttonColor;
         }
         
         void draw() {
-            if (Collision.pointCollideRect(new PVector(game.mouseX, game.mouseY), x, y, w, h)) {
-                menuColor = game.lerpColor(menuColor, RED, 0.1);
-                if (game.mousePressed && game.mouseButton == LEFT && !prevMousePressed) {
-                    Game.state = Game.STATE_MENU; 
-                    resetAlphaValues();
-                    Game.player.targetPosition = menu.menuPlayerPosition;
-                }
-            }
-            else{
-                menuColor = game.lerpColor(menuColor, PURPLE, 0.1);
-            }
-
-            game.fill(menuColor);
+            game.fill(buttonColor);
             game.rectMode(CENTER);
             game.rect(x, y, w, h);
         }
