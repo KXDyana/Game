@@ -21,6 +21,7 @@ class BattleView {
         currentLevel = level;
         inBattle = true;
         level.boss.playMusic();
+        level.boss.startBattle();
         switchState(STATE_INGAME);
     }
 }

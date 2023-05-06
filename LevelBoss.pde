@@ -46,6 +46,11 @@ public class LevelBoss {
         minim = new Minim(game);
         audioPlayer = minim.loadFile(musicFile, 2048);
     }
+
+    public void startBattle() {
+        timestampStart = millis();
+        audioPlayer.play();
+    }
     
     
     public void playMusic() {
@@ -84,10 +89,10 @@ public class LevelBoss {
                 if (nextBeat.hold) {
                     shootLaser(nextBeat.duration);
                 } else {
-                    shootBullet(nextBeat.ID);
+                    shootBullet1(nextBeat.ID);
                 }
             } else if (nextBeat.type == 2) {
-                shootBullet(nextBeat.ID);
+                shootBullet2(nextBeat.ID);
             }
             
             onPlayBeatIndex++;
@@ -99,6 +104,7 @@ public class LevelBoss {
         updateBoss();
         ellipseMode(CENTER);    
         fill(enemyColor);
+        noStroke();
         ellipse(position.x, position.y, radius, radius);  // draw player body
 
         for (Bullet b: bullets) {
@@ -112,8 +118,14 @@ public class LevelBoss {
     }
     
     
-    private void shootBullet(int ID) {
-        Bullet bullet = new Bullet(position, 2, ID);
+    private void shootBullet1(int ID) {
+        Bullet bullet = new Bullet(position, 2, ID, 1);
+        bullets.add(bullet);
+        enemyColor = BLUE;
+    }
+
+    private void shootBullet2(int ID) {
+        Bullet bullet = new Bullet(position, 2, ID, 2);
         bullets.add(bullet);
         enemyColor = BLUE;
     }
