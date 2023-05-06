@@ -7,7 +7,7 @@ class LevelSelect {
     int levelCreatorButtonColor = BLUE;
     boolean prevMousePressed = false;
     public PVector levelSelectPlayerPosition = new PVector(0, 0);
-    public LevelBoss[] levels;
+    public Level[] levels;
     public MenuButton menuButton = new MenuButton(40, 40, 60, 60, menuButtonColor);
     public MenuButton levelCreatorButton = new MenuButton(120, 40, 60, 60, levelCreatorButtonColor); 
     
@@ -21,12 +21,13 @@ class LevelSelect {
     LevelSelect(PApplet game) {
         this.game = game;
         this.levelSelectPlayerPosition = new PVector(game.width / 2,  game.height / 2);
-        this.levels = new LevelBoss[5];
-        levels[0] = new Level1();
-        levels[1] = new Level1();
-        levels[2] = new Level1();
-        levels[3] = new Level1();
-        levels[4] = new Level1();
+        this.levels = new Level[5];
+        levels[0] = new Level(game, 1);
+        levels[1] = new Level(game, 2);
+        levels[2] = new Level(game, 3);
+        levels[3] = new Level(game, 4);
+        levels[4] = new Level(game, 5);
+
         
         this.levelRadius = player.playerRadius;
         
@@ -77,7 +78,7 @@ class LevelSelect {
 
         if (Collision.pointCollideRect(new PVector(game.mouseX, game.mouseY), levelCreatorButton.x, levelCreatorButton.y, levelCreatorButton.w, levelCreatorButton.h)) {
             levelCreatorButton.buttonColor = game.lerpColor(levelCreatorButton.buttonColor, RED, 0.1f);
-            if (game.mousePressed && game.mouseButton == PConstants.LEFT && !prevMousePressed) {
+            if (game.mousePressed && game.mouseButton == LEFT && !prevMousePressed) {
                 Game.state = Game.STATE_LEVEL_CREATOR;
                 resetAlphaValues();
             }
@@ -88,6 +89,7 @@ class LevelSelect {
         for (LevelButton levelButton : levelButtons) {
             if (levelButton.isMouseHovering() && game.mousePressed && game.mouseButton == LEFT && !prevMousePressed) {
                 Game.state = Game.STATE_INGAME;
+                battleView.startBattle(levels[levelButton.levelNumber - 1]);
                 resetAlphaValues();
                 break;
             }

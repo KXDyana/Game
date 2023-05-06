@@ -18,12 +18,15 @@ class LevelCreator {
     Minim minim;
     AudioPlayer audioPlayer;
     boolean spaceReleased = true;
+        boolean enterReleased = true; 
+
     boolean holdFlag = false;
     int timestampTemp = 0;
     int timestampStart = 0;
     int timestampCurrent = 0;
-    int holdThreshold = 800;
+    int holdThreshold = 400;
     String currentLevelName;
+    
     
     int spaceButtonColor;
     int enterButtonColor;
@@ -76,7 +79,7 @@ class LevelCreator {
                 spaceButtonColor = activeButtonColor;
             } else if (keys[' ']) {
                 spaceButtonColor = activeButtonColor;
-                if (timestampCurrent - timestampTemp >= 800) {
+                if (timestampCurrent - timestampTemp >= holdThreshold) {
                     spaceButtonColor = holdButtonColor;
                 }
             } else {
@@ -86,17 +89,21 @@ class LevelCreator {
             if (!keys[' '] && !spaceReleased) {
                 spaceReleased = true;
                 int duration = timestampCurrent - timestampTemp;
-                if (duration >= 800) {
+                if (duration >= holdThreshold) {
                     hits.add(new Hit(timestampTemp, 1, true, duration));
                 } else {
                     hits.add(new Hit(timestampTemp, 1, false));
                 }
             }
             
-            if (enterpressed) { // ENTER key pressed
-                hits.add(new Hit(timestampCurrent, 2, false));
-                enterButtonColor = activeButtonColor;
+            if (enterpressed) {
+                if (enterReleased) {
+                    hits.add(new Hit(timestampCurrent, 2, false));
+                    enterButtonColor = activeButtonColor;
+                    enterReleased = false;
+                }
             } else {
+                enterReleased = true;
                 enterButtonColor = normalButtonColor;
             }
             

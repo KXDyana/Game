@@ -25,12 +25,13 @@ boolean[] keys = new boolean[128];
 // special key presses
 boolean shiftpressed, enterpressed;
 
-static float proportion = 1.0;
+float proportion = 1.0;
 
 static Player player;
 static Menu menu;
 static LevelSelect levelSelect;
 static LevelCreator levelCreator;
+static BattleView battleView;
 
 void settings() {
     fullScreen();
@@ -45,6 +46,7 @@ void setup() {
     menu = new Menu(this);
     levelSelect = new LevelSelect(this);
     levelCreator = new LevelCreator(this);
+    battleView = new BattleView(this);
 }
 
 void draw() {
@@ -60,8 +62,6 @@ void draw() {
         showInGame(); break;
         case STATE_GAMEOVER:
         showGameover(); break;
-        case STATE_GAMEPAUSE:
-        showGamePause(); break;
         case STATE_LEVEL_CREATOR:
         showLevelCreator(); break;
     }
@@ -87,6 +87,7 @@ void showLoading() {
 
 void showInGame() {
     player.drawPlayer();
+    battleView.drawBattle();
 }
 
 void showGameover() {
@@ -95,12 +96,6 @@ void showGameover() {
     text("Gameover", width / 2, height / 2);
 }
 
-void showGamePause() {
-    fill(ORANGE);
-    textSize(50);
-    textAlign(CENTER);
-    text("Game Pause", width / 2, height / 2);
-}
 
 void showLevelCreator() {
     fill(ORANGE);
@@ -132,6 +127,19 @@ void keyReleased() {
     }
     if (keyCode == ENTER) {
         enterpressed = false;
+    }
+}
+
+void switchState(int targetState) {
+    state = targetState;
+    switch(state) {
+        case STATE_MENU:
+        player.targetPosition = menu.menuPlayerPosition; break;
+        case STATE_LEVEL:
+        player.targetPosition = levelSelect.levelSelectPlayerPosition; break;
+        case STATE_INGAME:
+        player.targetPosition = levelSelect.levels[0].battlePlayerPosition; break;
+        
     }
 }
 
@@ -171,5 +179,7 @@ void drawMouse() {
     text(pressedKeys, mouseX + 15, mouseY + 90);
     text("Screen Proportion: " + proportion, mouseX + 15, mouseY + 110);
     text("Game State: " + state, mouseX + 15, mouseY + 130);
+    text("Player Position: (" + player.position.x + ", " + player.position.y + ")", mouseX + 15, mouseY + 150);
+    text("Player Target Position: (" + player.targetPosition.x + ", " + player.targetPosition.y + ")", mouseX + 15, mouseY + 170);
 }
 
