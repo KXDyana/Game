@@ -39,16 +39,17 @@ static LevelSelect levelSelect;
 static LevelCreator levelCreator;
 static BattleView battleView;
 
+boolean prevMousePressed = false;
+
+
 int laserCharingTime = 1400;
 
 //numerical manager
 numManager nmanager;
 
 //shop
-shop s;
-int itemstate;
-int shopstate = 0;
-boolean buystate = false;
+Shop shop;
+
 
 
 void settings() {
@@ -66,7 +67,7 @@ void setup() {
     levelCreator = new LevelCreator(this);
     battleView = new BattleView(this);
     
-    s = new shop();
+    shop = new Shop();
     nmanager = new numManager();
     money = loadImage("shoppic/money.png");
     SANimg = loadImage("shoppic/SAN.png");
@@ -76,30 +77,29 @@ void draw() {
     background(DARK_GREY);
     switch(state) {
         case STATE_MENU:
-        showMenu(); break;
+            showMenu(); break;
         case STATE_LEVEL:
-        showLevel(); break;
+            showLevel(); break;
         case STATE_GAMELOADING:
-        showLoading(); break;
+            showLoading(); break;
         case STATE_INGAME:
-        showInGame(); break;
+            showInGame(); break;
         case STATE_GAMEOVER:
-        showGameover(); break;
+            showGameover(); break;
         case STATE_LEVEL_CREATOR:
-        showLevelCreator(); break;
+            showLevelCreator(); break;
         case STATE_SHOP:
-        showShop(); break;
+            showShop(); break;
     }
     drawMouse();
+    prevMousePressed = mousePressed;
+    
     
 }
 
-void showShop(){
-   s.draw();
-   if(shopstate == 1){
-     s.drawItemDetail();
-     s.drawError();
-   }
+void showShop() {
+    shop.draw();
+    
 }
 
 void showMenu() {
@@ -167,11 +167,13 @@ void switchState(int targetState) {
     state = targetState;
     switch(state) {
         case STATE_MENU:
-        player.targetPosition = menu.menuPlayerPosition; break;
+            player.targetPosition = menu.menuPlayerPosition;
+            levelSelect.resetAlphaValues();
+            break;
         case STATE_LEVEL:
-        player.targetPosition = levelSelect.levelSelectPlayerPosition; break;
+            player.targetPosition = levelSelect.levelSelectPlayerPosition; break;
         case STATE_INGAME:
-        player.targetPosition = levelSelect.levels[0].battlePlayerPosition; break;
+            player.targetPosition = levelSelect.levels[0].battlePlayerPosition; break;
         
     }
 }
@@ -216,28 +218,32 @@ void drawMouse() {
     text("Player Target Position: (" + player.targetPosition.x + ", " + player.targetPosition.y + ")", mouseX + 15, mouseY + 170);
 }
 
-void mousePressed(){
-  //type select
-     if(!(mouseX>displayWidth/2-displayWidth*0.2 && mouseX<displayWidth/2+displayWidth*0.2 && mouseY>displayHeight/2- displayHeight*0.22 && mouseY<displayHeight/2+displayHeight*0.22)){
-      shopstate = 0;
+void mousePressed() {
+    float rectW = displayWidth * 0.4;
+    float rectH = displayHeight * 0.45;
+    //type select
+    if (!(mouseX > displayWidth / 2 - displayWidth * 0.2 && mouseX < displayWidth / 2 + displayWidth * 0.2 && mouseY > displayHeight / 2 - displayHeight * 0.22 && mouseY < displayHeight / 2 + displayHeight * 0.22)) {
+        shop.shopstate = 0;
     }
-    if(shopstate == 0)
-      itemstate = s.typeSelect(mouseX, mouseY);
-    if(itemstate !=0){
-      shopstate = 1;
+    if (shop.shopstate == 0) {
+        shop.itemstate = shop.typeSelect(mouseX, mouseY);      
     }
     
-    if(shopstate == 1){
-      float rectW = displayWidth*0.4;
-      float rectH = displayHeight*0.45;
-      
-      if(mouseX>displayWidth/2-rectW*0.35 && mouseX<displayWidth/2-rectW*0.05 && mouseY>displayHeight/2+rectH*0.2 && mouseY<displayHeight/2+rectH*0.4){
-          buystate = true;
-      }      
-      if(mouseX>displayWidth/2+rectW*0.05 && mouseX<displayWidth/2+rectW*0.35 && mouseY>displayHeight/2+rectH*0.2 && mouseY<displayHeight/2+rectH*0.4){
-        //cancel
-        shopstate = 0;
-        s.errorState = false;
-      }
+    if (shop.itemstate != 0) {
+        shop.shopstate = 1;
+        
+    }
+    
+    if (shop.shopstate == 1) {
+        
+        if (mouseX > displayWidth / 2 - rectW * 0.35 && mouseX < displayWidth / 2 - rectW * 0.05 && mouseY > displayHeight / 2 + rectH * 0.2 && mouseY < displayHeight / 2 + rectH * 0.4) {
+            //buy
+            shop.buystate = true;
+        }
+        if (mouseX > displayWidth / 2 + rectW * 0.05 && mouseX < displayWidth / 2 + rectW * 0.35 && mouseY > displayHeight / 2 + rectH * 0.2 && mouseY < displayHeight / 2 + rectH * 0.4) {
+            //cancel
+            shop.shopstate = 0;
+            shop.errorState = false;
+        }
     }
 }

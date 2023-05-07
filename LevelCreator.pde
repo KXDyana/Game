@@ -17,8 +17,8 @@ class LevelCreator {
     Minim minim;
     AudioPlayer audioPlayer;
     boolean spaceReleased = true;
-        boolean enterReleased = true; 
-
+    boolean enterReleased = true; 
+    
     boolean holdFlag = false;
     int timestampTemp = 0;
     int timestampStart = 0;
@@ -121,6 +121,7 @@ class LevelCreator {
             game.background(0);
             game.fill(255);
             game.textAlign(PConstants.LEFT, PConstants.CENTER); // Add this line to center the text vertically
+            game.textSize(16);
             
             game.text("Press SPACE for hit type 1, ENTER for hit type 2.", 10, 30);
             game.text("Press S to save the level as a JSON file.", 10, 60);
@@ -163,6 +164,8 @@ class LevelCreator {
         game.background(0);
         game.fill(255);
         game.textAlign(PConstants.LEFT, PConstants.TOP);
+        game.textSize(16);
+        
         game.text("Select a song to create a level:", 10, 30);
         game.text("Press E to return", 10, 50);
         
