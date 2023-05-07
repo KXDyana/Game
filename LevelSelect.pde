@@ -11,6 +11,8 @@ class LevelSelect {
     public MenuButton menuButton = new MenuButton(40, 40, 60, 60, menuButtonColor);
     public MenuButton levelCreatorButton = new MenuButton(120, 40, 60, 60, levelCreatorButtonColor); 
     
+    public MenuButton shopButton = new MenuButton(displayWidth- 100, 40, 60, 60, menuButtonColor);
+    
     public int[] levelColors = {PINK, PINK, PINK, PINK, PINK};
     public int[] levelCurrentColors = {PINK, PINK, PINK, PINK, PINK};
     int levelColorHover = RED;
@@ -43,6 +45,7 @@ class LevelSelect {
         drawLevels();
         menuButton.draw();
         levelCreatorButton.draw();
+        shopButton.draw();
     }
     
     
@@ -75,6 +78,20 @@ class LevelSelect {
         else{
              menuButton.buttonColor = game.lerpColor(menuButton.buttonColor, menuButtonColor, 0.1);
         }
+        
+        
+        
+        if (Collision.pointCollideRect(new PVector(game.mouseX, game.mouseY), shopButton.x, shopButton.y, shopButton.w, shopButton.h)) {
+            shopButton.buttonColor = game.lerpColor( shopButton.buttonColor, RED, 0.1);
+            if (game.mousePressed && game.mouseButton == LEFT && !prevMousePressed) {
+                Game.state = Game.STATE_SHOP; 
+                resetAlphaValues();
+            }
+        }
+        else{
+             shopButton.buttonColor = game.lerpColor(shopButton.buttonColor, menuButtonColor, 0.1);
+        }
+        
 
         if (Collision.pointCollideRect(new PVector(game.mouseX, game.mouseY), levelCreatorButton.x, levelCreatorButton.y, levelCreatorButton.w, levelCreatorButton.h)) {
             levelCreatorButton.buttonColor = game.lerpColor(levelCreatorButton.buttonColor, RED, 0.1f);
