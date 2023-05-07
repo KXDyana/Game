@@ -16,7 +16,6 @@ class Button {
     }
     
     void drawButton() {
-        
         updateButton();
         fill(buttonColor, 200);
         noStroke();
