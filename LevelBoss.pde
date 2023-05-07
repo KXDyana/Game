@@ -42,13 +42,14 @@ public class LevelBoss {
     String levelFileName;
     
     
-    public LevelBoss(PApplet game, String levelFileName) {
+    public LevelBoss(PApplet game, String levelFileName, int beatGenerationDelay) {
         this.game = game;
         this.beats = new ArrayList<>();
         this.radius = proportion * width * 0.05;
         this.position = new PVector(width * 0.8, height * 0.8);
         this.targetPosition = position;
         this.levelFileName = levelFileName;
+        this.beatGenerationDelay = beatGenerationDelay;
         loadLevelData(levelFileName);
         minim = new Minim(game);
         audioPlayer = minim.loadFile(musicFile, 2048);
