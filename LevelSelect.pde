@@ -4,14 +4,15 @@ class LevelSelect {
     
     PApplet game;
     int menuButtonColor = LIGHT_PURPLE;
+    int hoverButtonColor = RED;
     int levelCreatorButtonColor = BLUE;
+    int shopButtonColor = ORANGE;
     boolean prevMousePressed = false;
     public PVector levelSelectPlayerPosition = new PVector(0, 0);
     public Level[] levels;
-    public MenuButton menuButton = new MenuButton(40, 40, 60, 60, menuButtonColor);
-    public MenuButton levelCreatorButton = new MenuButton(120, 40, 60, 60, levelCreatorButtonColor); 
-    
-    public MenuButton shopButton = new MenuButton(displayWidth- 100, 40, 60, 60, menuButtonColor);
+    public LSButton menuButton = new LSButton(40, 40, 60, 60, menuButtonColor, hoverButtonColor, 0);
+    public LSButton shopButton = new LSButton(110, 40, 60, 60, shopButtonColor, hoverButtonColor, 1); 
+    public LSButton levelCreatorButton = new LSButton(displayWidth - 40, 40, 60, 60, levelCreatorButtonColor, hoverButtonColor, 2);
     
     public int[] levelColors = {PINK, PINK, PINK, PINK, PINK};
     public int[] levelCurrentColors = {PINK, PINK, PINK, PINK, PINK};
@@ -29,7 +30,7 @@ class LevelSelect {
         levels[2] = new Level(game, 3);
         levels[3] = new Level(game, 4);
         levels[4] = new Level(game, 5);
-
+        
         
         this.levelRadius = player.playerRadius;
         
@@ -43,9 +44,9 @@ class LevelSelect {
     void drawLevelView() {
         updateLevelView();
         drawLevels();
-        menuButton.draw();
-        levelCreatorButton.draw();
-        shopButton.draw();
+        menuButton.drawButton();
+        levelCreatorButton.drawButton();
+        shopButton.drawButton();
     }
     
     
@@ -65,44 +66,6 @@ class LevelSelect {
     }
     
     void updateLevelView() {
-        
-
-        if (Collision.pointCollideRect(new PVector(game.mouseX, game.mouseY), menuButton.x, menuButton.y, menuButton.w, menuButton.h)) {
-            menuButton.buttonColor = game.lerpColor( menuButton.buttonColor, RED, 0.1);
-            if (game.mousePressed && game.mouseButton == LEFT && !prevMousePressed) {
-                Game.state = Game.STATE_MENU; 
-                resetAlphaValues();
-                Game.player.targetPosition = menu.menuPlayerPosition;
-            }
-        }
-        else{
-             menuButton.buttonColor = game.lerpColor(menuButton.buttonColor, menuButtonColor, 0.1);
-        }
-        
-        
-        
-        if (Collision.pointCollideRect(new PVector(game.mouseX, game.mouseY), shopButton.x, shopButton.y, shopButton.w, shopButton.h)) {
-            shopButton.buttonColor = game.lerpColor( shopButton.buttonColor, RED, 0.1);
-            if (game.mousePressed && game.mouseButton == LEFT && !prevMousePressed) {
-                Game.state = Game.STATE_SHOP; 
-                resetAlphaValues();
-            }
-        }
-        else{
-             shopButton.buttonColor = game.lerpColor(shopButton.buttonColor, menuButtonColor, 0.1);
-        }
-        
-
-        if (Collision.pointCollideRect(new PVector(game.mouseX, game.mouseY), levelCreatorButton.x, levelCreatorButton.y, levelCreatorButton.w, levelCreatorButton.h)) {
-            levelCreatorButton.buttonColor = game.lerpColor(levelCreatorButton.buttonColor, RED, 0.1f);
-            if (game.mousePressed && game.mouseButton == LEFT && !prevMousePressed) {
-                Game.state = Game.STATE_LEVEL_CREATOR;
-                resetAlphaValues();
-            }
-        } else {
-            levelCreatorButton.buttonColor = game.lerpColor(levelCreatorButton.buttonColor, levelCreatorButtonColor, 0.1f);
-        }
-        
         for (LevelButton levelButton : levelButtons) {
             if (levelButton.isMouseHovering() && game.mousePressed && game.mouseButton == LEFT && !prevMousePressed) {
                 Game.state = Game.STATE_INGAME;
@@ -114,28 +77,30 @@ class LevelSelect {
         prevMousePressed = game.mousePressed;
     }
     
-    class MenuButton {
-        float x, y;
-        float w, h;
-        int buttonColor;
-        
-        MenuButton(float x, float y, float w, float h, int buttonColor) {
-            this.x = x;
-            this.y = y;
-            this.w = w;
-            this.h = h; 
-            this.buttonColor = buttonColor;
+    class LSButton extends Button {
+        int type;
+        LSButton(float x, float y, float w, float h, int defaultColor, int hoverColor, int type) {
+            super(x, y, w, h, defaultColor, hoverColor);
+            this.type = type;
         }
-        
-        void draw() {
-            game.fill(buttonColor);
-            game.rectMode(CENTER);
-            game.rect(x, y, w, h);
+        void onPressAction() {
+            switch(type) {
+                case 0:
+                switchState(STATE_MENU);
+                break;
+                case 1:
+                switchState(STATE_SHOP);
+                break;
+                case 2:
+                switchState(STATE_LEVEL_CREATOR);
+                break;
+            }
+
         }
     }
     
     class LevelButton {
-        float x, y;
+        float x,y;
         int levelNumber;
         float radius = levelRadius;
         float alpha = 0;
