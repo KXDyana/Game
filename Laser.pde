@@ -3,11 +3,13 @@ public class Laser {
     private int duration;
     private int laserShootTime;
     private float chargeProgress;
+    public int ID;
 
-    public Laser(PVector startPosition, int duration) {
+    public Laser(int ID, PVector startPosition, int duration) {
         this.startPosition = startPosition.copy();
         this.duration = duration;
         this.laserShootTime = millis();
+        this.ID = ID;
     }
 
     public boolean isFinished() {
@@ -34,7 +36,7 @@ public class Laser {
             line(startPosition.x, startPosition.y, chargeLineEnd2.x, chargeLineEnd2.y);
         } else { // Laser phase
             stroke(255, 0, 255); // Laser color (purple)
-            strokeWeight(5); // You can adjust the laser thickness here
+            strokeWeight(40); // You can adjust the laser thickness here
             PVector directionToPlayer = PVector.sub(player.position, startPosition);
             directionToPlayer.normalize();
             directionToPlayer.mult(width);
@@ -43,5 +45,7 @@ public class Laser {
         }
 
         noStroke();
+
+        text(ID, startPosition.x, startPosition.y - 10);
     }
 }

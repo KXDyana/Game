@@ -61,8 +61,8 @@ final class Shop{
             image(SANimg,vdmX + vdmW * 0.1,vdmY + vdmH * 0.11);
             image(money, vdmX + vdmW * 0.45,vdmY + vdmH * 0.12);
          fill(255);
-            text(nmanager.SAN,vdmX + vdmW * 0.16,vdmY + vdmH * 0.16);
-            text(nmanager.money,vdmX + vdmW * 0.51,vdmY + vdmH * 0.16);
+            text(player.globalSan,vdmX + vdmW * 0.16,vdmY + vdmH * 0.16);
+            text(player.money,vdmX + vdmW * 0.51,vdmY + vdmH * 0.16);
             shop.drawItemDetail();
             shop.drawError();
         } else{
@@ -70,8 +70,8 @@ final class Shop{
             image(SANimg,vdmX + vdmW * 0.1,vdmY + vdmH * 0.11);
             image(money, vdmX + vdmW * 0.45,vdmY + vdmH * 0.12);
          fill(0);
-            text(nmanager.SAN,vdmX + vdmW * 0.16,vdmY + vdmH * 0.16);
-            text(nmanager.money,vdmX + vdmW * 0.51,vdmY + vdmH * 0.16);
+            text(player.globalSan,vdmX + vdmW * 0.16,vdmY + vdmH * 0.16);
+            text(player.money,vdmX + vdmW * 0.51,vdmY + vdmH * 0.16);
          
             image(addtotalsan,vdmX + vdmW * 0.15, vdmY + vdmH * 0.33);
             image(addgain,vdmX + vdmW * 0.32, vdmY + vdmH * 0.37);
@@ -174,7 +174,7 @@ final class Shop{
         if (x > vdmX + vdmW * 0.1 && x < vdmX + vdmW * 0.28 && y > vdmY + vdmH * 0.5 && y < vdmY + vdmH * 0.7)
       return 4;
     
-    //if(nmanager.SAN < 100){
+    //if(player.SAN < 100){
         if (x > vdmX + vdmW * 0.28 && x < vdmX + vdmW * 0.44 && y > vdmY + vdmH * 0.5 && y < vdmY + vdmH * 0.7)
         return 5;
     //}
@@ -189,9 +189,9 @@ final class Shop{
      int mIncre = 2;
         switch(itemstate) {
           case 1 :
-                if (nmanager.SAN + sIncre <= 100 && nmanager.money - mDecre >= 0) {
-               nmanager.SAN += sIncre;
-               nmanager.money -= mDecre;
+                if (player.globalSan + sIncre <= 100 && player.money - mDecre >= 0) {
+               player.globalSan += sIncre;
+               player.money -= mDecre;
                 } else{
                     startTime = millis();
                errorState = true;
@@ -207,15 +207,14 @@ final class Shop{
 
              break;
           case 5 :
-                if (nmanager.SAN - sDecre >= 10) {
-               nmanager.SAN -= sDecre;
-               nmanager.money += mIncre;
+                if (player.globalSan - sDecre >= 10) {
+               player.globalSan -= sDecre;
+               player.money += mIncre;
                 } else{
                     startTime = millis();
                errorState = true;
              }     
              break;
-          //default:
       }
   }
     
@@ -231,8 +230,6 @@ final class Shop{
                     switchState(STATE_LEVEL);
                     break;
             }
-            
-            
         }
     }
 }

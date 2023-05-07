@@ -18,7 +18,7 @@ public class Level {
                 boss = new LevelBoss(game, "data/2. FFXIV - stasis loop.mp3.json", 3400);
                 break;
             case 2:
-                boss = new LevelBoss(game, "data/1. MSR - Endospore.mp3.json", 3400);
+                boss = new LevelBoss(game, "data/1. MSR - Endospore.mp3.json", 3000);
                 break;
             case 3:
                 boss = new LevelBoss(game, "data/the haunter of dark.mp3.json", 2800);
