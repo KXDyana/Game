@@ -105,10 +105,7 @@ public class LevelBoss {
         
         currentBeat = beats.get(currentBeatIndex);
         
-        if (currentBeat.timestampGeneration <= timestampCurrent) {
-            
-            System.out.println("Current beat: " + currentBeat.toString());
-            
+        if (currentBeat.timestampGeneration <= timestampCurrent) {            
             if (!currentBeat.hold) {
                 int flightTime = currentBeat.timestampArrival - currentBeat.timestampGeneration;
                 if (currentBeat.type == 1) shootBullet1(currentBeat.ID, flightTime, bulletSpawnPos[currentBeat.ID%numberOfBulletSpawns]);
@@ -161,7 +158,7 @@ public class LevelBoss {
     
     private void shootLaser(int ID, int duration) {
         PVector targetPos = player.position;
-        Laser laser = new Laser(centerOfBulletSpawns, duration);
+        Laser laser = new Laser(ID, centerOfBulletSpawns, duration);
         lasers.add(laser);
         enemyColor = ORANGE;
     }
@@ -194,13 +191,13 @@ public class LevelBoss {
         
         for (int i = 0; i < beats.size(); i++) {
             if (!beats.get(i).hold) {
-                beats.get(i).timestampGeneration -= beatGenerationDelay;
+                beats.get(i).timestampGeneration -= beatGenerationDelay - 150;
                 if (beats.get(i).timestampGeneration < 0) {
                     beats.get(i).timestampGeneration = 0;
                 }
             } else {
 
-                beats.get(i).timestampGeneration -= laserCharingTime;
+                beats.get(i).timestampGeneration -= laserCharingTime - 150;
                 
             }
         }

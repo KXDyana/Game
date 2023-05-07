@@ -21,6 +21,8 @@ static final int STATE_LEVEL_CREATOR = 6;
 static final int STATE_SHOP = 7;
 static int state = 0;  // initial state
 
+
+
 //images
 PImage money;
 PImage SANimg;
@@ -40,15 +42,18 @@ static LevelCreator levelCreator;
 static BattleView battleView;
 
 boolean prevMousePressed = false;
+boolean prevSpacePressed = false;
+boolean prevEnterPressed = false;
 
 
 int laserCharingTime = 1400;
 
-//numerical manager
-numManager nmanager;
-
 //shop
 Shop shop;
+
+String message;
+int messageStartTime, messageLastTime;
+PVector messagePos;
 
 
 
@@ -68,7 +73,6 @@ void setup() {
     battleView = new BattleView(this);
     
     shop = new Shop();
-    nmanager = new numManager();
     money = loadImage("shoppic/money.png");
     SANimg = loadImage("shoppic/SAN.png");
 }
@@ -93,8 +97,17 @@ void draw() {
     }
     drawMouse();
     prevMousePressed = mousePressed;
-    
-    
+    prevSpacePressed = keys[' '];
+    prevEnterPressed = enterpressed;
+
+    if (message != null && millis() < messageStartTime + messageLastTime) {
+    textSize(60);
+    textAlign(CENTER);
+    fill(ORANGE);
+    text(message, width/2, height/4);
+  } else {
+    message = null;
+  }
 }
 
 void showShop() {
@@ -216,6 +229,12 @@ void drawMouse() {
     text("Game State: " + state, mouseX + 15, mouseY + 130);
     text("Player Position: (" + player.position.x + ", " + player.position.y + ")", mouseX + 15, mouseY + 150);
     text("Player Target Position: (" + player.targetPosition.x + ", " + player.targetPosition.y + ")", mouseX + 15, mouseY + 170);
+}
+
+void showMessage(String message, int time) {
+  this.message = message;
+  messageStartTime = millis();
+  messageLastTime = time;
 }
 
 void mousePressed() {
