@@ -15,19 +15,19 @@ public class Level {
         switch(levelNumber)
         {
             case 1:
-                boss = new LevelBoss(game, "data/2. FFXIV - stasis loop.mp3.json", 3400);
+                boss = new LevelBoss(game, "data/the bloated woman.mp3.json", 3400);
                 break;
             case 2:
-                boss = new LevelBoss(game, "data/1. MSR - Endospore.mp3.json", 3400);
+                boss = new LevelBoss(game, "data/the floated horror.mp3.json", 3400);
                 break;
             case 3:
                 boss = new LevelBoss(game, "data/the haunter of dark.mp3.json", 2800);
                 break;
             case 4:
-                boss = new LevelBoss(game, "data/2. FFXIV - stasis loop.mp3.json", 3400);
+                boss = new LevelBoss(game, "data/killers.mp3.json", 3400);
                 break;
             case 5:
-                boss = new LevelBoss(game, "data/2. FFXIV - stasis loop.mp3.json", 3400);
+                boss = new LevelBoss(game, "data/william.mp3.json", 3400);
                 break;
         }
     }
