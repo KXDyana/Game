@@ -3,8 +3,7 @@ final class numManager{
   int money;
   
   numManager(){
-    this.SAN = 15;
+    this.SAN = 100;
     this. money = 15;
-  
   }
 }

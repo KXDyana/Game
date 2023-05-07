@@ -5,45 +5,78 @@ final class shop{
    PImage addgain;
    PImage easeloss;
    PImage sanToM;
-   float vdmX = displayWidth*0.23;
-   float vdmY = displayHeight*0.05;
-   float vdmW = displayWidth*0.7;
-   float vdmH = displayWidth*0.7*0.75;
+   int vdmX = int(displayWidth*0.23);
+   int vdmY = int(displayHeight*0.05);
+   int vdmW = int(displayWidth*0.7);
+   int vdmH = int(displayWidth*0.7*0.75);
    
    int startTime;
    boolean errorState = false;
+   
+   int itemstate;
+   int shopstate = 0;
+   boolean buystate = false;
 
   
   shop(){
+    //SANimg.resize(int(vdmW*0.04), int(vdmW*0.04/SANimg.width*SANimg.height));
+    //money.resize(int(vdmW*0.04),int(vdmW*0.04/money.width*money.height));
+
     shopbg = loadImage("shoppic/vdm.png");
+    shopbg.resize(vdmW,vdmH);
+
     addtotalsan = loadImage("shoppic/addtotalSAN.png");
-    addsan = loadImage("shoppic/addsan.png");
+    addtotalsan.resize(int(vdmW*0.07), int(vdmW*0.07/addtotalsan.width*addtotalsan.height));
+
     addgain = loadImage("shoppic/addsangain.png");
+    addgain.resize(int(vdmW*0.07),int(vdmW*0.07/addgain.width*addgain.height));
+
     easeloss = loadImage("shoppic/easesanloss.png");
+    easeloss.resize(int(vdmW*0.07),int(vdmW*0.07/easeloss.width*easeloss.height));
+    
+    addsan = loadImage("shoppic/addsan.png");
+    addsan.resize(int(vdmW*0.06),int(vdmW*0.06/addsan.width*addsan.height));
+
     sanToM = loadImage("shoppic/santomoney.png");
+    sanToM.resize(int(vdmH*0.08/sanToM.height*sanToM.width),int(vdmH*0.1));
   }
   
   void draw(){  
-     image(shopbg, vdmX,vdmY,vdmW,vdmH); 
-     image(SANimg,vdmX+vdmW*0.1,vdmY+vdmH*0.11,vdmW*0.04, vdmW*0.04/SANimg.width*SANimg.height);
-     image(money, vdmX+vdmW*0.45,vdmY+vdmH*0.12,vdmW*0.04, vdmW*0.04/money.width*money.height);
-     
-     fill(0);
-     textSize(vdmH*0.05);
-     text(nmanager.SAN,vdmX+vdmW*0.16,vdmY+vdmH*0.16);
-     text(nmanager.money,vdmX+vdmW*0.51,vdmY+vdmH*0.16);
-     
-     image(addtotalsan,vdmX+vdmW*0.15, vdmY+vdmH*0.33, vdmW*0.07, vdmW*0.07/addtotalsan.width*addtotalsan.height);
-     image(addgain,vdmX+vdmW*0.32, vdmY+vdmH*0.37, vdmW*0.07, vdmW*0.07/addgain.width*addgain.height );
-     image(easeloss,vdmX+vdmW*0.47, vdmY+vdmH*0.37, vdmW*0.07, vdmW*0.07/easeloss.width*easeloss.height );
-     image(addsan,vdmX+vdmW*0.15, vdmY+vdmH*0.57, vdmW*0.06, vdmW*0.06/addsan.width*addsan.height );
-     //if(nmanager.SAN < 100)
-       image(sanToM,vdmX+vdmW*0.3, vdmY+vdmH*0.57,vdmH*0.08/sanToM.height*sanToM.width,vdmH*0.1);
+    
+       textSize(vdmH*0.05);
        
-      if(buystate){
-        buy();
-        buystate = false;
-      }
+       fill(255);
+       text("item:"+itemstate, 100,100);
+       text("shop:"+shopstate, 100,200);
+       text("buy:"+buystate,100,300);
+      if(s.shopstate == 1){
+         image(SANimg,vdmX+vdmW*0.1,vdmY+vdmH*0.11);
+         image(money, vdmX+vdmW*0.45,vdmY+vdmH*0.12);
+         fill(255);
+         text(nmanager.SAN,vdmX+vdmW*0.16,vdmY+vdmH*0.16);
+         text(nmanager.money,vdmX+vdmW*0.51,vdmY+vdmH*0.16);
+         s.drawItemDetail();
+         s.drawError();
+       }else{
+         image(shopbg,vdmX,vdmY); 
+         image(SANimg,vdmX+vdmW*0.1,vdmY+vdmH*0.11);
+         image(money, vdmX+vdmW*0.45,vdmY+vdmH*0.12);
+         fill(0);
+         text(nmanager.SAN,vdmX+vdmW*0.16,vdmY+vdmH*0.16);
+         text(nmanager.money,vdmX+vdmW*0.51,vdmY+vdmH*0.16);
+         
+         image(addtotalsan,vdmX+vdmW*0.15, vdmY+vdmH*0.33);
+         image(addgain,vdmX+vdmW*0.32, vdmY+vdmH*0.37);
+         image(easeloss,vdmX+vdmW*0.47, vdmY+vdmH*0.37);
+         image(addsan,vdmX+vdmW*0.15, vdmY+vdmH*0.57);
+         image(sanToM,vdmX+vdmW*0.3, vdmY+vdmH*0.57);
+       }
+
+       
+       if(buystate){
+         buy();
+         buystate = false;
+       }
   }
   
   void drawError(){
@@ -66,9 +99,9 @@ final class shop{
     //buttons
     
     fill(#F5A31E);
-    rect(displayWidth/2,displayHeight/2+rectH*0.2, rectW*0.3,rectH*0.2);
+    rect(displayWidth/2-rectW*0.2,displayHeight/2+rectH*0.3, rectW*0.3,rectH*0.2);
     fill(#B1C6F7);
-    rect(displayWidth/2+rectW*0.05,displayHeight/2+rectH*0.2, rectW*0.3,rectH*0.2);
+    rect(displayWidth/2+rectW*0.2,displayHeight/2+rectH*0.3, rectW*0.3,rectH*0.2);
     fill(#203874);
     float buy = textWidth("Buy");
     float cancel = textWidth("Cancel");
@@ -81,7 +114,6 @@ final class shop{
     
     float textX = displayWidth/2-rectW*0.1;
     float textY = displayHeight/2-rectH*0.2;
-    
     fill(255);
     textSize(rectH*0.08);
     switch(itemstate){
@@ -117,8 +149,9 @@ final class shop{
       //default:
     }
 
-    image(temp, displayWidth/2-rectW*0.35-temp.width/2,displayHeight/2-rectH*0.3, rectH*0.27/temp.height*temp.width,rectH*0.27);
-    
+    //temp.resize(int(rectH*0.27/temp.height*temp.width),int(rectH*0.27));
+    image(temp, displayWidth/2-rectW*0.25-temp.width/2,displayHeight/2-rectH*0.3);
+
     
     
   }
