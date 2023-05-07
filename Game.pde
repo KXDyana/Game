@@ -22,8 +22,8 @@ static final int STATE_SHOP = 7;
 static int state = 0;  // initial state
 
 //images
-PImage money;
-PImage SANimg;
+public PImage money;
+public PImage SANimg;
 
 
 // use a boolean array to register key presses
@@ -46,9 +46,7 @@ numManager nmanager;
 
 //shop
 shop s;
-int itemstate;
-int shopstate = 0;
-boolean buystate = false;
+
 
 
 void settings() {
@@ -96,10 +94,7 @@ void draw() {
 
 void showShop(){
    s.draw();
-   if(shopstate == 1){
-     s.drawItemDetail();
-     s.drawError();
-   }
+
 }
 
 void showMenu() {
@@ -217,26 +212,31 @@ void drawMouse() {
 }
 
 void mousePressed(){
-  //type select
-     if(!(mouseX>displayWidth/2-displayWidth*0.2 && mouseX<displayWidth/2+displayWidth*0.2 && mouseY>displayHeight/2- displayHeight*0.22 && mouseY<displayHeight/2+displayHeight*0.22)){
-      shopstate = 0;
-    }
-    if(shopstate == 0)
-      itemstate = s.typeSelect(mouseX, mouseY);
-    if(itemstate !=0){
-      shopstate = 1;
-    }
-    
-    if(shopstate == 1){
       float rectW = displayWidth*0.4;
       float rectH = displayHeight*0.45;
+  //type select
+   if(!(mouseX>displayWidth/2-displayWidth*0.2 && mouseX<displayWidth/2+displayWidth*0.2 && mouseY>displayHeight/2- displayHeight*0.22 && mouseY<displayHeight/2+displayHeight*0.22)){
+      s.shopstate = 0;
+    }
+    if(s.shopstate == 0){
+      s.itemstate = s.typeSelect(mouseX, mouseY);      
+    }
+
+    if(s.itemstate !=0){
+      s.shopstate = 1;
+
+    }
+    
+    if(s.shopstate == 1){
+
       
       if(mouseX>displayWidth/2-rectW*0.35 && mouseX<displayWidth/2-rectW*0.05 && mouseY>displayHeight/2+rectH*0.2 && mouseY<displayHeight/2+rectH*0.4){
-          buystate = true;
-      }      
+        //buy
+          s.buystate = true;
+      }
       if(mouseX>displayWidth/2+rectW*0.05 && mouseX<displayWidth/2+rectW*0.35 && mouseY>displayHeight/2+rectH*0.2 && mouseY<displayHeight/2+rectH*0.4){
         //cancel
-        shopstate = 0;
+        s.shopstate = 0;
         s.errorState = false;
       }
     }
