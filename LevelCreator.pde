@@ -11,7 +11,6 @@ class LevelCreator {
     PApplet game;
     String musicFile;
     ArrayList<Hit> hits;
-    PFont font;
     ArrayList<SongButton> songButtons;
     boolean isSelectingSong = true;
     boolean isCreatingLevel = false;
@@ -39,7 +38,6 @@ class LevelCreator {
     LevelCreator(PApplet game) {
         this.game = game;
         this.hits = new ArrayList<Hit>();
-        this.font = game.createFont("Arial", 16);
         this.songButtons = new ArrayList<SongButton>();
         minim = new Minim(game);
         
@@ -122,7 +120,6 @@ class LevelCreator {
         } else if (isCreatingLevel) {
             game.background(0);
             game.fill(255);
-            game.textFont(font);
             game.textAlign(PConstants.LEFT, PConstants.CENTER); // Add this line to center the text vertically
             
             game.text("Press SPACE for hit type 1, ENTER for hit type 2.", 10, 30);
@@ -165,7 +162,6 @@ class LevelCreator {
     void displaySongSelection() {
         game.background(0);
         game.fill(255);
-        game.textFont(font);
         game.textAlign(PConstants.LEFT, PConstants.TOP);
         game.text("Select a song to create a level:", 10, 30);
         game.text("Press E to return", 10, 50);

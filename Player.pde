@@ -41,12 +41,13 @@ class Player {
         stroke(playerColor);
         noFill();
         ellipse(position.x, position.y, perfectRadius, perfectRadius);  // draw perfect parry circle
+        noStroke();
     }
     
     void updatePlayer() {
         if (!isParrying) playerColor = lerpColor(playerColor, LIGHT_PURPLE, 0.1);
-        position.x = lerp(position.x, targetPosition.x, 0.01);
-        position.y = lerp(position.y, targetPosition.y, 0.01);
+        position.x = lerp(position.x, targetPosition.x, 0.06);
+        position.y = lerp(position.y, targetPosition.y, 0.06);
         
         if (keys[' ']) {               // parry 
             isParrying = true;

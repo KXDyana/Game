@@ -10,14 +10,7 @@ public class Level {
         battlePlayerPosition = new PVector(game.width  / 4, game.height * 3 / 4);
         
         this.levelNumber = levelNumber;
-        
-        
-        
-        if (levelNumber == 1) {
-            boss = new LevelBoss(game, "data/2. FFXIV - stasis loop.mp3.json");
-        } else {
-            boss = new LevelBoss(game, "data/2. FFXIV - stasis loop.mp3.json");
-        }
+        this.game = game;
         
         switch(levelNumber)
         {
@@ -28,7 +21,7 @@ public class Level {
                 boss = new LevelBoss(game, "data/1. MSR - Endospore.mp3.json");
                 break;
             case 3:
-                boss = new LevelBoss(game, "data/2. FFXIV - stasis loop.mp3.json");
+                boss = new LevelBoss(game, "data/the haunter of dark.mp3.json");
                 break;
             case 4:
                 boss = new LevelBoss(game, "data/2. FFXIV - stasis loop.mp3.json");

@@ -1,0 +1,46 @@
+{
+  "hits": [
+    {
+      "ID": 1,
+      "type": 2,
+      "timestamp": 6828
+    },
+    {
+      "ID": 2,
+      "type": 2,
+      "timestamp": 7193
+    },
+    {
+      "ID": 3,
+      "type": 2,
+      "timestamp": 7577
+    },
+    {
+      "ID": 4,
+      "type": 2,
+      "timestamp": 7945
+    },
+    {
+      "ID": 5,
+      "type": 2,
+      "timestamp": 8343
+    },
+    {
+      "ID": 6,
+      "type": 2,
+      "timestamp": 8777
+    },
+    {
+      "ID": 7,
+      "type": 2,
+      "timestamp": 9144
+    },
+    {
+      "ID": 8,
+      "type": 2,
+      "timestamp": 9577
+    }
+  ],
+  "level_name": "the haunter of dark.mp3",
+  "music_file": "res/songs/the haunter of dark.mp3"
+}
