@@ -197,6 +197,10 @@ public class LevelBoss {
                 if (beats.get(i).timestampGeneration < 0) {
                     beats.get(i).timestampGeneration = 0;
                 }
+            } else {
+
+                beats.get(i).timestampGeneration -= laserCharingTime;
+                
             }
         }
         

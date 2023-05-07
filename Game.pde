@@ -33,6 +33,9 @@ static LevelSelect levelSelect;
 static LevelCreator levelCreator;
 static BattleView battleView;
 
+
+int laserCharingTime = 1400;
+
 void settings() {
     fullScreen();
 }
