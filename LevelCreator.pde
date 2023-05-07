@@ -23,7 +23,7 @@ class LevelCreator {
     int timestampTemp = 0;
     int timestampStart = 0;
     int timestampCurrent = 0;
-    int holdThreshold = 400;
+    int holdThreshold = 300;
     String currentLevelName;
     
     
