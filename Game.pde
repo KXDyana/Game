@@ -111,7 +111,7 @@ void setup() {
     money = loadImage("res/sprites/shoppic/money.png");
     SANimg = loadImage("res/sprites/shoppic/SAN.png");
 
-    bgpic0 = loadImage("res/sprites/tutorial.png");
+    bgpic0 = loadImage("res/sprites//bgpic/tutorial.png");
     bgpic1 = loadImage("res/sprites/bgpic/1-shuttle.png");
     bgpic2 = loadImage("res/sprites/bgpic/2-room.png");
     bgpic3 = loadImage("res/sprites/bgpic/3-castle.png");
