@@ -208,7 +208,18 @@ class Player {
         return false;
     }
 
-    
+    boolean hasItem(int type){
+        if(itemList == null)
+            return false;
+        else{
+            for(Item i : itemList){
+                if(i.type == type){
+                    
+                }
+            }
+        }
+
+    }
     
     
     
