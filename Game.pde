@@ -152,7 +152,7 @@ void showLoading() {
 
 void showInGame() {
 
-    player.updatePlayer();
+    player.drawPlayer();
 
     battleView.drawBattle();
 
