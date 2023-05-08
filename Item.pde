@@ -1,11 +1,10 @@
 class Item {
     int type;
+    PImage itemImage;
 
-    Item(int type){
+    Item(int type, PImage img){
         this.type = type;
+        this.itemImage = img;
     }
-
-    boolean errorState = false;
-
     
 }
