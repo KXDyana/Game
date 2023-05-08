@@ -3,697 +3,571 @@
     {
       "ID": 1,
       "type": 1,
-      "timestamp": 4569,
+      "timestamp": 4455,
       "hold": false
     },
     {
       "ID": 2,
       "type": 1,
-      "timestamp": 4752,
+      "timestamp": 4654,
       "hold": false
     },
     {
       "ID": 3,
       "type": 1,
-      "timestamp": 8104,
+      "timestamp": 8054,
       "hold": false
     },
     {
       "ID": 4,
-      "type": 1,
-      "timestamp": 8472,
-      "hold": false
+      "type": 2,
+      "timestamp": 8237
     },
     {
       "ID": 5,
       "type": 1,
-      "timestamp": 8921,
+      "timestamp": 8437,
       "hold": false
     },
     {
       "ID": 6,
-      "type": 1,
-      "timestamp": 9371,
-      "hold": false
+      "type": 2,
+      "timestamp": 8587
     },
     {
       "ID": 7,
-      "type": 2,
-      "timestamp": 9755
+      "type": 1,
+      "timestamp": 9553,
+      "hold": false
     },
     {
       "ID": 8,
-      "type": 1,
-      "timestamp": 10155,
-      "hold": false
+      "type": 2,
+      "timestamp": 9753
     },
     {
       "ID": 9,
       "type": 2,
-      "timestamp": 10471
+      "timestamp": 9937
     },
     {
       "ID": 10,
       "type": 1,
-      "timestamp": 10821,
+      "timestamp": 10120,
       "hold": false
     },
     {
       "ID": 11,
       "type": 2,
-      "timestamp": 11103
+      "timestamp": 10319
     },
     {
       "ID": 12,
-      "type": 1,
-      "timestamp": 11237,
-      "hold": false
+      "type": 2,
+      "timestamp": 10520
     },
     {
-      "duration": 833,
+      "duration": 450,
       "ID": 13,
       "type": 1,
-      "timestamp": 11771,
+      "timestamp": 11469,
       "hold": true
     },
     {
-      "duration": 500,
       "ID": 14,
-      "type": 1,
-      "timestamp": 13020,
-      "hold": true
+      "type": 2,
+      "timestamp": 11986
     },
     {
-      "duration": 516,
+      "duration": 916,
       "ID": 15,
       "type": 1,
-      "timestamp": 13870,
+      "timestamp": 12136,
       "hold": true
     },
     {
-      "duration": 533,
       "ID": 16,
       "type": 1,
-      "timestamp": 14737,
-      "hold": true
+      "timestamp": 13470,
+      "hold": false
     },
     {
-      "duration": 600,
       "ID": 17,
-      "type": 1,
-      "timestamp": 15653,
-      "hold": true
+      "type": 2,
+      "timestamp": 13637
     },
     {
-      "duration": 500,
       "ID": 18,
       "type": 1,
-      "timestamp": 16570,
-      "hold": true
+      "timestamp": 13887,
+      "hold": false
     },
     {
-      "duration": 466,
       "ID": 19,
-      "type": 1,
-      "timestamp": 17420,
-      "hold": true
+      "type": 2,
+      "timestamp": 14219
     },
     {
+      "duration": 2417,
       "ID": 20,
       "type": 1,
-      "timestamp": 18287,
-      "hold": false
+      "timestamp": 14669,
+      "hold": true
     },
     {
       "ID": 21,
-      "type": 2,
-      "timestamp": 18939
+      "type": 1,
+      "timestamp": 18254,
+      "hold": false
     },
     {
       "ID": 22,
+      "type": 2,
+      "timestamp": 18887
+    },
+    {
+      "ID": 23,
       "type": 1,
       "timestamp": 19122,
       "hold": false
     },
     {
-      "ID": 23,
-      "type": 1,
-      "timestamp": 20106,
-      "hold": false
-    },
-    {
       "ID": 24,
       "type": 1,
-      "timestamp": 20523,
+      "timestamp": 20488,
       "hold": false
     },
     {
       "ID": 25,
-      "type": 1,
-      "timestamp": 20924,
-      "hold": false
+      "type": 2,
+      "timestamp": 20657
     },
     {
       "ID": 26,
       "type": 1,
-      "timestamp": 21356,
+      "timestamp": 20888,
       "hold": false
     },
     {
-      "duration": 485,
       "ID": 27,
-      "type": 1,
-      "timestamp": 21757,
-      "hold": true
+      "type": 2,
+      "timestamp": 21255
     },
     {
-      "duration": 617,
       "ID": 28,
       "type": 1,
-      "timestamp": 22558,
-      "hold": true
+      "timestamp": 21692,
+      "hold": false
     },
     {
       "ID": 29,
       "type": 1,
-      "timestamp": 23526,
+      "timestamp": 22091,
       "hold": false
     },
     {
       "ID": 30,
-      "type": 1,
-      "timestamp": 23961,
-      "hold": false
+      "type": 2,
+      "timestamp": 22308
     },
     {
       "ID": 31,
       "type": 1,
-      "timestamp": 24383,
+      "timestamp": 22576,
       "hold": false
     },
     {
       "ID": 32,
       "type": 1,
-      "timestamp": 24810,
+      "timestamp": 23959,
       "hold": false
     },
     {
       "ID": 33,
-      "type": 1,
-      "timestamp": 25244,
-      "hold": false
+      "type": 2,
+      "timestamp": 24108
     },
     {
       "ID": 34,
-      "type": 2,
-      "timestamp": 25677
-    },
-    {
-      "ID": 35,
       "type": 1,
-      "timestamp": 26078,
+      "timestamp": 24375,
       "hold": false
     },
     {
-      "ID": 36,
+      "ID": 35,
       "type": 2,
-      "timestamp": 26529
+      "timestamp": 24708
+    },
+    {
+      "ID": 36,
+      "type": 1,
+      "timestamp": 25175,
+      "hold": false
     },
     {
       "ID": 37,
       "type": 1,
-      "timestamp": 26960,
+      "timestamp": 26027,
       "hold": false
     },
     {
       "ID": 38,
-      "type": 2,
-      "timestamp": 27398
+      "type": 1,
+      "timestamp": 26262,
+      "hold": false
     },
     {
       "ID": 39,
       "type": 1,
-      "timestamp": 27811,
+      "timestamp": 26958,
       "hold": false
     },
     {
       "ID": 40,
-      "type": 2,
-      "timestamp": 28247
-    },
-    {
-      "duration": 480,
-      "ID": 41,
       "type": 1,
-      "timestamp": 28682,
-      "hold": true
+      "timestamp": 27579,
+      "hold": false
     },
     {
-      "duration": 551,
+      "ID": 41,
+      "type": 2,
+      "timestamp": 27775
+    },
+    {
       "ID": 42,
       "type": 1,
-      "timestamp": 29497,
-      "hold": true
+      "timestamp": 28011,
+      "hold": false
     },
     {
-      "duration": 483,
       "ID": 43,
       "type": 1,
-      "timestamp": 30481,
-      "hold": true
+      "timestamp": 28628,
+      "hold": false
     },
     {
-      "duration": 517,
       "ID": 44,
       "type": 1,
-      "timestamp": 31297,
-      "hold": true
+      "timestamp": 29546,
+      "hold": false
     },
     {
       "ID": 45,
       "type": 1,
-      "timestamp": 32196,
+      "timestamp": 29745,
       "hold": false
     },
     {
       "ID": 46,
       "type": 1,
-      "timestamp": 32596,
+      "timestamp": 30412,
       "hold": false
     },
     {
       "ID": 47,
       "type": 1,
-      "timestamp": 33013,
+      "timestamp": 31067,
       "hold": false
     },
     {
       "ID": 48,
-      "type": 1,
-      "timestamp": 33447,
-      "hold": false
+      "type": 2,
+      "timestamp": 31266
     },
     {
       "ID": 49,
       "type": 1,
-      "timestamp": 33930,
+      "timestamp": 31465,
       "hold": false
     },
     {
       "ID": 50,
-      "type": 1,
-      "timestamp": 35196,
-      "hold": false
+      "type": 2,
+      "timestamp": 33402
     },
     {
       "ID": 51,
-      "type": 1,
-      "timestamp": 35630,
-      "hold": false
+      "type": 2,
+      "timestamp": 33616
     },
     {
       "ID": 52,
-      "type": 2,
-      "timestamp": 36112
+      "type": 1,
+      "timestamp": 36986,
+      "hold": false
     },
     {
       "ID": 53,
       "type": 1,
-      "timestamp": 36330,
+      "timestamp": 37168,
       "hold": false
     },
     {
       "ID": 54,
-      "type": 2,
-      "timestamp": 36580
+      "type": 1,
+      "timestamp": 40454,
+      "hold": false
     },
     {
       "ID": 55,
-      "type": 1,
-      "timestamp": 36763,
-      "hold": false
+      "type": 2,
+      "timestamp": 40640
     },
     {
       "ID": 56,
-      "type": 2,
-      "timestamp": 36929
+      "type": 1,
+      "timestamp": 40822,
+      "hold": false
     },
     {
       "ID": 57,
-      "type": 1,
-      "timestamp": 37146,
-      "hold": false
+      "type": 2,
+      "timestamp": 41009
     },
     {
       "ID": 58,
-      "type": 2,
-      "timestamp": 37412
+      "type": 1,
+      "timestamp": 41975,
+      "hold": false
     },
     {
       "ID": 59,
-      "type": 1,
-      "timestamp": 37679,
-      "hold": false
+      "type": 2,
+      "timestamp": 42125
     },
     {
       "ID": 60,
       "type": 2,
-      "timestamp": 37912
+      "timestamp": 42308
     },
     {
       "ID": 61,
       "type": 1,
-      "timestamp": 38095,
+      "timestamp": 42508,
       "hold": false
     },
     {
       "ID": 62,
       "type": 2,
-      "timestamp": 38347
+      "timestamp": 42691
     },
     {
       "ID": 63,
-      "type": 1,
-      "timestamp": 38530,
-      "hold": false
+      "type": 2,
+      "timestamp": 42908
     },
     {
       "ID": 64,
-      "type": 2,
-      "timestamp": 38728
-    },
-    {
-      "ID": 65,
       "type": 1,
-      "timestamp": 38946,
+      "timestamp": 43774,
       "hold": false
     },
     {
-      "ID": 66,
+      "ID": 65,
       "type": 2,
-      "timestamp": 39179
+      "timestamp": 44257
+    },
+    {
+      "ID": 66,
+      "type": 1,
+      "timestamp": 44491,
+      "hold": false
     },
     {
       "ID": 67,
       "type": 1,
-      "timestamp": 39363,
+      "timestamp": 45841,
       "hold": false
     },
     {
       "ID": 68,
       "type": 2,
-      "timestamp": 39595
+      "timestamp": 46041
     },
     {
       "ID": 69,
       "type": 1,
-      "timestamp": 39762,
+      "timestamp": 46307,
       "hold": false
     },
     {
       "ID": 70,
-      "type": 1,
-      "timestamp": 40047,
-      "hold": false
+      "type": 2,
+      "timestamp": 46707
     },
     {
       "ID": 71,
       "type": 1,
-      "timestamp": 40447,
+      "timestamp": 47123,
       "hold": false
     },
     {
+      "duration": 499,
       "ID": 72,
       "type": 1,
-      "timestamp": 40863,
-      "hold": false
+      "timestamp": 50558,
+      "hold": true
     },
     {
       "ID": 73,
-      "type": 1,
-      "timestamp": 41280,
-      "hold": false
+      "type": 2,
+      "timestamp": 51207
     },
     {
+      "duration": 567,
       "ID": 74,
       "type": 1,
-      "timestamp": 41696,
-      "hold": false
+      "timestamp": 51423,
+      "hold": true
     },
     {
       "ID": 75,
-      "type": 2,
-      "timestamp": 42047
+      "type": 1,
+      "timestamp": 52857,
+      "hold": false
     },
     {
       "ID": 76,
-      "type": 1,
-      "timestamp": 42279,
-      "hold": false
+      "type": 2,
+      "timestamp": 53026
     },
     {
       "ID": 77,
-      "type": 2,
-      "timestamp": 42447
+      "type": 1,
+      "timestamp": 53290,
+      "hold": false
     },
     {
       "ID": 78,
-      "type": 1,
-      "timestamp": 42682,
-      "hold": false
+      "type": 2,
+      "timestamp": 53640
     },
     {
       "ID": 79,
       "type": 1,
-      "timestamp": 43100,
+      "timestamp": 54091,
       "hold": false
     },
     {
       "ID": 80,
       "type": 1,
-      "timestamp": 43518,
+      "timestamp": 54508,
       "hold": false
     },
     {
       "ID": 81,
       "type": 2,
-      "timestamp": 43933
+      "timestamp": 54742
     },
     {
       "ID": 82,
       "type": 1,
-      "timestamp": 44266,
+      "timestamp": 55007,
       "hold": false
     },
     {
       "ID": 83,
-      "type": 2,
-      "timestamp": 44633
-    },
-    {
-      "ID": 84,
       "type": 1,
-      "timestamp": 45016,
+      "timestamp": 56325,
       "hold": false
     },
     {
-      "ID": 85,
+      "ID": 84,
       "type": 2,
-      "timestamp": 45400
+      "timestamp": 56494
     },
     {
-      "duration": 284,
-      "ID": 86,
+      "ID": 85,
       "type": 1,
-      "timestamp": 45867,
-      "hold": true
+      "timestamp": 56741,
+      "hold": false
+    },
+    {
+      "ID": 86,
+      "type": 2,
+      "timestamp": 57126
     },
     {
       "ID": 87,
-      "type": 2,
-      "timestamp": 46333
+      "type": 1,
+      "timestamp": 61108,
+      "hold": false
     },
     {
       "ID": 88,
       "type": 1,
-      "timestamp": 46749,
+      "timestamp": 61975,
       "hold": false
     },
     {
       "ID": 89,
-      "type": 2,
-      "timestamp": 47200
+      "type": 1,
+      "timestamp": 62144,
+      "hold": false
     },
     {
       "ID": 90,
       "type": 1,
-      "timestamp": 47585,
+      "timestamp": 62793,
       "hold": false
     },
     {
       "ID": 91,
-      "type": 2,
-      "timestamp": 48017
+      "type": 1,
+      "timestamp": 63494,
+      "hold": false
     },
     {
-      "duration": 718,
       "ID": 92,
-      "type": 1,
-      "timestamp": 48867,
-      "hold": true
+      "type": 2,
+      "timestamp": 63710
     },
     {
       "ID": 93,
       "type": 1,
-      "timestamp": 49784,
+      "timestamp": 63926,
       "hold": false
     },
     {
-      "duration": 666,
       "ID": 94,
       "type": 1,
-      "timestamp": 50571,
-      "hold": true
+      "timestamp": 64544,
+      "hold": false
     },
     {
       "ID": 95,
       "type": 1,
-      "timestamp": 51537,
+      "timestamp": 65396,
       "hold": false
     },
     {
-      "duration": 653,
       "ID": 96,
       "type": 1,
-      "timestamp": 52337,
-      "hold": true
+      "timestamp": 65678,
+      "hold": false
     },
     {
       "ID": 97,
       "type": 1,
-      "timestamp": 53289,
+      "timestamp": 66278,
       "hold": false
     },
     {
-      "duration": 614,
       "ID": 98,
       "type": 1,
-      "timestamp": 54057,
-      "hold": true
+      "timestamp": 66961,
+      "hold": false
     },
     {
       "ID": 99,
-      "type": 1,
-      "timestamp": 54990,
-      "hold": false
+      "type": 2,
+      "timestamp": 67165
     },
     {
-      "duration": 550,
       "ID": 100,
       "type": 1,
-      "timestamp": 55806,
-      "hold": true
-    },
-    {
-      "ID": 101,
-      "type": 1,
-      "timestamp": 56739,
+      "timestamp": 67398,
       "hold": false
-    },
-    {
-      "duration": 3133,
-      "ID": 102,
-      "type": 1,
-      "timestamp": 57588,
-      "hold": true
-    },
-    {
-      "ID": 103,
-      "type": 1,
-      "timestamp": 61121,
-      "hold": false
-    },
-    {
-      "ID": 104,
-      "type": 2,
-      "timestamp": 61573
-    },
-    {
-      "ID": 105,
-      "type": 1,
-      "timestamp": 61954,
-      "hold": false
-    },
-    {
-      "ID": 106,
-      "type": 2,
-      "timestamp": 62356
-    },
-    {
-      "ID": 107,
-      "type": 1,
-      "timestamp": 62770,
-      "hold": false
-    },
-    {
-      "ID": 108,
-      "type": 2,
-      "timestamp": 63256
-    },
-    {
-      "ID": 109,
-      "type": 1,
-      "timestamp": 63671,
-      "hold": false
-    },
-    {
-      "ID": 110,
-      "type": 2,
-      "timestamp": 64138
-    },
-    {
-      "ID": 111,
-      "type": 1,
-      "timestamp": 64555,
-      "hold": false
-    },
-    {
-      "ID": 112,
-      "type": 2,
-      "timestamp": 65021
-    },
-    {
-      "ID": 113,
-      "type": 1,
-      "timestamp": 65425,
-      "hold": false
-    },
-    {
-      "ID": 114,
-      "type": 2,
-      "timestamp": 65875
-    },
-    {
-      "ID": 115,
-      "type": 1,
-      "timestamp": 66291,
-      "hold": false
-    },
-    {
-      "ID": 116,
-      "type": 2,
-      "timestamp": 66757
-    },
-    {
-      "ID": 117,
-      "type": 1,
-      "timestamp": 67173,
-      "hold": false
-    },
-    {
-      "ID": 118,
-      "type": 2,
-      "timestamp": 67624
     }
   ],
   "level_name": "william.mp3",
