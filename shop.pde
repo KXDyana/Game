@@ -5,8 +5,8 @@ final class Shop{
    PImage addgain;
    PImage easeloss;
    PImage sanToM;
-    int vdmX = int(displayWidth * 0.23);
-    int vdmY = int(displayHeight * 0.05);
+    int vdmX = int(displayWidth * 0.5);
+    int vdmY = int(displayHeight * 0.5);
     int vdmW = int(displayWidth * 0.7);
     int vdmH = int(displayWidth * 0.7 * 0.75);
    
@@ -21,7 +21,18 @@ final class Shop{
     int menuButtonColor = LIGHT_PURPLE;
     int hoverButtonColor = RED;
     SPButton backButton = new SPButton(40, 40, 60, 60, menuButtonColor, hoverButtonColor, 0);
-    ConfirmButton buy = new ConfirmButton(displayWidth / 2,displayHeight / 2, displayWidth*0.2, displayHeight*0.1,LIGHT_ORANGE,BLUE_PURPLE, "Buy");
+    ConfirmButton buy = new ConfirmButton(displayWidth*0.4,displayHeight*0.6, displayWidth*0.15, displayHeight*0.1,LIGHT_ORANGE,BLUE_PURPLE, "Buy");
+    ConfirmButton cancel = new ConfirmButton(displayWidth*0.6,displayHeight*0.6, displayWidth*0.15, displayHeight*0.1,LIGHT_ORANGE,BLUE_PURPLE, "Cancel");
+
+    int itemBtnColor = #220354;
+    int itemBtnHover = #4b1aa1;
+    ItemButton sanMedicine;
+    ItemButton redChip;
+    ItemButton greenChip;
+    ItemButton sedative;
+    ItemButton sanToMoney;
+
+
 
     
     
@@ -34,149 +45,116 @@ final class Shop{
 
     addtotalsan = loadImage("res/sprites/shoppic/addtotalSAN.png");
         addtotalsan.resize(int(vdmW * 0.07), int(vdmW * 0.07 / addtotalsan.width * addtotalsan.height));
-
     addgain = loadImage("res/sprites/shoppic/addsangain.png");
         addgain.resize(int(vdmW * 0.07),int(vdmW * 0.07 / addgain.width * addgain.height));
-
     easeloss = loadImage("res/sprites/shoppic/easesanloss.png");
         easeloss.resize(int(vdmW * 0.07),int(vdmW * 0.07 / easeloss.width * easeloss.height));
-    
     addsan = loadImage("res/sprites/shoppic/addsan.png");
         addsan.resize(int(vdmW * 0.06),int(vdmW * 0.06 / addsan.width * addsan.height));
-
     sanToM = loadImage("res/sprites/shoppic/santomoney.png");
         sanToM.resize(int(vdmH * 0.08 / sanToM.height * sanToM.width),int(vdmH * 0.1));
+
+    sanMedicine =  new ItemButton(vdmX - vdmW * 0.35, vdmY - vdmH * 0.1, vdmW * 0.1, vdmW * 0.1,itemBtnColor,itemBtnHover,addtotalsan,1);
+    redChip =  new ItemButton(vdmX - vdmW * 0.15, vdmY - vdmH * 0.1, vdmW * 0.1, vdmW * 0.1,itemBtnColor,itemBtnHover,addgain,2);
+    greenChip =  new ItemButton(vdmX + vdmW * 0.05, vdmY - vdmH * 0.1, vdmW * 0.1, vdmW * 0.1,itemBtnColor,itemBtnHover,easeloss,3);
+    sedative =  new ItemButton(vdmX - vdmW * 0.35, vdmY + vdmH * 0.1, vdmW * 0.1, vdmW * 0.1,itemBtnColor,itemBtnHover,addsan,4);
+    sanToMoney =  new ItemButton(vdmX - vdmW * 0.15, vdmY + vdmH * 0.1, vdmW * 0.1, vdmW * 0.1,itemBtnColor,itemBtnHover,sanToM,5);
   }
   
     void draw() {  
         textSize(vdmH * 0.05);
         backButton.drawButton();
-        
         // fill(255);
         // text("item:" + itemstate, 100,100);
         // text("shop:" + shopstate, 100,200);
         // text("buy:" + buystate,100,300);
         if (shop.shopstate == 1) {
-            //detail page
-            image(SANimg,vdmX + vdmW * 0.1,vdmY + vdmH * 0.11);
-            image(money, vdmX + vdmW * 0.45,vdmY + vdmH * 0.12);
-         fill(255);
-            text(player.globalSan,vdmX + vdmW * 0.16,vdmY + vdmH * 0.16);
-            text(player.money,vdmX + vdmW * 0.51,vdmY + vdmH * 0.16);
             shop.drawItemDetail();
-            // shop.drawError();
-            showMessage("You are not able to buy this item,either because you don't have enough money,orbecause this item is no use to you.",4000,new PVector(width/2, height/4));
+       
+            
         } else{
             //shop page
+            //SAN and money
             image(shopbg,vdmX,vdmY); 
-            image(SANimg,vdmX + vdmW * 0.1,vdmY + vdmH * 0.11);
-            image(money, vdmX + vdmW * 0.45,vdmY + vdmH * 0.12);
+            image(SANimg,vdmX - vdmW * 0.4,vdmY - vdmH * 0.36);
+            image(money, vdmX,vdmY - vdmH * 0.36);
             fill(0);
-            text(player.globalSan,vdmX + vdmW * 0.16,vdmY + vdmH * 0.16);
-            text(player.money,vdmX + vdmW * 0.51,vdmY + vdmH * 0.16);
+            text(player.globalSan,vdmX - vdmW * 0.38,vdmY - vdmH * 0.35);
+            text(player.money,vdmX + vdmW * 0.02,vdmY - vdmH * 0.35);
          
-            image(addtotalsan,vdmX + vdmW * 0.15, vdmY + vdmH * 0.33);
-            image(addgain,vdmX + vdmW * 0.32, vdmY + vdmH * 0.37);
-            image(easeloss,vdmX + vdmW * 0.47, vdmY + vdmH * 0.37);
-            image(addsan,vdmX + vdmW * 0.15, vdmY + vdmH * 0.57);
-            image(sanToM,vdmX + vdmW * 0.3, vdmY + vdmH * 0.57);
+         //items
+            sanMedicine.drawButton();
+            redChip.drawButton();
+            greenChip.drawButton();
+            sedative.drawButton();
+            sanToMoney.drawButton();
        }
 
-        if (buystate) {
-         buy();
-         buystate = false;
-       }
+    //     if (buystate) {
+    //      buy();
+    //      buystate = false;
+    //    }
   }
   
-//     void drawError() {
-//         if (errorState) {
-//             if (millis() - startTime < 4000) {
-//                 textSize(vdmH * 0.04);
-//                 text("You are not able to buy this item,",50,displayHeight * 0.8);
-//                 text("either because you don't have enough money, ",50,displayHeight * 0.85);
-//                 text("orbecause this item is no use to you.",50,displayHeight * 0.9);
-//           } 
-//       }
-//   }
+
   
     void drawItemDetail() {
-    // fill(#5873B9);
-    // noStroke();
+        image(SANimg,vdmX - vdmW * 0.4,vdmY - vdmH * 0.36);
+        image(money, vdmX,vdmY - vdmH * 0.36);
+        fill(255);
+        text(player.globalSan,vdmX - vdmW * 0.38,vdmY - vdmH * 0.35);
+        text(player.money,vdmX + vdmW * 0.02,vdmY - vdmH * 0.35);
+
         float rectW = displayWidth * 0.4;
         float rectH = displayHeight * 0.45;
-    //buttons
-    // fill(#F5A31E);
-    //     rect(displayWidth / 2 - rectW * 0.2,displayHeight / 2 + rectH * 0.3, rectW * 0.3,rectH * 0.2);
-    // fill(#B1C6F7);
-    //     rect(displayWidth / 2 + rectW * 0.2,displayHeight / 2 + rectH * 0.3, rectW * 0.3,rectH * 0.2);
-    // fill(#203874);
-    // float buy = textWidth("Buy");
-    // float cancel = textWidth("Cancel");
-    //     text("Buy",displayWidth / 2 - rectW * 0.2 - buy / 2,displayHeight / 2 + rectH * 0.32);
-    //     text("Cancel",displayWidth / 2 + rectW * 0.2 - cancel / 2,displayHeight / 2 + rectH * 0.32);
-    buy.drawButton();
+
+        buy.drawButton();
+        cancel.drawButton();
     
-    PImage temp = SANimg;
+        PImage temp = SANimg;
     
-        float textX = displayWidth / 2 - rectW * 0.1;
-        float textY = displayHeight / 2 - rectH * 0.2;
-    fill(255);
+        float textX = displayWidth / 2 - rectW * 0.05;
+        float textY = displayHeight / 2 - rectH * 0.4;
+        fill(255);
         textSize(rectH * 0.08);
+        textAlign(LEFT,TOP);
         switch(itemstate) {
             case 1:
-         temp = addtotalsan;
-         text("Mysterious Medicine",textX,textY);
+                temp = addtotalsan;
+                text("Mysterious Medicine",textX,textY);
                 text("Increase your total SAN.",textX,textY + rectH * 0.1);
          break;
             case 2:
-         temp = addgain;
-         text("Headphone Plugin Chip A",textX,textY);
+                temp = addgain;
+                text("Headphone Plugin Chip A",textX,textY);
                 text("Increase the san gain",textX,textY + rectH * 0.1);
                 text("of perparry.",textX,textY + rectH * 0.2);
          break; 
             case 3:
-         temp = easeloss;
-         text("Headphone Plugin Chip B",textX,textY);
+                temp = easeloss;
+                text("Headphone Plugin Chip B",textX,textY);
                 text("Decrease the san loss",textX,textY + rectH * 0.1);
                 text("of permiss.",textX,textY + rectH * 0.2);
          break;
             case 4:
-         temp = addsan;
-         text("IFIB Sedative",textX,textY);
+                temp = addsan;
+                text("IFIB Sedative",textX,textY);
                 text("Increase the san value ",textX,textY + rectH * 0.1);
                 text("of thenext battle.",textX,textY + rectH * 0.2);
          break;
             case 5:
-         temp = sanToM;
+                temp = sanToM;
                 text("\"Greedy Human\"",textX + rectW * 0.1,textY);
                 text("Transform your SAN",textX + rectW * 0.1,textY + rectH * 0.1);
                 text("into money.",textX + rectW * 0.1,textY + rectH * 0.2);
          break;
       //default:
     }
-
-    //temp.resize(int(rectH*0.27/temp.height*temp.width),int(rectH*0.27));
         image(temp, displayWidth / 2 - rectW * 0.25 - temp.width / 2,displayHeight / 2 - rectH * 0.3);
-
-    
-    
   }
   
-    int typeSelect(int x, int y) {
-        if (x > vdmX + vdmW * 0.1 && x < vdmX + vdmW * 0.28 && y > vdmY + vdmH * 0.3 && y < vdmY + vdmH * 0.5)
-      return 1;
-        if (x > vdmX + vdmW * 0.28 && x < vdmX + vdmW * 0.44 && y > vdmY + vdmH * 0.3 && y < vdmY + vdmH * 0.5)
-      return 2;
-        if (x > vdmX + vdmW * 0.44 && x < vdmX + vdmW * 0.6 && y > vdmY + vdmH * 0.3 && y < vdmY + vdmH * 0.5)
-      return 3;
-        if (x > vdmX + vdmW * 0.1 && x < vdmX + vdmW * 0.28 && y > vdmY + vdmH * 0.5 && y < vdmY + vdmH * 0.7)
-      return 4;
-        if (x > vdmX + vdmW * 0.28 && x < vdmX + vdmW * 0.44 && y > vdmY + vdmH * 0.5 && y < vdmY + vdmH * 0.7)
-      return 5;
-    return 0;
-  }
   
-    void buy() {
+    void buyItem() {
      int sIncre = 5;
      int sDecre = 1;
      int mDecre = 15;
@@ -184,29 +162,26 @@ final class Shop{
         switch(itemstate) {
           case 1 :
                 if (player.globalSan + sIncre <= 100 && player.money - mDecre >= 0) {
-               player.globalSan += sIncre;
-               player.money -= mDecre;
+                    player.globalSan += sIncre;
+                    player.money -= mDecre;
                 } else{
                     startTime = millis();
-               errorState = true;
-             }     
+                    errorState = true;
+                }     
              break;
           case 2 :
              break; 
           case 3 :
-    
-
              break;
           case 4 :
-
              break;
           case 5 :
                 if (player.globalSan - sDecre >= 10) {
-               player.globalSan -= sDecre;
-               player.money += mIncre;
+                    player.globalSan -= sDecre;
+                    player.money += mIncre;
                 } else{
                     startTime = millis();
-               errorState = true;
+                    errorState = true;
              }     
              break;
       }
@@ -218,21 +193,54 @@ final class Shop{
         ConfirmButton(float x, float y, float w, float h, int defaultColor, int hoverColor, String name) {
             super(x, y, w, h, defaultColor, hoverColor);
             this.name = name;
-            fill(255);
-            text(name,x + w/2 - name.length()/2, y - h/2);
         }
+
+        @Override
+        public void drawButton() {
+            super.drawButton();
+            fill(255);
+            textAlign(CENTER, CENTER);
+            text(name,x,y);
+        }
+
         void onPressAction() {
             switch(name) {
                 case "Buy":
-
+                    buyItem();
+                    if(errorState){
+                        showMessage("You are not able to buy this item,either because you don't have enough money,orbecause this item is no use to you.",4000,new PVector(width/2, height/4));
+                        errorState = false;
+                    }
                     break;
                 case "Cancel":
-
+                    itemstate = 0;
+                    shopstate = 0;
                     break;
             }
         }
     }
-    
+
+    class ItemButton extends Button {
+        PImage buttonImage;
+        int type;
+        ItemButton(float x, float y, float w, float h, int defaultColor, int hoverColor, PImage img, int type) {
+            super(x, y, w, h, defaultColor, hoverColor);
+            this.buttonImage = img;
+            this.type = type;
+        }
+
+        @Override
+        public void drawButton() {
+            super.drawButton();
+            image(buttonImage, x,y);
+        }
+
+        void onPressAction() {
+            itemstate = type;
+            shopstate = 1;
+        }
+    }
+
     class SPButton extends Button {
         int type;
         SPButton(float x, float y, float w, float h, int defaultColor, int hoverColor, int type) {

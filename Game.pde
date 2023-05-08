@@ -292,32 +292,32 @@ void showMessage(String message, int time, PVector position) {
     messageAlpha = 0;
 }
 
-void mousePressed() {
-    float rectW = displayWidth * 0.4;
-    float rectH = displayHeight * 0.45;
-    //type select
-    if (!(mouseX > displayWidth / 2 - displayWidth * 0.2 && mouseX < displayWidth / 2 + displayWidth * 0.2 && mouseY > displayHeight / 2 - displayHeight * 0.22 && mouseY < displayHeight / 2 + displayHeight * 0.22)) {
-        shop.shopstate = 0;
-    }
-    if (shop.shopstate == 0) {
-        shop.itemstate = shop.typeSelect(mouseX, mouseY);      
-    }
+// void mousePressed() {
+//     float rectW = displayWidth * 0.4;
+//     float rectH = displayHeight * 0.45;
+//     //type select
+//     if (!(mouseX > displayWidth / 2 - displayWidth * 0.2 && mouseX < displayWidth / 2 + displayWidth * 0.2 && mouseY > displayHeight / 2 - displayHeight * 0.22 && mouseY < displayHeight / 2 + displayHeight * 0.22)) {
+//         shop.shopstate = 0;
+//     }
+//     if (shop.shopstate == 0) {
+//         shop.itemstate = shop.typeSelect(mouseX, mouseY);      
+//     }
     
-    if (shop.itemstate != 0) {
-        shop.shopstate = 1;
+//     if (shop.itemstate != 0) {
+//         shop.shopstate = 1;
         
-    }
+//     }
     
-    if (shop.shopstate == 1) {
+//     if (shop.shopstate == 1) {
         
-        if (mouseX > displayWidth / 2 - rectW * 0.35 && mouseX < displayWidth / 2 - rectW * 0.05 && mouseY > displayHeight / 2 + rectH * 0.2 && mouseY < displayHeight / 2 + rectH * 0.4) {
-            //buy
-            shop.buystate = true;
-        }
-        if (mouseX > displayWidth / 2 + rectW * 0.05 && mouseX < displayWidth / 2 + rectW * 0.35 && mouseY > displayHeight / 2 + rectH * 0.2 && mouseY < displayHeight / 2 + rectH * 0.4) {
-            //cancel
-            shop.shopstate = 0;
-            shop.errorState = false;
-        }
-    }
-}
+//         if (mouseX > displayWidth / 2 - rectW * 0.35 && mouseX < displayWidth / 2 - rectW * 0.05 && mouseY > displayHeight / 2 + rectH * 0.2 && mouseY < displayHeight / 2 + rectH * 0.4) {
+//             //buy
+//             shop.buystate = true;
+//         }
+//         if (mouseX > displayWidth / 2 + rectW * 0.05 && mouseX < displayWidth / 2 + rectW * 0.35 && mouseY > displayHeight / 2 + rectH * 0.2 && mouseY < displayHeight / 2 + rectH * 0.4) {
+//             //cancel
+//             shop.shopstate = 0;
+//             shop.errorState = false;
+//         }
+//     }
+// }
