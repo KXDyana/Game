@@ -39,6 +39,11 @@ PFont ft;
 //images
 PImage money;
 PImage SANimg;
+PImage bgpic1,bgpic2,bgpic3,bgpic4,bgpic5;
+PImage bossPic1,bossPic2,bossPic3,bossPic4,bossPic5;
+
+
+
 
 
 // use a boolean array to register key presses
@@ -102,7 +107,25 @@ void setup() {
     shop = new Shop();
     money = loadImage("res/sprites/shoppic/money.png");
     SANimg = loadImage("res/sprites/shoppic/SAN.png");
-    
+
+    bgpic1 = loadImage("res/sprites/bgpic/1-shuttle.png");
+    bgpic2 = loadImage("res/sprites/bgpic/2-room.png");
+    bgpic3 = loadImage("res/sprites/bgpic/3-castle.png");
+    bgpic4 = loadImage("res/sprites/bgpic/4-cabin.jpg");
+    bgpic5 = loadImage("res/sprites/bgpic/5-venue.png");
+
+    bossPic1 = loadImage("res/sprites/1-bloatedwoman-monster.png");
+    bossPic2 = loadImage("res/sprites/2-floatinghorror.png");
+    bossPic3 = loadImage("res/sprites/3-night.png");
+    bossPic4 = loadImage("res/sprites/4-howler.png");
+    bossPic5 = loadImage("res/sprites/5-blackPharaoh.png");
+
+    bgpic1.resize(width,height);
+    bgpic2.resize(width,height);
+    bgpic3.resize(width,height);
+    bgpic4.resize(width,height);
+    bgpic5.resize(width,height);
+
     bulletRadius = player.playerRadius / 10;
     bullet1 = loadImage("res/sprites/bullet/bullet1.png");
     bullet2 = loadImage("res/sprites/bullet/bullet1.png");
@@ -112,6 +135,7 @@ void setup() {
 
 void draw() {
     background(DARK_GREY);
+    // image(bgpic1,width/2,height/2);
     switch(state) {
         case STATE_MENU:
             showMenu(); break;

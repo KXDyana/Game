@@ -4,6 +4,7 @@ public class Level {
     public LevelBoss boss;
     public PApplet game;
     public PVector battlePlayerPosition;
+    PImage background = money;
 
 
     int menuButtonColor = LIGHT_PURPLE;
@@ -12,7 +13,6 @@ public class Level {
 
     public Level(PApplet game, int levelNumber) {
         battlePlayerPosition = new PVector(game.width  / 5, game.height * 3 / 4);
-        
         this.levelNumber = levelNumber;
         this.game = game;
         
@@ -20,27 +20,36 @@ public class Level {
         {
             case 0:
                 boss = new LevelBoss(game, "res/beatFile/2. FFXIV - stasis loop.mp3.json", 3400);
+                break;
             case 1:
-                boss = new LevelBoss(game, "res/beatFile/the bloated woman.mp3.json", 3350);
+                boss = new LevelBoss(game, "res/beatFile/the bloated woman.mp3.json", 3350,bossPic1);
+                
                 break;
             case 2:
-                boss = new LevelBoss(game, "res/beatFile/the floated horror.mp3.json", 3200);
+                boss = new LevelBoss(game, "res/beatFile/the floated horror.mp3.json", 3200,bossPic2);
+                
                 break;
             case 3:
-                boss = new LevelBoss(game, "res/beatFile/1. MSR - Endospore.mp3.json", 3000);
+                boss = new LevelBoss(game, "res/beatFile/1. MSR - Endospore.mp3.json", 3000,bossPic3);
+                
                 break;
             case 4:
-                boss = new LevelBoss(game, "res/beatFile/the haunter of dark.mp3.json", 2800);
+                boss = new LevelBoss(game, "res/beatFile/the haunter of dark.mp3.json", 2800,bossPic4);
+                
                 break;
             case 5:
-                boss = new LevelBoss(game, "res/beatFile/william.mp3.json", 3400);
+                boss = new LevelBoss(game, "res/beatFile/william.mp3.json", 3400,bossPic5);
+                
                 break;
         }
+        // background.resize(width,height);
     }
     
     public void drawLevel() {
+        // image(background,width/2,height/2);
         boss.drawBoss();
         back.drawButton();
+        
     }
     
     public void updateLevel() {
