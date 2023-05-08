@@ -39,11 +39,12 @@ PFont ft;
 //images
 PImage money;
 PImage SANimg;
+PImage menubg,shipbg;
 PImage bgpic0,bgpic1,bgpic2,bgpic3,bgpic4,bgpic5;
 PImage bossPic1,bossPic2,bossPic3,bossPic4,bossPic5;
+PImage icon1,icon2,icon3,icon4,icon5;
 
-ArrayList<PImage> bossImages;
-ArrayList<PImage> bgpics;
+int centerx,centery;
 
 
 
@@ -95,9 +96,9 @@ void setup() {
     player.position.x = width / 2;
     player.position.y = height * 4 / 5;
     menu = new Menu(this);
-    levelSelect = new LevelSelect(this);
-    levelCreator = new LevelCreator(this);
-    battleView = new BattleView(this);
+    // levelSelect = new LevelSelect(this);
+    // levelCreator = new LevelCreator(this);
+    // battleView = new BattleView(this);
     
     minim = new Minim(this);
     bullet1Arrive = minim.loadSample("res/audioEffect/bullet1Spawn.mp3");
@@ -106,18 +107,27 @@ void setup() {
     laserCharge = minim.loadSample("res/audioEffect/laserCharge.mp3");
     laserCharge.setGain(4);
     laserShoot = minim.loadSample("res/audioEffect/laserShoot.mp3");
+
+    centerx = width/2;
+    centery = height/2;
     
     shop = new Shop();
     money = loadImage("res/sprites/shoppic/money.png");
     SANimg = loadImage("res/sprites/shoppic/SAN.png");
 
-    bgpic0 = loadImage("res/sprites//bgpic/tutorial.png");
+    menubg = loadImage("res/sprites/bgpic/menubg.png");
+    shipbg = loadImage("res/sprites/bgpic/ship.png");
+
+
+
+    bgpic0 = loadImage("res/sprites/bgpic/tutorial.png");
     bgpic1 = loadImage("res/sprites/bgpic/1-shuttle.png");
     bgpic2 = loadImage("res/sprites/bgpic/2-room.png");
     bgpic3 = loadImage("res/sprites/bgpic/3-castle.png");
     bgpic4 = loadImage("res/sprites/bgpic/4-cabin.png");
     bgpic5 = loadImage("res/sprites/bgpic/5-venue.png");
 
+    menubg.resize(width,height);
     bgpic0.resize(width,height);
     bgpic1.resize(width,height);
     bgpic2.resize(width,height);
@@ -125,13 +135,7 @@ void setup() {
     bgpic4.resize(width,height);
     bgpic5.resize(width,height);
 
-    bgpics = new ArrayList<PImage>();
-    bgpics.add(bgpic0);
-    bgpics.add(bgpic1);
-    bgpics.add(bgpic2);
-    bgpics.add(bgpic3);
-    bgpics.add(bgpic4);
-    bgpics.add(bgpic5);
+
 
 
     bossPic1 = loadImage("res/sprites/1-bloatedwoman-monster.png");
@@ -140,13 +144,13 @@ void setup() {
     bossPic4 = loadImage("res/sprites/4-howler.png");
     bossPic5 = loadImage("res/sprites/5-blackPharaoh.png");
 
-    bossImages = new ArrayList<PImage>();
-    bossImages.add(money);
-    bossImages.add(bossPic1);
-    bossImages.add(bossPic2);
-    bossImages.add(bossPic3);
-    bossImages.add(bossPic4);
-    bossImages.add(bossPic5);
+
+
+    icon1 = loadImage("res/sprites/icon/1-icon.png");
+    icon2 = loadImage("res/sprites/icon/2-icon.png");
+    icon3 = loadImage("res/sprites/icon/3-icon.png");
+    icon4 = loadImage("res/sprites/icon/4-icon.png");
+    icon5 = loadImage("res/sprites/icon/5-icon.png");
     
 
     bulletRadius = player.playerRadius / 10;
@@ -154,11 +158,16 @@ void setup() {
     bullet2 = loadImage("res/sprites/bullet/bullet1.png");
     bullet1.resize((int)bulletRadius  * 5 / 2,(int)bulletRadius * 5 / 2);
     bullet2.resize((int)bulletRadius * 5 / 2,(int)bulletRadius * 5 / 2);
+
+
+    levelSelect = new LevelSelect(this);
+    levelCreator = new LevelCreator(this);
+    battleView = new BattleView(this);
 }
 
 void draw() {
     background(DARK_GREY);
-    // image(bossPic1,width/2,height/2);
+
     switch(state) {
         case STATE_MENU:
             showMenu(); break;

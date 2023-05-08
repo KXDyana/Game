@@ -22,14 +22,12 @@ class LevelSelect {
         this.levelSelectPlayerPosition = new PVector(game.width / 2,  game.height / 2);
         this.levels = new Level[6];
         
-        levels[0] = new Level(game, 0);
-        levels[1] = new Level(game, 1);
-        levels[2] = new Level(game, 2);
-        levels[3] = new Level(game, 3);
-        levels[4] = new Level(game, 4);
-        levels[5] = new Level(game, 5);
-        
-        
+        levels[0] = new Level(game, 0,bgpic0,money);
+        levels[1] = new Level(game, 1,bgpic1,icon1);
+        levels[2] = new Level(game, 2,bgpic2,icon2);
+        levels[3] = new Level(game, 3,bgpic3,icon3);
+        levels[4] = new Level(game, 4,bgpic0,icon4);
+        levels[5] = new Level(game, 5,bgpic5,icon5);
         
     }
     

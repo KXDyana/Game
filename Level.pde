@@ -5,6 +5,8 @@ public class Level {
     public PApplet game;
     public PVector battlePlayerPosition;
     public PImage background;
+    int imgx,imgy;
+
     
     
     int menuButtonColor = LIGHT_PURPLE;
@@ -13,37 +15,39 @@ public class Level {
 
     public LevelButton lb;
 
-    public Level(PApplet game, int levelNumber) {
+    public Level(PApplet game, int levelNumber,PImage bgimg, PImage iconimg) {
         battlePlayerPosition = new PVector(game.width  / 5, game.height * 3 / 4);
         this.levelNumber = levelNumber;
         this.game = game;
-        lb = new LevelButton(game.width / 2, game.height / 2, levelNumber, PINK);
-        // this.background = bgpics.get(levelNumber);
+        this.background = bgimg;
+        lb = new LevelButton(game.width / 2, game.height / 2, levelNumber, PINK,iconimg);
 
+        imgx = game.width/2;
+        imgy = game.height/2;
         
         switch(levelNumber)
         {
             case 0:
-                boss = new LevelBoss(game, "res/beatFile/2. FFXIV - stasis loop.mp3.json", 3400,0);
+                boss = new LevelBoss(game, "res/beatFile/2. FFXIV - stasis loop.mp3.json", 3400,0,money);
                 break;
             case 1:
-                boss = new LevelBoss(game, "res/beatFile/the bloated woman.mp3.json", 3350,1 );
+                boss = new LevelBoss(game, "res/beatFile/the bloated woman.mp3.json", 3350,1,bossPic1);
                 
                 break;
             case 2:
-                boss = new LevelBoss(game, "res/beatFile/the floated horror.mp3.json", 3200,2);
+                boss = new LevelBoss(game, "res/beatFile/the floated horror.mp3.json", 3200,2,bossPic2);
                 
                 break;
             case 3:
-                boss = new LevelBoss(game, "res/beatFile/1. MSR - Endospore.mp3.json", 3000,3);
+                boss = new LevelBoss(game, "res/beatFile/1. MSR - Endospore.mp3.json", 3000,3,bossPic3);
                 
                 break;
             case 4:
-                boss = new LevelBoss(game, "res/beatFile/the haunter of dark.mp3.json", 2800,4);
+                boss = new LevelBoss(game, "res/beatFile/the haunter of dark.mp3.json", 2800,4,bossPic4);
                 
                 break;
             case 5:
-                boss = new LevelBoss(game, "res/beatFile/william.mp3.json", 3400,5);
+                boss = new LevelBoss(game, "res/beatFile/william.mp3.json", 3400,5,bossPic5);
                 
                 break;
         }
@@ -51,7 +55,7 @@ public class Level {
     }
     
     public void drawLevel() {
-        // image(background, width / 2, height / 2);
+        // image(background,imgx, imgy);
         boss.drawBoss();
         back.drawButton();
         
@@ -85,12 +89,17 @@ public class Level {
             int defaultColor = PINK;
             int currentColor = PINK;
             int hoverColor = RED;
+
+            PImage icon;
+
+            // PImage levelIcon;
             
-            LevelButton(float x, float y, int levelNumber, int defaultColor) {
+            LevelButton(float x, float y, int levelNumber, int defaultColor,PImage iconimg) {
                 this.x = x;
                 this.y = y;
                 this.levelNumber = levelNumber;
                 this.defaultColor = defaultColor;
+                this.icon = iconimg;
             }
             
             void setPosition(float x, float y) {
@@ -110,9 +119,11 @@ public class Level {
                 game.fill(currentColor, alpha);
                 noStroke();
                 game.ellipse(x, y, radius, radius); // Draw the circle for the level
-                game.fill(GREEN);
+                game.fill(255);
                 textAlign(CENTER, CENTER);
-                game.text(levelNumber, x, y); // Draw the level number
+                textSize(radius*0.3);
+                game.text(levelNumber, x, y + game.height*0.1); // Draw the level number
+                image(this.icon,x,y);
             }
             
             boolean isMouseHovering() {

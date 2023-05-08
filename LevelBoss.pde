@@ -43,7 +43,7 @@ public class LevelBoss {
     
     public int levelNumber;
     
-    public LevelBoss(PApplet game, String levelFileName, int beatGenerationDelay, int levelNumber) {
+    public LevelBoss(PApplet game, String levelFileName, int beatGenerationDelay, int levelNumber,PImage img) {
         this.game = game;
         this.beats = new ArrayList<>();
         this.radius = proportion * width * 0.05;
@@ -52,7 +52,7 @@ public class LevelBoss {
         this.levelFileName = levelFileName;
         this.beatGenerationDelay = beatGenerationDelay;
         this.levelNumber = levelNumber;
-        // this.bossImage = game.bossImages.get(levelNumber);
+        this.bossImage = img;
 
         loadLevelData(levelFileName);
         minim = new Minim(game);
@@ -128,7 +128,7 @@ public class LevelBoss {
     
     
     public void drawBoss() {
-        // image(bossImage, position.x, position.y);
+        image(bossImage, position.x, position.y);
         updateBoss();
         ellipseMode(CENTER);    
         fill(enemyColor);
