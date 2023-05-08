@@ -39,8 +39,11 @@ PFont ft;
 //images
 PImage money;
 PImage SANimg;
-PImage bgpic1,bgpic2,bgpic3,bgpic4,bgpic5;
+PImage bgpic0,bgpic1,bgpic2,bgpic3,bgpic4,bgpic5;
 PImage bossPic1,bossPic2,bossPic3,bossPic4,bossPic5;
+
+ArrayList<PImage> bossImages;
+ArrayList<PImage> bgpics;
 
 
 
@@ -108,11 +111,28 @@ void setup() {
     money = loadImage("res/sprites/shoppic/money.png");
     SANimg = loadImage("res/sprites/shoppic/SAN.png");
 
+    bgpic0 = loadImage("res/sprites/tutorial.png");
     bgpic1 = loadImage("res/sprites/bgpic/1-shuttle.png");
     bgpic2 = loadImage("res/sprites/bgpic/2-room.png");
     bgpic3 = loadImage("res/sprites/bgpic/3-castle.png");
-    bgpic4 = loadImage("res/sprites/bgpic/4-cabin.jpg");
+    bgpic4 = loadImage("res/sprites/bgpic/4-cabin.png");
     bgpic5 = loadImage("res/sprites/bgpic/5-venue.png");
+
+    bgpic0.resize(width,height);
+    bgpic1.resize(width,height);
+    bgpic2.resize(width,height);
+    bgpic3.resize(width,height);
+    bgpic4.resize(width,height);
+    bgpic5.resize(width,height);
+
+    bgpics = new ArrayList<PImage>();
+    bgpics.add(bgpic0);
+    bgpics.add(bgpic1);
+    bgpics.add(bgpic2);
+    bgpics.add(bgpic3);
+    bgpics.add(bgpic4);
+    bgpics.add(bgpic5);
+
 
     bossPic1 = loadImage("res/sprites/1-bloatedwoman-monster.png");
     bossPic2 = loadImage("res/sprites/2-floatinghorror.png");
@@ -120,11 +140,14 @@ void setup() {
     bossPic4 = loadImage("res/sprites/4-howler.png");
     bossPic5 = loadImage("res/sprites/5-blackPharaoh.png");
 
-    bgpic1.resize(width,height);
-    bgpic2.resize(width,height);
-    bgpic3.resize(width,height);
-    bgpic4.resize(width,height);
-    bgpic5.resize(width,height);
+    bossImages = new ArrayList<PImage>();
+    bossImages.add(money);
+    bossImages.add(bossPic1);
+    bossImages.add(bossPic2);
+    bossImages.add(bossPic3);
+    bossImages.add(bossPic4);
+    bossImages.add(bossPic5);
+    
 
     bulletRadius = player.playerRadius / 10;
     bullet1 = loadImage("res/sprites/bullet/bullet1.png");
@@ -135,7 +158,7 @@ void setup() {
 
 void draw() {
     background(DARK_GREY);
-    // image(bgpic1,width/2,height/2);
+    // image(bossPic1,width/2,height/2);
     switch(state) {
         case STATE_MENU:
             showMenu(); break;

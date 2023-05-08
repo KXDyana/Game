@@ -4,6 +4,8 @@ public class Level {
     public LevelBoss boss;
     public PApplet game;
     public PVector battlePlayerPosition;
+    public PImage background;
+    
     
     int menuButtonColor = LIGHT_PURPLE;
     int hoverButtonColor = RED;
@@ -16,32 +18,32 @@ public class Level {
         this.levelNumber = levelNumber;
         this.game = game;
         lb = new LevelButton(game.width / 2, game.height / 2, levelNumber, PINK);
-
+        // this.background = bgpics.get(levelNumber);
 
         
         switch(levelNumber)
         {
             case 0:
-                boss = new LevelBoss(game, "res/beatFile/2. FFXIV - stasis loop.mp3.json", 3400);
+                boss = new LevelBoss(game, "res/beatFile/2. FFXIV - stasis loop.mp3.json", 3400,0);
                 break;
             case 1:
-                boss = new LevelBoss(game, "res/beatFile/the bloated woman.mp3.json", 3350,bossPic1);
+                boss = new LevelBoss(game, "res/beatFile/the bloated woman.mp3.json", 3350,1 );
                 
                 break;
             case 2:
-                boss = new LevelBoss(game, "res/beatFile/the floated horror.mp3.json", 3200,bossPic2);
+                boss = new LevelBoss(game, "res/beatFile/the floated horror.mp3.json", 3200,2);
                 
                 break;
             case 3:
-                boss = new LevelBoss(game, "res/beatFile/1. MSR - Endospore.mp3.json", 3000,bossPic3);
+                boss = new LevelBoss(game, "res/beatFile/1. MSR - Endospore.mp3.json", 3000,3);
                 
                 break;
             case 4:
-                boss = new LevelBoss(game, "res/beatFile/the haunter of dark.mp3.json", 2800,bossPic4);
+                boss = new LevelBoss(game, "res/beatFile/the haunter of dark.mp3.json", 2800,4);
                 
                 break;
             case 5:
-                boss = new LevelBoss(game, "res/beatFile/william.mp3.json", 3400,bossPic5);
+                boss = new LevelBoss(game, "res/beatFile/william.mp3.json", 3400,5);
                 
                 break;
         }
@@ -49,7 +51,7 @@ public class Level {
     }
     
     public void drawLevel() {
-        // image(background,width/2,height/2);
+        // image(background, width / 2, height / 2);
         boss.drawBoss();
         back.drawButton();
         

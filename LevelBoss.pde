@@ -17,8 +17,6 @@ public class LevelBoss {
     AudioPlayer audioPlayer;
     public float radius;
 
-    public PImage bossImage;
-    
     
     private int numberOfBulletSpawns = 8;
     public PVector[] bulletSpawnPos = new PVector[numberOfBulletSpawns];
@@ -41,9 +39,11 @@ public class LevelBoss {
     public int beatGenerationDelay = 3400;        // based on the bpm of the music
     
     String levelFileName;
+    PImage bossImage;
     
+    public int levelNumber;
     
-    public LevelBoss(PApplet game, String levelFileName, int beatGenerationDelay, PImage img) {
+    public LevelBoss(PApplet game, String levelFileName, int beatGenerationDelay, int levelNumber) {
         this.game = game;
         this.beats = new ArrayList<>();
         this.radius = proportion * width * 0.05;
@@ -51,7 +51,9 @@ public class LevelBoss {
         this.targetPosition = position;
         this.levelFileName = levelFileName;
         this.beatGenerationDelay = beatGenerationDelay;
-        this.bossImage = img;
+        this.levelNumber = levelNumber;
+        // this.bossImage = game.bossImages.get(levelNumber);
+
         loadLevelData(levelFileName);
         minim = new Minim(game);
         audioPlayer = minim.loadFile(musicFile, 2048);
@@ -126,12 +128,13 @@ public class LevelBoss {
     
     
     public void drawBoss() {
+        // image(bossImage, position.x, position.y);
         updateBoss();
         ellipseMode(CENTER);    
-        // fill(enemyColor);
-        // noStroke();
+        fill(enemyColor);
+        noStroke();
         // ellipse(position.x, position.y, radius, radius);  // draw player body
-        image(bossImage,position.x, position.y);
+       
 
 
         for (Bullet b : bullets) {
