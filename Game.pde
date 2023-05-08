@@ -8,9 +8,11 @@ static final int ORANGE = #ff8c00;
 static final int PURPLE = #2f245a;
 static final int LIGHT_PURPLE = #8c71e9;
 static final int RED = #b20000;
+static final int DARK_RED = #5c1010;
 static final int PINK = #c15858;
 static final int BLUE = #5588ff;
 static final int GREEN = #00b200;
+static final int BLACK = #000000;
 
 // states
 static final int STATE_MENU = 0;
@@ -91,9 +93,9 @@ void setup() {
     
     bulletRadius = player.playerRadius / 10;
     bullet1 = loadImage("res/sprites/bullet/bullet1.png");
-    bullet2 = loadImage("res/sprites/bullet/bullet2.png");
+    bullet2 = loadImage("res/sprites/bullet/bullet1.png");
     bullet1.resize((int)bulletRadius  * 5 / 2,(int)bulletRadius * 5 / 2);
-    bullet2.resize((int)bulletRadius * 2,(int)bulletRadius * 2);
+    bullet2.resize((int)bulletRadius * 5 / 2,(int)bulletRadius * 5 / 2);
 }
 
 void draw() {
