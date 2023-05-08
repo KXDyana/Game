@@ -13,7 +13,7 @@ public class Level {
     
     
     public Level(PApplet game, int levelNumber) {
-        battlePlayerPosition = new PVector(game.width  / 5, game.height * 4 / 5);
+        battlePlayerPosition = new PVector(game.width  / 5, game.height * 3 / 4);
         
         this.levelNumber = levelNumber;
         this.game = game;

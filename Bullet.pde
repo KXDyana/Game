@@ -1,5 +1,5 @@
 public class Bullet {
-
+    
     
     
     private PVector position;
@@ -16,20 +16,20 @@ public class Bullet {
     
     public float bulletStayProportion = 0.4;
     
-    public int alpha = 200;
+    public float alpha = 0;
     
     public PVector destination;
     
     boolean isParried = false;
-
+    
     boolean audioTriggered = false;
     
     public Bullet(PVector startPosition, int ID, int type, int gapTime) {
-
-     
-
-
-
+        
+        
+        
+        
+        
         this.position = startPosition.copy();
         this.radius = player.playerRadius / 10; 
         this.ID = ID;
@@ -51,11 +51,14 @@ public class Bullet {
         float distance = startPosition.dist(destination);
         float bulletSpeed = distance / flightTimeFrames;
         this.velocity = PVector.mult(targetDirection, bulletSpeed);
-
+        
     }
     
     public void updateBullet() {
-
+        
+        alpha = lerp(alpha, 210, 0.015);
+        
+        
         if (millis() - spawnTime > stayTime + flightTime && !audioTriggered) {
             bullet1Arrive.trigger();
             audioTriggered = true;
@@ -99,35 +102,35 @@ public class Bullet {
     }
     
     public void drawBullet() {
-    if (isParried) {
-        return;
+        if (isParried) {
+            return;
+        }
+        updateBullet();
+        
+        drawBulletHitBox();
+        
+        imageMode(CENTER);
+        if (type == 1) {
+            image(bullet1, position.x, position.y);
+        } else {
+            image(bullet2, position.x, position.y);
+        }
     }
-    updateBullet();
     
-    drawBulletHitBox();
-   
-    imageMode(CENTER);
-    if (type == 1) {
-        image(bullet1, position.x, position.y);
-    } else {
-        image(bullet2, position.x, position.y);
+    void drawBulletHitBox() {
+        if (type == 1) {
+            fill(PURPLE, alpha);
+        } else {
+            fill(DARK_RED, alpha);
+        }   
+        // Draw the bullet
+        ellipse(position.x, position.y, radius * 2, radius * 2);
+        // textAlign(CENTER);
+        // textSize(20);
+        // fill(255);
+        // text(ID,position.x, position.y - 10);
     }
-}
-
-    void drawBulletHitBox(){
-         if (type == 1) {
-        fill(YELLOW, alpha);
-    } else {
-        fill(RED, alpha);
-    }   
-    // Draw the bullet
-    ellipse(position.x, position.y, radius * 2, radius * 2);
-    textAlign(CENTER);
-    textSize(20);
-    fill(255);
-    text(ID, position.x, position.y - 10);
-    }
-
+    
     
     private PVector findIntersectionPoint(PVector start, PVector circleCenter, float circleRadius) {
         // Calculate the angle between the start and the circle center
