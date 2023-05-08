@@ -14,8 +14,8 @@ class LevelSelect {
     public LSButton shopButton = new LSButton(110, 40, 60, 60, shopButtonColor, hoverButtonColor, 1); 
     public LSButton levelCreatorButton = new LSButton(displayWidth - 40, 40, 60, 60, levelCreatorButtonColor, hoverButtonColor, 2);
     
-    public int[] levelColors = {PINK, PINK, PINK, PINK, PINK};
-    public int[] levelCurrentColors = {PINK, PINK, PINK, PINK, PINK};
+    public int[] levelColors = {PINK, PINK, PINK, PINK, PINK, PINK};
+    public int[] levelCurrentColors = {PINK, PINK, PINK, PINK, PINK, PINK};
     int levelColorHover = RED;
     LevelButton[] levelButtons;
     float levelRadius;
@@ -24,17 +24,19 @@ class LevelSelect {
     LevelSelect(PApplet game) {
         this.game = game;
         this.levelSelectPlayerPosition = new PVector(game.width / 2,  game.height / 2);
-        this.levels = new Level[5];
-        levels[0] = new Level(game, 1);
-        levels[1] = new Level(game, 2);
-        levels[2] = new Level(game, 3);
-        levels[3] = new Level(game, 4);
-        levels[4] = new Level(game, 5);
+        this.levels = new Level[6];
+        
+        levels[0] = new Level(game, 0);
+        levels[1] = new Level(game, 1);
+        levels[2] = new Level(game, 2);
+        levels[3] = new Level(game, 3);
+        levels[4] = new Level(game, 4);
+        levels[5] = new Level(game, 5);
         
         
         this.levelRadius = player.playerRadius;
         
-        levelButtons = new LevelButton[5];
+        levelButtons = new LevelButton[6];
         
         for (int i = 0; i < levels.length; i++) {
             levelButtons[i] = new LevelButton(0, 0, i + 1);
@@ -86,16 +88,16 @@ class LevelSelect {
         void onPressAction() {
             switch(type) {
                 case 0:
-                switchState(STATE_MENU);
-                break;
+                    switchState(STATE_MENU);
+                    break;
                 case 1:
-                switchState(STATE_SHOP);
-                break;
+                    switchState(STATE_SHOP);
+                    break;
                 case 2:
-                switchState(STATE_LEVEL_CREATOR);
-                break;
+                    switchState(STATE_LEVEL_CREATOR);
+                    break;
             }
-
+            
         }
     }
     

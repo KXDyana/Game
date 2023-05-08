@@ -122,7 +122,7 @@ class Player {
         showMessage("Perfect!", 700, new PVector(width / 2, height / 4));
         bullet1Arrive.trigger();
         
-        tempHealth += 2;
+        tempHealth += 0.5;
         if (tempHealth >= 100) tempHealth = 100;
     }
     
@@ -130,7 +130,7 @@ class Player {
         showMessage("Fine!", 700, new PVector(width / 2, height / 4));
         bullet1Arrive.trigger();
         
-        tempHealth += 1;
+        tempHealth += 0.2;
         if (tempHealth >= 100) tempHealth = 100;
     }
     
@@ -138,7 +138,7 @@ class Player {
         showMessage("Perfect!", 700, new PVector(width / 2, height / 4));
         bullet1Arrive.trigger();
         
-        tempHealth += 2;
+        tempHealth += 0.5;
         if (tempHealth >= 100) tempHealth = 100;
         
     }
@@ -147,7 +147,7 @@ class Player {
         showMessage("Fine!", 700, new PVector(width / 2, height / 4));
         bullet1Arrive.trigger();
         
-        tempHealth += 1;
+        tempHealth += 0.2;
         if (tempHealth >= 100) tempHealth = 100;
     }
     

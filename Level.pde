@@ -10,8 +10,6 @@ public class Level {
     int hoverButtonColor = RED;
     public LButton back = new LButton(40, 40, 60, 60, menuButtonColor, hoverButtonColor, 0);
 
-    
-    
     public Level(PApplet game, int levelNumber) {
         battlePlayerPosition = new PVector(game.width  / 5, game.height * 3 / 4);
         
