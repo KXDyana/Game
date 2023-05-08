@@ -168,7 +168,7 @@ void setup() {
 void draw() {
     background(DARK_GREY);
 
-    switch(state) {
+    switch(state) {                                            
         case STATE_MENU:
             showMenu(); break;
         case STATE_LEVEL:
