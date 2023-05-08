@@ -8,6 +8,7 @@ class Player {
     int hitDuration = 200; 
     int hitStartTime = 0;
     
+    ArrayList<Item> itemList = new ArrayList<Item>();
     
     
     PImage[] avatar = new PImage[4];
