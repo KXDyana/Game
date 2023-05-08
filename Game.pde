@@ -14,6 +14,8 @@ static final int BLUE = #5588ff;
 static final int GREEN = #00b200;
 static final int BLACK = #000000;
 static final int CYAN = #00ffff;
+static final int BLUE_PURPLE = #F5A31E;
+static final int LIGHT_ORANGE = #B1C6F7;
 
 // states
 static final int STATE_MENU = 0;

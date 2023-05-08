@@ -21,7 +21,8 @@ final class Shop{
     int menuButtonColor = LIGHT_PURPLE;
     int hoverButtonColor = RED;
     SPButton backButton = new SPButton(40, 40, 60, 60, menuButtonColor, hoverButtonColor, 0);
-    
+    ConfirmButton buy = new ConfirmButton(displayWidth / 2,displayHeight / 2, displayWidth*0.2, displayHeight*0.1,LIGHT_ORANGE,BLUE_PURPLE, "Buy");
+
     
     
     Shop() {
@@ -48,28 +49,29 @@ final class Shop{
   }
   
     void draw() {  
-    
+        textSize(vdmH * 0.05);
         backButton.drawButton();
         
-        textSize(vdmH * 0.05);
-       
-       fill(255);
-        text("item:" + itemstate, 100,100);
-        text("shop:" + shopstate, 100,200);
-        text("buy:" + buystate,100,300);
+        // fill(255);
+        // text("item:" + itemstate, 100,100);
+        // text("shop:" + shopstate, 100,200);
+        // text("buy:" + buystate,100,300);
         if (shop.shopstate == 1) {
+            //detail page
             image(SANimg,vdmX + vdmW * 0.1,vdmY + vdmH * 0.11);
             image(money, vdmX + vdmW * 0.45,vdmY + vdmH * 0.12);
          fill(255);
             text(player.globalSan,vdmX + vdmW * 0.16,vdmY + vdmH * 0.16);
             text(player.money,vdmX + vdmW * 0.51,vdmY + vdmH * 0.16);
             shop.drawItemDetail();
-            shop.drawError();
+            // shop.drawError();
+            showMessage("You are not able to buy this item,either because you don't have enough money,orbecause this item is no use to you.",4000,new PVector(width/2, height/4));
         } else{
-         image(shopbg,vdmX,vdmY); 
+            //shop page
+            image(shopbg,vdmX,vdmY); 
             image(SANimg,vdmX + vdmW * 0.1,vdmY + vdmH * 0.11);
             image(money, vdmX + vdmW * 0.45,vdmY + vdmH * 0.12);
-         fill(0);
+            fill(0);
             text(player.globalSan,vdmX + vdmW * 0.16,vdmY + vdmH * 0.16);
             text(player.money,vdmX + vdmW * 0.51,vdmY + vdmH * 0.16);
          
@@ -80,43 +82,39 @@ final class Shop{
             image(sanToM,vdmX + vdmW * 0.3, vdmY + vdmH * 0.57);
        }
 
-       
         if (buystate) {
          buy();
          buystate = false;
        }
   }
   
-    void drawError() {
-        if (errorState) {
-            if (millis() - startTime < 4000) {
-                textSize(vdmH * 0.04);
-                text("You are not able to buy this item,",50,displayHeight * 0.8);
-                text("either because you don't have enough money, ",50,displayHeight * 0.85);
-                text("orbecause this item is no use to you.",50,displayHeight * 0.9);
-          } 
-      }
-  }
+//     void drawError() {
+//         if (errorState) {
+//             if (millis() - startTime < 4000) {
+//                 textSize(vdmH * 0.04);
+//                 text("You are not able to buy this item,",50,displayHeight * 0.8);
+//                 text("either because you don't have enough money, ",50,displayHeight * 0.85);
+//                 text("orbecause this item is no use to you.",50,displayHeight * 0.9);
+//           } 
+//       }
+//   }
   
     void drawItemDetail() {
-    fill(#5873B9);
-    noStroke();
+    // fill(#5873B9);
+    // noStroke();
         float rectW = displayWidth * 0.4;
         float rectH = displayHeight * 0.45;
-        rect(displayWidth / 2,displayHeight / 2, rectW,rectH);
     //buttons
-    
-    fill(#F5A31E);
-        rect(displayWidth / 2 - rectW * 0.2,displayHeight / 2 + rectH * 0.3, rectW * 0.3,rectH * 0.2);
-    fill(#B1C6F7);
-        rect(displayWidth / 2 + rectW * 0.2,displayHeight / 2 + rectH * 0.3, rectW * 0.3,rectH * 0.2);
-    fill(#203874);
-    float buy = textWidth("Buy");
-    float cancel = textWidth("Cancel");
-        text("Buy",displayWidth / 2 - rectW * 0.2 - buy / 2,displayHeight / 2 + rectH * 0.32);
-        text("Cancel",displayWidth / 2 + rectW * 0.2 - cancel / 2,displayHeight / 2 + rectH * 0.32);
-    
-    
+    // fill(#F5A31E);
+    //     rect(displayWidth / 2 - rectW * 0.2,displayHeight / 2 + rectH * 0.3, rectW * 0.3,rectH * 0.2);
+    // fill(#B1C6F7);
+    //     rect(displayWidth / 2 + rectW * 0.2,displayHeight / 2 + rectH * 0.3, rectW * 0.3,rectH * 0.2);
+    // fill(#203874);
+    // float buy = textWidth("Buy");
+    // float cancel = textWidth("Cancel");
+    //     text("Buy",displayWidth / 2 - rectW * 0.2 - buy / 2,displayHeight / 2 + rectH * 0.32);
+    //     text("Cancel",displayWidth / 2 + rectW * 0.2 - cancel / 2,displayHeight / 2 + rectH * 0.32);
+    buy.drawButton();
     
     PImage temp = SANimg;
     
@@ -173,12 +171,8 @@ final class Shop{
       return 3;
         if (x > vdmX + vdmW * 0.1 && x < vdmX + vdmW * 0.28 && y > vdmY + vdmH * 0.5 && y < vdmY + vdmH * 0.7)
       return 4;
-    
-    //if(player.SAN < 100){
         if (x > vdmX + vdmW * 0.28 && x < vdmX + vdmW * 0.44 && y > vdmY + vdmH * 0.5 && y < vdmY + vdmH * 0.7)
-        return 5;
-    //}
-    
+      return 5;
     return 0;
   }
   
@@ -217,6 +211,27 @@ final class Shop{
              break;
       }
   }
+
+
+    class ConfirmButton extends Button {
+        String name;
+        ConfirmButton(float x, float y, float w, float h, int defaultColor, int hoverColor, String name) {
+            super(x, y, w, h, defaultColor, hoverColor);
+            this.name = name;
+            fill(255);
+            text(name,x + w/2 - name.length()/2, y - h/2);
+        }
+        void onPressAction() {
+            switch(name) {
+                case "Buy":
+
+                    break;
+                case "Cancel":
+
+                    break;
+            }
+        }
+    }
     
     class SPButton extends Button {
         int type;

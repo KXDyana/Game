@@ -8,9 +8,7 @@ class Player {
     int hitDuration = 200; 
     int hitStartTime = 0;
     
-    ArrayList<Item> itemList = new ArrayList<Item>();
-    
-    
+    ArrayList<Item> itemList = new ArrayList<Item>();    
 
     boolean isHitByLaser = false;
 
