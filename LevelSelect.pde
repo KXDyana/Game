@@ -14,11 +14,7 @@ class LevelSelect {
     public LSButton shopButton = new LSButton(110, 40, 60, 60, shopButtonColor, hoverButtonColor, 1); 
     public LSButton levelCreatorButton = new LSButton(displayWidth - 40, 40, 60, 60, levelCreatorButtonColor, hoverButtonColor, 2);
     
-    public int[] levelColors = {PINK, PINK, PINK, PINK, PINK, PINK};
-    public int[] levelCurrentColors = {PINK, PINK, PINK, PINK, PINK, PINK};
-    int levelColorHover = RED;
-    LevelButton[] levelButtons;
-    float levelRadius;
+
     float angleOffset; // rotation speed of the levels
     
     LevelSelect(PApplet game) {
@@ -34,13 +30,7 @@ class LevelSelect {
         levels[5] = new Level(game, 5);
         
         
-        this.levelRadius = player.playerRadius;
         
-        levelButtons = new LevelButton[6];
-        
-        for (int i = 0; i < levels.length; i++) {
-            levelButtons[i] = new LevelButton(0, 0, i + 1);
-        }
     }
     
     void drawLevelView() {
@@ -55,23 +45,23 @@ class LevelSelect {
     void drawLevels() {
         // distribute the levels in a circle
         float angle = TWO_PI / levels.length;
-        float distributionRadius = game.width * 0.15;
+        float distributionRadius = game.width * 0.2;
         
         angleOffset = (angleOffset + 0.0005) % TWO_PI; // Increment the angleOffset and wrap it within the range of 0 to TWO_PI
         
-        for (int i = 0; i < levelButtons.length; i++) {
+        for (int i = 0; i < levels.length; i++) {
             float x = game.width / 2 + distributionRadius * cos(angle * i + angleOffset - HALF_PI);
             float y = game.height / 2 + distributionRadius * sin(angle * i + angleOffset - HALF_PI);
-            levelButtons[i].setPosition(x, y); // Update the position of the level button
-            levelButtons[i].draw();
+            levels[i].lb.setPosition(x, y); // Update the position of the level button
+            levels[i].lb.draw();
         }
     }
     
     void updateLevelView() {
-        for (LevelButton levelButton : levelButtons) {
-            if (levelButton.isMouseHovering() && game.mousePressed && game.mouseButton == LEFT && !prevMousePressed) {
+        for (Level l : levels) {
+            if (l.lb.isMouseHovering() && game.mousePressed && game.mouseButton == LEFT && !prevMousePressed) {
                 Game.state = Game.STATE_INGAME;
-                battleView.startBattle(levels[levelButton.levelNumber - 1]);
+                battleView.startBattle(l);
                 resetAlphaValues();
                 break;
             }
@@ -101,48 +91,9 @@ class LevelSelect {
         }
     }
     
-    class LevelButton {
-        float x,y;
-        int levelNumber;
-        float radius = levelRadius;
-        float alpha = 0;
-        
-        LevelButton(float x, float y, int levelNumber) {
-            this.x = x;
-            this.y = y;
-            this.levelNumber = levelNumber;
-        }
-        
-        void setPosition(float x, float y) {
-            this.x = x;
-            this.y = y;
-        }
-        
-        void draw() {
-            if (isMouseHovering()) {
-                alpha = lerp(alpha, 190, 0.05f); // Update the alpha value using lerp
-                levelCurrentColors[levelNumber - 1] = game.lerpColor(levelCurrentColors[levelNumber - 1], levelColorHover, 0.05f); // Update the current color using lerpColor
-            } else {
-                alpha = lerp(alpha, 20, 0.05f); // Update the alpha value using lerp
-                levelCurrentColors[levelNumber - 1] = game.lerpColor(levelCurrentColors[levelNumber - 1], levelColors[levelNumber - 1], 0.05f); // Update the current color using lerpColor
-            }
-            
-            game.fill(levelCurrentColors[levelNumber - 1], alpha);
-            noStroke();
-            game.ellipse(x, y, radius, radius); // Draw the circle for the level
-            game.fill(GREEN);
-            textAlign(CENTER, CENTER);
-            game.text(levelNumber, x, y); // Draw the level number
-        }
-        
-        boolean isMouseHovering() {
-            return dist(game.mouseX, game.mouseY, x, y) <= radius / 2;
-        }
-    }
-    
     void resetAlphaValues() {
-        for (LevelButton levelButton : levelButtons) {
-            levelButton.alpha = 0;
+        for (Level l : levels) {
+            l.lb.alpha = 0;
         }
     }
 }

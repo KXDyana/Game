@@ -77,11 +77,15 @@ public class Bullet {
                 this.isParried = true;
                 player.isParrying = false;
                 player.perfectParry();
+                if (!audioTriggered) bullet1Arrive.trigger();
+                
             } else if (player.withinParryRange(position) && player.isParrying && !prevSpacePressed) {
                 prevSpacePressed = true;
                 this.isParried = true;
                 player.isParrying = false;
                 player.fineParry();
+                if (!audioTriggered) bullet1Arrive.trigger();
+                
             } 
         } else if (this.type == 2) {
             if (player.withinPerfectParryRange(position) && player.isDodging && !prevEnterPressed) {
@@ -89,11 +93,15 @@ public class Bullet {
                 this.isParried = true;
                 player.isDodging = false;
                 player.perfectDodge();
+                if (!audioTriggered) bullet1Arrive.trigger();
+                
             } if (player.withinParryRange(position) && player.isDodging && !prevEnterPressed) {
                 prevEnterPressed = true;
                 this.isParried = true;
                 player.isDodging = false;
                 player.fineDodge();
+                if (!audioTriggered) bullet1Arrive.trigger();
+                
             }
         }
         if (player.withinPlayerHitBox(position)) {

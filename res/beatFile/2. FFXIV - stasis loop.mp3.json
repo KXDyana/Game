@@ -3,428 +3,296 @@
     {
       "ID": 1,
       "type": 1,
-      "timestamp": 11743,
+      "timestamp": 18561,
       "hold": false
     },
     {
       "ID": 2,
       "type": 1,
-      "timestamp": 12125,
+      "timestamp": 18944,
       "hold": false
     },
     {
       "ID": 3,
       "type": 1,
-      "timestamp": 12559,
+      "timestamp": 19393,
       "hold": false
     },
     {
       "ID": 4,
       "type": 1,
-      "timestamp": 13009,
+      "timestamp": 19794,
       "hold": false
     },
     {
       "ID": 5,
       "type": 1,
-      "timestamp": 13409,
+      "timestamp": 20242,
       "hold": false
     },
     {
       "ID": 6,
       "type": 1,
-      "timestamp": 13843,
+      "timestamp": 20643,
       "hold": false
     },
     {
       "ID": 7,
       "type": 1,
-      "timestamp": 14260,
+      "timestamp": 21094,
       "hold": false
     },
     {
       "ID": 8,
       "type": 1,
-      "timestamp": 18577,
+      "timestamp": 25377,
       "hold": false
     },
     {
       "ID": 9,
       "type": 1,
-      "timestamp": 18942,
+      "timestamp": 25744,
       "hold": false
     },
     {
       "ID": 10,
       "type": 1,
-      "timestamp": 19393,
+      "timestamp": 26192,
       "hold": false
     },
     {
       "ID": 11,
       "type": 1,
-      "timestamp": 19794,
+      "timestamp": 26643,
       "hold": false
     },
     {
       "ID": 12,
       "type": 1,
-      "timestamp": 20242,
+      "timestamp": 27110,
       "hold": false
     },
     {
       "ID": 13,
       "type": 1,
-      "timestamp": 20692,
+      "timestamp": 27542,
       "hold": false
     },
     {
       "ID": 14,
       "type": 1,
-      "timestamp": 21077,
+      "timestamp": 27944,
       "hold": false
     },
     {
       "ID": 15,
       "type": 1,
-      "timestamp": 25425,
+      "timestamp": 32227,
       "hold": false
     },
     {
       "ID": 16,
       "type": 1,
-      "timestamp": 25860,
+      "timestamp": 32610,
       "hold": false
     },
     {
       "ID": 17,
       "type": 1,
-      "timestamp": 26243,
+      "timestamp": 33026,
       "hold": false
     },
     {
       "ID": 18,
       "type": 1,
-      "timestamp": 26692,
+      "timestamp": 33459,
       "hold": false
     },
     {
       "ID": 19,
       "type": 1,
-      "timestamp": 27143,
+      "timestamp": 33895,
       "hold": false
     },
     {
       "ID": 20,
       "type": 1,
-      "timestamp": 27526,
+      "timestamp": 34327,
       "hold": false
     },
     {
       "ID": 21,
       "type": 1,
-      "timestamp": 27943,
+      "timestamp": 34744,
       "hold": false
     },
     {
       "ID": 22,
       "type": 2,
-      "timestamp": 32359
+      "timestamp": 39063
     },
     {
       "ID": 23,
       "type": 2,
-      "timestamp": 32727
+      "timestamp": 39460
     },
     {
       "ID": 24,
       "type": 2,
-      "timestamp": 33109
+      "timestamp": 39894
     },
     {
       "ID": 25,
       "type": 2,
-      "timestamp": 33543
+      "timestamp": 40311
     },
     {
       "ID": 26,
       "type": 2,
-      "timestamp": 33960
+      "timestamp": 40744
     },
     {
       "ID": 27,
       "type": 2,
-      "timestamp": 34377
+      "timestamp": 41177
     },
     {
       "ID": 28,
       "type": 2,
-      "timestamp": 34793
+      "timestamp": 41595
     },
     {
       "ID": 29,
       "type": 2,
-      "timestamp": 39126
+      "timestamp": 45894
     },
     {
       "ID": 30,
       "type": 2,
-      "timestamp": 39543
+      "timestamp": 46330
     },
     {
       "ID": 31,
       "type": 2,
-      "timestamp": 39976
+      "timestamp": 46760
     },
     {
       "ID": 32,
       "type": 2,
-      "timestamp": 40393
+      "timestamp": 47260
     },
     {
       "ID": 33,
       "type": 2,
-      "timestamp": 40827
+      "timestamp": 47677
     },
     {
       "ID": 34,
       "type": 2,
-      "timestamp": 41260
+      "timestamp": 48112
     },
     {
       "ID": 35,
       "type": 2,
-      "timestamp": 41693
+      "timestamp": 48545
     },
     {
       "ID": 36,
       "type": 2,
-      "timestamp": 45961
+      "timestamp": 52795
     },
     {
       "ID": 37,
       "type": 2,
-      "timestamp": 46394
+      "timestamp": 53177
     },
     {
       "ID": 38,
       "type": 2,
-      "timestamp": 46828
+      "timestamp": 53594
     },
     {
       "ID": 39,
       "type": 2,
-      "timestamp": 47244
+      "timestamp": 54061
     },
     {
       "ID": 40,
       "type": 2,
-      "timestamp": 47661
+      "timestamp": 54494
     },
     {
       "ID": 41,
       "type": 2,
-      "timestamp": 48096
+      "timestamp": 54894
     },
     {
       "ID": 42,
       "type": 2,
-      "timestamp": 48510
+      "timestamp": 55293
     },
     {
+      "duration": 1067,
       "ID": 43,
-      "type": 2,
-      "timestamp": 52827
+      "type": 1,
+      "timestamp": 62210,
+      "hold": true
     },
     {
+      "duration": 935,
       "ID": 44,
-      "type": 2,
-      "timestamp": 53245
+      "type": 1,
+      "timestamp": 69060,
+      "hold": true
     },
     {
+      "duration": 933,
       "ID": 45,
-      "type": 2,
-      "timestamp": 53645
+      "type": 1,
+      "timestamp": 75911,
+      "hold": true
     },
     {
       "ID": 46,
-      "type": 2,
-      "timestamp": 54110
+      "type": 1,
+      "timestamp": 80228,
+      "hold": false
     },
     {
       "ID": 47,
-      "type": 2,
-      "timestamp": 54526
+      "type": 1,
+      "timestamp": 80644,
+      "hold": false
     },
     {
       "ID": 48,
-      "type": 2,
-      "timestamp": 54976
+      "type": 1,
+      "timestamp": 81096,
+      "hold": false
     },
     {
       "ID": 49,
-      "type": 2,
-      "timestamp": 55393
+      "type": 1,
+      "timestamp": 81511,
+      "hold": false
     },
     {
       "ID": 50,
       "type": 1,
-      "timestamp": 59693,
+      "timestamp": 81946,
       "hold": false
     },
     {
       "ID": 51,
       "type": 1,
-      "timestamp": 60094,
+      "timestamp": 82361,
       "hold": false
     },
     {
+      "duration": 569,
       "ID": 52,
       "type": 1,
-      "timestamp": 60526,
-      "hold": false
-    },
-    {
-      "ID": 53,
-      "type": 1,
-      "timestamp": 60961,
-      "hold": false
-    },
-    {
-      "ID": 54,
-      "type": 1,
-      "timestamp": 61394,
-      "hold": false
-    },
-    {
-      "ID": 55,
-      "type": 1,
-      "timestamp": 61812,
-      "hold": false
-    },
-    {
-      "duration": 666,
-      "ID": 56,
-      "type": 1,
-      "timestamp": 62195,
-      "hold": true
-    },
-    {
-      "ID": 57,
-      "type": 1,
-      "timestamp": 66527,
-      "hold": false
-    },
-    {
-      "ID": 58,
-      "type": 1,
-      "timestamp": 66945,
-      "hold": false
-    },
-    {
-      "ID": 59,
-      "type": 1,
-      "timestamp": 67360,
-      "hold": false
-    },
-    {
-      "ID": 60,
-      "type": 1,
-      "timestamp": 67811,
-      "hold": false
-    },
-    {
-      "ID": 61,
-      "type": 1,
-      "timestamp": 68261,
-      "hold": false
-    },
-    {
-      "ID": 62,
-      "type": 1,
-      "timestamp": 68678,
-      "hold": false
-    },
-    {
-      "duration": 651,
-      "ID": 63,
-      "type": 1,
-      "timestamp": 69093,
-      "hold": true
-    },
-    {
-      "ID": 64,
-      "type": 1,
-      "timestamp": 73411,
-      "hold": false
-    },
-    {
-      "ID": 65,
-      "type": 1,
-      "timestamp": 73811,
-      "hold": false
-    },
-    {
-      "ID": 66,
-      "type": 1,
-      "timestamp": 74244,
-      "hold": false
-    },
-    {
-      "ID": 67,
-      "type": 1,
-      "timestamp": 74693,
-      "hold": false
-    },
-    {
-      "ID": 68,
-      "type": 1,
-      "timestamp": 75094,
-      "hold": false
-    },
-    {
-      "ID": 69,
-      "type": 1,
-      "timestamp": 75512,
-      "hold": false
-    },
-    {
-      "duration": 617,
-      "ID": 70,
-      "type": 1,
-      "timestamp": 75977,
-      "hold": true
-    },
-    {
-      "ID": 71,
-      "type": 2,
-      "timestamp": 80711
-    },
-    {
-      "ID": 72,
-      "type": 2,
-      "timestamp": 81144
-    },
-    {
-      "ID": 73,
-      "type": 2,
-      "timestamp": 81578
-    },
-    {
-      "ID": 74,
-      "type": 2,
-      "timestamp": 81977
-    },
-    {
-      "ID": 75,
-      "type": 2,
-      "timestamp": 82428
-    },
-    {
-      "duration": 584,
-      "ID": 76,
-      "type": 1,
-      "timestamp": 82811,
+      "timestamp": 82778,
       "hold": true
     }
   ],
