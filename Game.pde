@@ -32,9 +32,6 @@ public PImage bullet1;
 public PImage bullet2;
 public float bulletRadius;
 
-
-
-
 PFont ft;
 
 
@@ -74,7 +71,7 @@ ArrayList<Message> messages = new ArrayList<Message>();
 PVector messagePos;
 
 Minim minim;
-public AudioSample bullet1Spawn, bullet1Arrive;
+public AudioSample bullet1Spawn, bullet1Arrive, laserCharge, laserShoot;
 
 
 void settings() {
@@ -98,6 +95,9 @@ void setup() {
     bullet1Arrive = minim.loadSample("res/audioEffect/bullet1Spawn.mp3");
     bullet1Arrive.setGain(50);
     bullet1Spawn = minim.loadSample("res/audioEffect/bullet1Spawn.mp3");
+    laserCharge = minim.loadSample("res/audioEffect/laserCharge.mp3");
+    laserCharge.setGain(4);
+    laserShoot = minim.loadSample("res/audioEffect/laserShoot.mp3");
     
     shop = new Shop();
     money = loadImage("res/sprites/shoppic/money.png");
