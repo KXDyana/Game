@@ -5,7 +5,7 @@ final class Shop{
    PImage addgain;
    PImage easeloss;
    PImage sanToM;
-    int vdmX = int(displayWidth * 0.5);
+    int vdmX = int(displayWidth * 0.6);
     int vdmY = int(displayHeight * 0.5);
     int vdmW = int(displayWidth * 0.7);
     int vdmH = int(displayWidth * 0.7 * 0.75);
@@ -170,6 +170,7 @@ final class Shop{
                 }     
              break;
           case 2 :
+                
              break; 
           case 3 :
              break;
