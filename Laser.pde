@@ -9,12 +9,16 @@ public class Laser {
     
     
     public float laserAlpha = 0;
+
+    public boolean audioTriggered = false;
     
     public Laser(int ID, PVector startPosition, int duration) {
         this.startPosition = startPosition.copy();
         this.duration = duration;
-        this.laserShootTime = millis();
         this.ID = ID;
+        
+        this.laserShootTime = millis();
+        laserCharge.trigger();
     }
     
     public boolean isFinished() {
@@ -50,6 +54,11 @@ public class Laser {
             line(adjustedStartPosition.x, adjustedStartPosition.y, chargeLineEnd1.x, chargeLineEnd1.y);
             line(adjustedStartPosition.x, adjustedStartPosition.y, chargeLineEnd2.x, chargeLineEnd2.y);
         } else { // Laser phase
+
+            if (!audioTriggered) {
+                laserShoot.trigger();
+                audioTriggered = true;
+            }
             
             // Calculate the fade out factor based on the remaining duration
             float fadeOutFactor = PApplet.constrain((float)(duration + laserCharingTime - (millis() - laserShootTime)) / laserFadeOutDuration, 0, 1);
