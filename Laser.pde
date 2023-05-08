@@ -68,7 +68,11 @@ public class Laser {
             stroke(CYAN, laserAlpha);
             
             if (!player.isParrying) player.isHitByLaser = true;
-            else player.isHitByLaser = false;
+            else {
+                player.isHitByLaser = false;
+                player.tempHealth += 0.01;
+                if (player.tempHealth > 100) player.tempHealth = 100;
+            }
             
             laserAlpha = lerp(laserAlpha, 180, 0.1f);
             strokeWeight(40);
