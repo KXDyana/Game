@@ -27,10 +27,10 @@ public class Level {
                 boss = new LevelBoss(game, "res/beatFile/the floated horror.mp3.json", 3400);
                 break;
             case 3:
-                boss = new LevelBoss(game, "res/beatFile/the haunter of dark.mp3.json", 2800);
+                boss = new LevelBoss(game, "res/beatFile/1. MSR - Endospore.mp3.json", 3400);
                 break;
             case 4:
-                boss = new LevelBoss(game, "res/beatFile/1. MSR - Endospore.mp3.json", 3400);
+                boss = new LevelBoss(game, "res/beatFile/the haunter of dark.mp3.json", 2800);
                 break;
             case 5:
                 boss = new LevelBoss(game, "res/beatFile/william.mp3.json", 3400);
