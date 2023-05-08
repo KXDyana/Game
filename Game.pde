@@ -13,6 +13,7 @@ static final int PINK = #c15858;
 static final int BLUE = #5588ff;
 static final int GREEN = #00b200;
 static final int BLACK = #000000;
+static final int CYAN = #00ffff;
 
 // states
 static final int STATE_MENU = 0;
@@ -61,6 +62,8 @@ Shop shop;
 
 String message;
 int messageStartTime, messageLastTime;
+float messageAlpha;
+
 PVector messagePos;
 
 Minim minim;
@@ -121,11 +124,28 @@ void draw() {
     prevSpacePressed = keys[' '];
     prevEnterPressed = enterpressed;
     
-    if (message != null && millis() < messageStartTime + messageLastTime) {
+      if (message != null && millis() < messageStartTime + messageLastTime) {
         textSize(60);
         textAlign(CENTER);
-        fill(ORANGE);
-        text(message, width / 2, height / 4);
+
+        // Calculate elapsed time
+        float elapsedTime = millis() - messageStartTime;
+        float progress = elapsedTime / messageLastTime;
+
+        // Calculate Y position based on progress
+        float yPos = messagePos.y + map(progress, 0, 1, -100, 100);
+
+        // Calculate alpha based on progress
+        if (progress < 0.25) {
+            messageAlpha = map(progress, 0, 0.25, 0, 255);
+        } else if (progress > 0.75) {
+            messageAlpha = map(progress, 0.75, 1, 255, 0);
+        } else {
+            messageAlpha = 255;
+        }
+
+        fill(ORANGE, messageAlpha);
+        text(message, messagePos.x, yPos);
     } else {
         message = null;
     }
@@ -137,11 +157,13 @@ void showShop() {
 }
 
 void showMenu() {
+    player.updatePlayer();
     player.drawPlayer();
-    menu.drawMenu();
+        menu.drawMenu();
 }
 
 void showLevel() {
+    player.updatePlayer();
     player.drawPlayer();
     levelSelect.drawLevelView();
 }
@@ -153,12 +175,12 @@ void showLoading() {
 }
 
 void showInGame() {
-
-    player.drawPlayer();
-
+    
+    player.updatePlayer();
+    
     battleView.drawBattle();
-
-
+    
+    player.drawPlayer();
     
 }
 
@@ -259,10 +281,13 @@ void drawMouse() {
     text("Player Target Position: (" + player.targetPosition.x + ", " + player.targetPosition.y + ")", mouseX + 15, mouseY + 170);
 }
 
-void showMessage(String message, int time) {
+// Add a new parameter to showMessage for the position
+void showMessage(String message, int time, PVector position) {
     this.message = message;
     messageStartTime = millis();
     messageLastTime = time;
+    messagePos = position.copy();
+    messageAlpha = 0;
 }
 
 void mousePressed() {
