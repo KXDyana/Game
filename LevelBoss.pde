@@ -46,7 +46,7 @@ public class LevelBoss {
         this.game = game;
         this.beats = new ArrayList<>();
         this.radius = proportion * width * 0.05;
-        this.position = new PVector(width * 4 / 5, height * 4 / 5);
+        this.position = new PVector(width * 4 / 5, height / 2);
         this.targetPosition = position;
         this.levelFileName = levelFileName;
         this.beatGenerationDelay = beatGenerationDelay;
@@ -54,7 +54,7 @@ public class LevelBoss {
         minim = new Minim(game);
         audioPlayer = minim.loadFile(musicFile, 2048);
         
-        centerOfBulletSpawns = position.copy().add(0, -radius * 4f);
+        centerOfBulletSpawns = position;
         bulletSpawnRadius = radius * 2;
         initializeBulletSpawnPositions();
         
@@ -65,6 +65,7 @@ public class LevelBoss {
         
         this.beats = new ArrayList<>();
         loadLevelData(levelFileName);
+        player.tempHealth = player.globalSan;
         
         timestampStart = millis();
         audioPlayer.play();
@@ -99,8 +100,12 @@ public class LevelBoss {
         position.y = lerp(position.y, targetPosition.y, 0.01);
         
         if (currentBeatIndex >= beats.size()) {
-            endBattle();
+            // Check if the music has finished playing
+            if (!audioPlayer.isPlaying()) {
+                endBattle();
+            }
             return;
+            
         }
         
         currentBeat = beats.get(currentBeatIndex);
@@ -236,8 +241,7 @@ public class LevelBoss {
             bulletSpawnPos[i] = PVector.add(centerOfBulletSpawns, new PVector(x, y));
         }
     }
-        
-        
-    }
     
     
+}
+

@@ -7,9 +7,9 @@ class Player {
     
     int hitDuration = 200; 
     int hitStartTime = 0;
-    
-    
-    
+
+    boolean isHitByLaser = false;
+
     PImage[] avatar = new PImage[4];
     PImage hitAvatar = new PImage();
     int currentFrame = 0;
@@ -21,7 +21,7 @@ class Player {
     float playerRadius, playerSpeed, detectionRadius1, detectionRadius2, detectionRadius3;
     int globalSan = 100;
     int money = 15;
-    int tempHealth = globalSan;
+    float tempHealth = globalSan;
     
     float parryCircleAlpha;
     float parryCircleSize; 
@@ -64,7 +64,6 @@ class Player {
     }
     
     void drawPlayer() {
-        updatePlayer();                                               // update player state        
         drawParryCircle();        
         imageMode(CENTER);
         image(avatar[currentFrame], position.x, position.y);
@@ -84,6 +83,11 @@ class Player {
             isDodging = true;
             playerColor = ORANGE; // immediately change color to blue
         } else isDodging = false;
+
+        if (isHitByLaser) {
+            playState = STATE_HIT;
+            tempHealth -= 0.001;
+        }
         
         if (state == STATE_INGAME) {
             parryCircleAlpha = lerp(parryCircleAlpha, 115, 0.01);
@@ -103,7 +107,7 @@ class Player {
     
     
     void perfectParry() {
-        showMessage("Perfect!", 1000);
+        showMessage("Perfect!", 1000, new PVector(width/2, height/4));
         bullet1Arrive.trigger();
         
         if (tempHealth >= 100) return;
@@ -111,7 +115,7 @@ class Player {
     }
     
     void fineParry() {
-        showMessage("Fine!", 1000);
+        showMessage("Fine!", 1000, new PVector(width/2, height/4));
         bullet1Arrive.trigger();
         
         if (tempHealth >= 100) return;
@@ -119,7 +123,7 @@ class Player {
     }
     
     void perfectDodge() {
-        showMessage("Perfect!", 1000);
+        showMessage("Perfect!", 1000, new PVector(width/2, height/4));
         bullet1Arrive.trigger();
         
         if (tempHealth >= 100) return;
@@ -128,7 +132,7 @@ class Player {
     }
     
     void fineDodge() {
-        showMessage("Fine!", 1000);
+        showMessage("Fine!", 1000, new PVector(width/2, height/4));
         bullet1Arrive.trigger();
         
         if (tempHealth >= 100) return;
