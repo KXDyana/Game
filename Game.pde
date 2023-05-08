@@ -271,6 +271,8 @@ void drawMouse() {
     text("Game State: " + state, mouseX + 15, mouseY + 130);
     text("Player Position: (" + player.position.x + ", " + player.position.y + ")", mouseX + 15, mouseY + 150);
     text("Player Target Position: (" + player.targetPosition.x + ", " + player.targetPosition.y + ")", mouseX + 15, mouseY + 170);
+    text("Player Global San Value: " + player.globalSan, mouseX + 15, mouseY + 190);
+    text("Player tempHealth: " + player.tempHealth, mouseX + 15, mouseY + 210);
 }
 
 // Add a new parameter to showMessage for the position
