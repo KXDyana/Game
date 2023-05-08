@@ -38,7 +38,6 @@ public class Bullet {
         this.flightTime = (int)(gapTime * (1 - bulletStayProportion));
         
         
-        this.spawnTime = millis();
         
         // Find the intersection point on the perfect hit ring 
         destination = findIntersectionPoint(startPosition, player.position, player.perfectRadius / 2);
@@ -51,6 +50,8 @@ public class Bullet {
         float distance = startPosition.dist(destination);
         float bulletSpeed = distance / flightTimeFrames;
         this.velocity = PVector.mult(targetDirection, bulletSpeed);
+        
+        this.spawnTime = millis();
         
     }
     
@@ -102,12 +103,16 @@ public class Bullet {
     }
     
     public void drawBullet() {
+        
+        drawBulletHitBox();
+        
         if (isParried) {
+            this.radius = lerp(this.radius, 0, 0.01f);
+            this.velocity = new PVector(0, 0);
+            this.alpha = lerp(this.alpha, 0, 0.02f);
             return;
         }
         updateBullet();
-        
-        drawBulletHitBox();
         
         imageMode(CENTER);
         if (type == 1) {

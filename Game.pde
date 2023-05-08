@@ -34,6 +34,11 @@ public float bulletRadius;
 
 
 
+
+PFont ft;
+
+
+
 //images
 PImage money;
 PImage SANimg;
@@ -62,9 +67,9 @@ int laserCharingTime = 1400;
 //shop
 Shop shop;
 
-String message;
-int messageStartTime, messageLastTime;
-float messageAlpha;
+// Create a list of messages
+ArrayList<Message> messages = new ArrayList<Message>();
+
 
 PVector messagePos;
 
@@ -77,6 +82,8 @@ void settings() {
 }
 
 void setup() {
+    ft = createFont("res/font/zx_spectrum-7.ttf", 16);
+    textFont(ft);
     background(DARK_GREY);
     frameRate(60);
     player = new Player(new PVector(0,0), proportion * width * 0.1);
@@ -126,30 +133,13 @@ void draw() {
     prevSpacePressed = keys[' '];
     prevEnterPressed = enterpressed;
     
-      if (message != null && millis() < messageStartTime + messageLastTime) {
-        textSize(60);
-        textAlign(CENTER);
-
-        // Calculate elapsed time
-        float elapsedTime = millis() - messageStartTime;
-        float progress = elapsedTime / messageLastTime;
-
-        // Calculate Y position based on progress
-        float yPos = messagePos.y + map(progress, 0, 1, -100, 100);
-
-        // Calculate alpha based on progress
-        if (progress < 0.25) {
-            messageAlpha = map(progress, 0, 0.25, 0, 255);
-        } else if (progress > 0.75) {
-            messageAlpha = map(progress, 0.75, 1, 255, 0);
-        } else {
-            messageAlpha = 255;
+    // Iterate over messages and display them
+    for (int i = messages.size() - 1; i >= 0; i--) {
+        Message message = messages.get(i);
+        message.display();
+        if (millis() >= message.startTime + message.duration) {
+            messages.remove(i);
         }
-
-        fill(ORANGE, messageAlpha);
-        text(message, messagePos.x, yPos);
-    } else {
-        message = null;
     }
 }
 
@@ -284,12 +274,48 @@ void drawMouse() {
 }
 
 // Add a new parameter to showMessage for the position
-void showMessage(String message, int time, PVector position) {
-    this.message = message;
-    messageStartTime = millis();
-    messageLastTime = time;
-    messagePos = position.copy();
-    messageAlpha = 0;
+void showMessage(String text, int duration, PVector position) {
+    Message message = new Message(text, duration, position);
+    messages.add(message);
+}
+
+class Message {
+    String text;
+    int startTime;
+    int duration;
+    PVector position;
+    float alpha;
+
+    Message(String text, int duration, PVector position) {
+        this.text = text;
+        this.startTime = millis();
+        this.duration = duration;
+        this.position = position.copy();
+        this.alpha = 0;
+    }
+
+    void display() {
+        textSize(60);
+        textAlign(CENTER);
+
+        // Calculate elapsed time
+        float elapsedTime = millis() - startTime;
+        float progress = elapsedTime / duration;
+
+        // Calculate Y position based on progress
+        float yPos = position.y + map(progress, 0, 1, -100, 100);
+
+        // Calculate alpha based on progress
+        if (progress < 0.25) {
+            alpha = map(progress, 0, 0.25, 0, 255);
+        } else if (progress > 0.75) {
+            alpha = map(progress, 0.75, 1, 255, 0);
+        } else {
+            alpha = 255;
+        }
+        fill(ORANGE, alpha);
+        text(text, position.x, yPos);
+    }
 }
 
 void mousePressed() {

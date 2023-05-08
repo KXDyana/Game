@@ -109,7 +109,7 @@ class Player {
     
     
     void perfectParry() {
-        showMessage("Perfect!", 1000, new PVector(width/2, height/4));
+        showMessage("Perfect!", 700, new PVector(width/2, height/4));
         bullet1Arrive.trigger();
         
         if (tempHealth >= 100) return;
@@ -117,7 +117,7 @@ class Player {
     }
     
     void fineParry() {
-        showMessage("Fine!", 1000, new PVector(width/2, height/4));
+        showMessage("Fine!", 700, new PVector(width/2, height/4));
         bullet1Arrive.trigger();
         
         if (tempHealth >= 100) return;
@@ -125,7 +125,7 @@ class Player {
     }
     
     void perfectDodge() {
-        showMessage("Perfect!", 1000, new PVector(width/2, height/4));
+        showMessage("Perfect!", 700, new PVector(width/2, height/4));
         bullet1Arrive.trigger();
         
         if (tempHealth >= 100) return;
@@ -134,7 +134,7 @@ class Player {
     }
     
     void fineDodge() {
-        showMessage("Fine!", 1000, new PVector(width/2, height/4));
+        showMessage("Fine!", 700, new PVector(width/2, height/4));
         bullet1Arrive.trigger();
         
         if (tempHealth >= 100) return;

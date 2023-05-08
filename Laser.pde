@@ -5,6 +5,9 @@ public class Laser {
     private float chargeProgress;
     public int ID;
     
+    private int laserFadeOutDuration = 300; // Add this line to set the fade out duration
+    
+    
     public float laserAlpha = 0;
     
     public Laser(int ID, PVector startPosition, int duration) {
@@ -40,7 +43,7 @@ public class Laser {
             directionToPlayer.mult(length);
             
             PVector chargeLineEnd1 = PVector.add(adjustedStartPosition, new PVector(directionToPlayer.x * cos(angle / 2) - directionToPlayer.y * sin(angle / 2), directionToPlayer.x * sin(angle / 2) + directionToPlayer.y * cos(angle / 2)));
-            PVector chargeLineEnd2 = PVector.add(adjustedStartPosition, new PVector(directionToPlayer.x * cos( - angle / 2) - directionToPlayer.y * sin( - angle / 2), directionToPlayer.x * sin( - angle / 2) + directionToPlayer.y * cos( - angle / 2)));
+            PVector chargeLineEnd2 = PVector.add(adjustedStartPosition, new PVector(directionToPlayer.x * cos( -angle / 2) - directionToPlayer.y * sin( -angle / 2), directionToPlayer.x * sin( -angle / 2) + directionToPlayer.y * cos( -angle / 2)));
             
             stroke(CYAN, alpha); // Use the calculated alpha value
             strokeWeight(2);
@@ -48,12 +51,20 @@ public class Laser {
             line(adjustedStartPosition.x, adjustedStartPosition.y, chargeLineEnd2.x, chargeLineEnd2.y);
         } else { // Laser phase
             
+            // Calculate the fade out factor based on the remaining duration
+            float fadeOutFactor = PApplet.constrain((float)(duration + laserCharingTime - (millis() - laserShootTime)) / laserFadeOutDuration, 0, 1);
+            
+            // Multiply laserAlpha by the fadeOutFactor to make the laser dim out gradually
+            laserAlpha = PApplet.lerp(laserAlpha, 180 * fadeOutFactor, 0.1f);
+            strokeWeight(40);
+            stroke(CYAN, laserAlpha);
+            
             if (!player.isParrying) player.isHitByLaser = true;
             else player.isHitByLaser = false;
             
-            laserAlpha = lerpColor(25, 180 , 1f);
-            stroke(CYAN, laserAlpha);
+            laserAlpha = lerp(laserAlpha, 180, 0.1f);
             strokeWeight(40);
+            stroke(CYAN, laserAlpha);
             
             // Calculate the length to be exactly the distance between adjustedStartPosition and player.position
             float length = adjustedStartPosition.dist(player.position);
@@ -68,8 +79,7 @@ public class Laser {
         
         text(ID, startPosition.x, startPosition.y - 10);
     }
-        
-        
-        
-    }
-        
+    
+    
+    
+}
