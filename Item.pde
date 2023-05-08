@@ -5,10 +5,10 @@ class Item {
         this.type = type;
     }
 
-    void selectItem(int selectType){
+    // void selectItem(int selectType){
     //     switch(selectType) {
     //       case 1 :
-    //             if (player.globalSan + sIncre <= 100 && player.money - mDecre >= 0) {
+    //         if (player.globalSan + sIncre <= 100 && player.money - mDecre >= 0) {
     //            player.globalSan += sIncre;
     //            player.money -= mDecre;
     //             } else{
@@ -35,6 +35,6 @@ class Item {
     //          }     
     //          break;
     //   }
-    }
+    // }
     
 }
