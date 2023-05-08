@@ -9,9 +9,9 @@ class Player {
     int hitStartTime = 0;
     
     ArrayList<Item> itemList = new ArrayList<Item>();    
-
+    
     boolean isHitByLaser = false;
-
+    
     PImage[] avatar = new PImage[4];
     PImage hitAvatar = new PImage();
     int currentFrame = 0;
@@ -23,6 +23,8 @@ class Player {
     float playerRadius, playerSpeed, detectionRadius1, detectionRadius2, detectionRadius3;
     int globalSan = 100;
     int money = 15;
+    float prevTempHealth = globalSan;
+
     float tempHealth = globalSan;
     
     float parryCircleAlpha;
@@ -34,6 +36,10 @@ class Player {
     int playerColor;
     boolean isParrying;
     boolean isDodging;
+
+    float ringStrokeWeight;
+    
+    
     
     Player(PVector initialPos, float playerRadius) {
         this.position = initialPos;
@@ -46,7 +52,8 @@ class Player {
         this.perfectRadius = playerRadius * 2.5;
         this.playerColor = LIGHT_PURPLE;
         this.parryCircleAlpha = 0;
-        this.parryCircleSize = perfectRadius; 
+        this.parryCircleSize = perfectRadius;
+        ringStrokeWeight = playerRadius / 10;
         
         
         avatar[0] = loadImage("res/sprites/player/main-character.png");
@@ -66,9 +73,12 @@ class Player {
     }
     
     void drawPlayer() {
+        
+        
         drawParryCircle();        
         imageMode(CENTER);
         image(avatar[currentFrame], position.x, position.y);
+        
     }
     
     void updatePlayer() {
@@ -85,10 +95,10 @@ class Player {
             isDodging = true;
             playerColor = ORANGE; // immediately change color to blue
         } else isDodging = false;
-
+        
         if (isHitByLaser) {
             playState = STATE_HIT;
-            tempHealth -= 0.001;
+            tempHealth -= 0.1;
         }
         
         if (state == STATE_INGAME) {
@@ -109,36 +119,36 @@ class Player {
     
     
     void perfectParry() {
-        showMessage("Perfect!", 700, new PVector(width/2, height/4));
+        showMessage("Perfect!", 700, new PVector(width / 2, height / 4));
         bullet1Arrive.trigger();
         
-        if (tempHealth >= 100) return;
-        tempHealth += 2;
+        tempHealth += 0.5;
+        if (tempHealth >= 100) tempHealth = 100;
     }
     
     void fineParry() {
-        showMessage("Fine!", 700, new PVector(width/2, height/4));
+        showMessage("Fine!", 700, new PVector(width / 2, height / 4));
         bullet1Arrive.trigger();
         
-        if (tempHealth >= 100) return;
-        tempHealth += 1;
+        tempHealth += 0.2;
+        if (tempHealth >= 100) tempHealth = 100;
     }
     
     void perfectDodge() {
-        showMessage("Perfect!", 700, new PVector(width/2, height/4));
+        showMessage("Perfect!", 700, new PVector(width / 2, height / 4));
         bullet1Arrive.trigger();
         
-        if (tempHealth >= 100) return;
-        tempHealth += 2;
+        tempHealth += 0.5;
+        if (tempHealth >= 100) tempHealth = 100;
         
     }
     
     void fineDodge() {
-        showMessage("Fine!", 700, new PVector(width/2, height/4));
+        showMessage("Fine!", 700, new PVector(width / 2, height / 4));
         bullet1Arrive.trigger();
         
-        if (tempHealth >= 100) return;
-        tempHealth += 1;
+        tempHealth += 0.2;
+        if (tempHealth >= 100) tempHealth = 100;
     }
     
     void gotHit() {
@@ -172,12 +182,27 @@ class Player {
     }
     
     void drawParryCircle() {
-        strokeWeight(20);
-        stroke(playerColor, parryCircleAlpha);
-        noFill();
-        ellipse(position.x, position.y, parryCircleSize, parryCircleSize);  // draw perfect parry circle
-        noStroke();
-    }
+
+    strokeWeight(ringStrokeWeight);
+    stroke(playerColor, parryCircleAlpha);
+    noFill();
+    ellipse(position.x, position.y, parryCircleSize, parryCircleSize);  // draw perfect parry circle
+    noStroke();
+
+    // Interpolate the prevTempHealth value towards the tempHealth value
+    prevTempHealth = lerp(prevTempHealth, tempHealth, 0.1);
+    
+    float angle = map(prevTempHealth, 0, 100, 0, TWO_PI);
+    float healthRatio = prevTempHealth / 100;
+
+    // Interpolate between GREEN and DARK_RED based on the health ratio
+    color healthColor = lerpColor(DARK_RED, GREEN, healthRatio);
+
+    strokeWeight(ringStrokeWeight);
+    stroke(healthColor, parryCircleAlpha); // Color for the health ring
+    arc(position.x, position.y, parryCircleSize - ringStrokeWeight * 2, parryCircleSize - ringStrokeWeight * 2, -HALF_PI, angle - HALF_PI);
+}
+
     
     
     Boolean withinPerfectParryRange(PVector bulletPosition) {
@@ -207,21 +232,18 @@ class Player {
         }
         return false;
     }
-
-    boolean hasItem(int type){
-        if(itemList == null)
+    
+    boolean hasItem(int type) {
+        if (itemList == null)
             return false;
         else{
-            for(Item i : itemList){
-                if(i.type == type){
+            for (Item i : itemList) {
+                if (i.type == type) {
                     return true;
                 }
             }
             return false;
         }
-
+        
     }
-    
-    
-    
 }

@@ -99,6 +99,7 @@ public class Bullet {
         if (player.withinPlayerHitBox(position)) {
             this.isParried = true;
             player.isParrying = false;
+            player.gotHit();
         }
     }
     

@@ -18,7 +18,6 @@ public class Laser {
         this.ID = ID;
         
         this.laserShootTime = millis();
-        laserCharge.trigger();
     }
     
     public boolean isFinished() {
@@ -58,7 +57,7 @@ public class Laser {
             if (!audioTriggered) {
                 laserShoot.trigger();
                 audioTriggered = true;
-            }
+            }    
             
             // Calculate the fade out factor based on the remaining duration
             float fadeOutFactor = PApplet.constrain((float)(duration + laserCharingTime - (millis() - laserShootTime)) / laserFadeOutDuration, 0, 1);

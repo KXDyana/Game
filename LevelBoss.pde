@@ -20,7 +20,6 @@ public class LevelBoss {
     
     private int numberOfBulletSpawns = 8;
     public PVector[] bulletSpawnPos = new PVector[numberOfBulletSpawns];
-    public PVector centerOfBulletSpawns = new PVector();
     public float bulletSpawnRadius;
     
     
@@ -54,7 +53,6 @@ public class LevelBoss {
         minim = new Minim(game);
         audioPlayer = minim.loadFile(musicFile, 2048);
         
-        centerOfBulletSpawns = position;
         bulletSpawnRadius = radius * 2;
         initializeBulletSpawnPositions();
         
@@ -141,7 +139,7 @@ public class LevelBoss {
         
         float visualRadiusMultiplier = 0.5f; // Adjust this value to control the visual distance of bulletSpawnPos from the center
         for (PVector p : bulletSpawnPos) {
-            PVector visualPos = PVector.lerp(centerOfBulletSpawns, p, visualRadiusMultiplier);
+            PVector visualPos = PVector.lerp(position, p, visualRadiusMultiplier);
             fill(255);
             ellipse(visualPos.x, visualPos.y, 10, 10);
         }
@@ -163,7 +161,7 @@ public class LevelBoss {
     
     private void shootLaser(int ID, int duration) {
         PVector targetPos = player.position;
-        Laser laser = new Laser(ID, centerOfBulletSpawns, duration);
+        Laser laser = new Laser(ID, position, duration);
         lasers.add(laser);
     }
     
@@ -222,8 +220,8 @@ public class LevelBoss {
             float angle = i * angleStep;
             
             // Calculate the position of the spawn point using trigonometry
-            float x = centerOfBulletSpawns.x + bulletSpawnRadius * cos(angle);
-            float y = centerOfBulletSpawns.y + bulletSpawnRadius * sin(angle);
+            float x = position.x + bulletSpawnRadius * cos(angle);
+            float y = position.y + bulletSpawnRadius * sin(angle);
             
             bulletSpawnPos[i] = new PVector(x, y);
         }
@@ -233,12 +231,12 @@ public class LevelBoss {
         float angleStep = rotationSpeed;
         
         for (int i = 0; i < numberOfBulletSpawns; i++) {
-            PVector relativePos = PVector.sub(bulletSpawnPos[i], centerOfBulletSpawns);
+            PVector relativePos = PVector.sub(bulletSpawnPos[i], position);
             
             float x = relativePos.x * cos(angleStep) - relativePos.y * sin(angleStep);
             float y = relativePos.x * sin(angleStep) + relativePos.y * cos(angleStep);
             
-            bulletSpawnPos[i] = PVector.add(centerOfBulletSpawns, new PVector(x, y));
+            bulletSpawnPos[i] = PVector.add(position, new PVector(x, y));
         }
     }
     
