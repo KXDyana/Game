@@ -101,9 +101,10 @@ final class Shop{
     void drawItemDetail() {
         image(SANimg,vdmX - vdmW * 0.4,vdmY - vdmH * 0.36);
         image(money, vdmX,vdmY - vdmH * 0.36);
+        textAlign(CENTER,CENTER);
         fill(255);
-        text(player.globalSan,vdmX - vdmW * 0.38,vdmY - vdmH * 0.35);
-        text(player.money,vdmX + vdmW * 0.02,vdmY - vdmH * 0.35);
+        text(player.globalSan,vdmX - vdmW * 0.30,vdmY - vdmH * 0.37);
+        text(player.money,vdmX + vdmW * 0.1,vdmY - vdmH * 0.37);
 
         float rectW = displayWidth * 0.4;
         float rectH = displayHeight * 0.45;
@@ -126,25 +127,25 @@ final class Shop{
          break;
             case 2:
                 temp = addgain;
-                text("Headphone Plugin Chip A",textX,textY);
+                text("Headphone Plugin Chip A:",textX,textY);
                 text("Increase the san gain",textX,textY + rectH * 0.1);
-                text("of perparry.",textX,textY + rectH * 0.2);
+                text("of per parry.",textX,textY + rectH * 0.2);
          break; 
             case 3:
                 temp = easeloss;
-                text("Headphone Plugin Chip B",textX,textY);
+                text("Headphone Plugin Chip B:",textX,textY);
                 text("Decrease the san loss",textX,textY + rectH * 0.1);
-                text("of permiss.",textX,textY + rectH * 0.2);
+                text("of per miss.",textX,textY + rectH * 0.2);
          break;
             case 4:
                 temp = addsan;
-                text("IFIB Sedative",textX,textY);
+                text("IFIB Sedative:",textX,textY);
                 text("Increase the san value ",textX,textY + rectH * 0.1);
                 text("of thenext battle.",textX,textY + rectH * 0.2);
          break;
             case 5:
                 temp = sanToM;
-                text("\"Greedy Human\"",textX + rectW * 0.1,textY);
+                text("\"Greedy Human\":",textX + rectW * 0.1,textY);
                 text("Transform your SAN",textX + rectW * 0.1,textY + rectH * 0.1);
                 text("into money.",textX + rectW * 0.1,textY + rectH * 0.2);
          break;
@@ -170,7 +171,13 @@ final class Shop{
                 }     
              break;
           case 2 :
-                
+                if(player.hasItem(2)){
+                    showMessage("You can only get 1 chip A now",3000,new PVector(width/2, height/4));
+                }else{
+                    Item item = new Item(2,addgain);
+                    player.itemList.add(item);
+                    showMessage("Plugin chip A +1",3000,new PVector(width/2, height/4));
+                }
              break; 
           case 3 :
              break;

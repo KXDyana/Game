@@ -214,9 +214,10 @@ class Player {
         else{
             for(Item i : itemList){
                 if(i.type == type){
-                    
+                    return true;
                 }
             }
+            return false;
         }
 
     }
