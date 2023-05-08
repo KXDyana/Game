@@ -196,7 +196,7 @@ class LevelCreator {
         }
         level.setJSONArray("hits", hitArray);
         
-        game.saveJSONObject(level, "data/" + currentLevelName + ".json");
+        game.saveJSONObject(level, "res/beatFile" + currentLevelName + ".json");
         System.out.println("Level saved as " + currentLevelName + ".json");
         if (audioPlayer != null) {
             audioPlayer.close();

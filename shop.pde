@@ -28,22 +28,22 @@ final class Shop{
     //SANimg.resize(int(vdmW*0.04), int(vdmW*0.04/SANimg.width*SANimg.height));
     //money.resize(int(vdmW*0.04),int(vdmW*0.04/money.width*money.height));
 
-    shopbg = loadImage("shoppic/vdm.png");
+    shopbg = loadImage("res/sprites/shoppic/vdm.png");
     shopbg.resize(vdmW,vdmH);
 
-    addtotalsan = loadImage("shoppic/addtotalSAN.png");
+    addtotalsan = loadImage("res/sprites/shoppic/addtotalSAN.png");
         addtotalsan.resize(int(vdmW * 0.07), int(vdmW * 0.07 / addtotalsan.width * addtotalsan.height));
 
-    addgain = loadImage("shoppic/addsangain.png");
+    addgain = loadImage("res/sprites/shoppic/addsangain.png");
         addgain.resize(int(vdmW * 0.07),int(vdmW * 0.07 / addgain.width * addgain.height));
 
-    easeloss = loadImage("shoppic/easesanloss.png");
+    easeloss = loadImage("res/sprites/shoppic/easesanloss.png");
         easeloss.resize(int(vdmW * 0.07),int(vdmW * 0.07 / easeloss.width * easeloss.height));
     
-    addsan = loadImage("shoppic/addsan.png");
+    addsan = loadImage("res/sprites/shoppic/addsan.png");
         addsan.resize(int(vdmW * 0.06),int(vdmW * 0.06 / addsan.width * addsan.height));
 
-    sanToM = loadImage("shoppic/santomoney.png");
+    sanToM = loadImage("res/sprites/shoppic/santomoney.png");
         sanToM.resize(int(vdmH * 0.08 / sanToM.height * sanToM.width),int(vdmH * 0.1));
   }
   

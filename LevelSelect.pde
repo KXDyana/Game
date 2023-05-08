@@ -118,15 +118,15 @@ class LevelSelect {
         
         void draw() {
             if (isMouseHovering()) {
+                alpha = lerp(alpha, 190, 0.05f); // Update the alpha value using lerp
                 levelCurrentColors[levelNumber - 1] = game.lerpColor(levelCurrentColors[levelNumber - 1], levelColorHover, 0.05f); // Update the current color using lerpColor
             } else {
+                alpha = lerp(alpha, 20, 0.05f); // Update the alpha value using lerp
                 levelCurrentColors[levelNumber - 1] = game.lerpColor(levelCurrentColors[levelNumber - 1], levelColors[levelNumber - 1], 0.05f); // Update the current color using lerpColor
-            }
-            if (alpha < 255) {
-                alpha += 3; // Adjust the increment value as needed for the desired speed of appearance
             }
             
             game.fill(levelCurrentColors[levelNumber - 1], alpha);
+            noStroke();
             game.ellipse(x, y, radius, radius); // Draw the circle for the level
             game.fill(GREEN);
             textAlign(CENTER, CENTER);

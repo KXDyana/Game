@@ -1,9 +1,31 @@
 class Player {
+    
+    
+    static final int STATE_IDLE = 0;
+    static final int STATE_HIT = 1;
+    int playState = STATE_IDLE;
+    
+    int hitDuration = 200; 
+    int hitStartTime = 0;
+    
+    
+    
+    PImage[] avatar = new PImage[4];
+    PImage hitAvatar = new PImage();
+    int currentFrame = 0;
+    int animationInterval = 400;
+    int lastAnimationUpdate;
+    
+    
     boolean isAtLeftBorder, isAtRightBorder, isAtTopBorder, isAtBottomBorder; // to control movement
     float playerRadius, playerSpeed, detectionRadius1, detectionRadius2, detectionRadius3;
     int globalSan = 100;
     int money = 15;
     int tempHealth = globalSan;
+    
+    float parryCircleAlpha;
+    float parryCircleSize; 
+    
     
     float perfectRadius;
     PVector position, targetPosition;
@@ -21,17 +43,31 @@ class Player {
         this.detectionRadius3 = playerRadius * 4;   // outer circle (parry)
         this.perfectRadius = playerRadius * 2.5;
         this.playerColor = LIGHT_PURPLE;
+        this.parryCircleAlpha = 0;
+        this.parryCircleSize = perfectRadius; 
+        
+        
+        avatar[0] = loadImage("res/sprites/player/main-character.png");
+        avatar[1] = loadImage("res/sprites/player/main-character2.png");
+        avatar[2] = loadImage("res/sprites/player/main-character3.png");
+        avatar[3] = loadImage("res/sprites/player/main-character4.png");
+        hitAvatar = loadImage("res/sprites/player/main-character-hit.png");
+        
+        for (PImage img : avatar) {
+            img.resize((int)playerRadius,(int)playerRadius * 3 / 2);
+        }
+        
+        lastAnimationUpdate = millis();
+        
+        
+        
     }
     
     void drawPlayer() {
-        updatePlayer();                                               // update player state
-        
-        ellipseMode(CENTER);   
-        fill(playerColor);
-        noStroke();
-        ellipse(position.x, position.y, playerRadius, playerRadius);  // draw player body
-        
-        drawDetectionZone();
+        updatePlayer();                                               // update player state        
+        drawParryCircle();        
+        imageMode(CENTER);
+        image(avatar[currentFrame], position.x, position.y);
     }
     
     void updatePlayer() {
@@ -49,12 +85,26 @@ class Player {
             playerColor = ORANGE; // immediately change color to blue
         } else isDodging = false;
         
+        if (state == STATE_INGAME) {
+            parryCircleAlpha = lerp(parryCircleAlpha, 115, 0.01);
+            parryCircleSize = lerp(parryCircleSize, perfectRadius, 0.05); // Increase the size of the parryCircle
+        } else {
+            parryCircleAlpha = lerp(parryCircleAlpha, 0, 0.1);
+            parryCircleSize = lerp(parryCircleSize, 0, 0.1); // Reset the size of the parryCircle
+        }
+        
+        if (millis() - lastAnimationUpdate > animationInterval) {
+            currentFrame = (currentFrame + 1) % avatar.length;
+            lastAnimationUpdate = millis();
+        }
+        
         
     }
     
     
     void perfectParry() {
         showMessage("Perfect!", 1000);
+        bullet1Arrive.trigger();
         
         if (tempHealth >= 100) return;
         tempHealth += 2;
@@ -62,6 +112,7 @@ class Player {
     
     void fineParry() {
         showMessage("Fine!", 1000);
+        bullet1Arrive.trigger();
         
         if (tempHealth >= 100) return;
         tempHealth += 1;
@@ -69,6 +120,7 @@ class Player {
     
     void perfectDodge() {
         showMessage("Perfect!", 1000);
+        bullet1Arrive.trigger();
         
         if (tempHealth >= 100) return;
         tempHealth += 2;
@@ -77,6 +129,7 @@ class Player {
     
     void fineDodge() {
         showMessage("Fine!", 1000);
+        bullet1Arrive.trigger();
         
         if (tempHealth >= 100) return;
         tempHealth += 1;
@@ -102,10 +155,21 @@ class Player {
         fill(YELLOW, 50);
         ellipse(position.x, position.y, detectionRadius1, detectionRadius1);
         
-        strokeWeight(2);
-        stroke(playerColor);
+        
+    }
+    
+    void drawPlayerHitbox() {
+        ellipseMode(CENTER);   
+        fill(playerColor, 140);
+        noStroke();
+        ellipse(position.x, position.y, playerRadius, playerRadius);  // draw player body
+    }
+    
+    void drawParryCircle() {
+        strokeWeight(20);
+        stroke(playerColor, parryCircleAlpha);
         noFill();
-        ellipse(position.x, position.y, perfectRadius, perfectRadius);  // draw perfect parry circle
+        ellipse(position.x, position.y, parryCircleSize, parryCircleSize);  // draw perfect parry circle
         noStroke();
     }
     

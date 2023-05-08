@@ -30,18 +30,19 @@ public class Laser {
             PVector chargeLineEnd1 = PVector.add(startPosition, new PVector(directionToPlayer.x * cos(angle / 2) - directionToPlayer.y * sin(angle / 2), directionToPlayer.x * sin(angle / 2) + directionToPlayer.y * cos(angle / 2)));
             PVector chargeLineEnd2 = PVector.add(startPosition, new PVector(directionToPlayer.x * cos(-angle / 2) - directionToPlayer.y * sin(-angle / 2), directionToPlayer.x * sin(-angle / 2) + directionToPlayer.y * cos(-angle / 2)));
 
-            stroke(255, 0, 255); // Charging lines color (purple)
-            strokeWeight(2); // Adjust the charging lines thickness here
+            stroke(200, 0, 200, 140); 
+            strokeWeight(2); 
             line(startPosition.x, startPosition.y, chargeLineEnd1.x, chargeLineEnd1.y);
             line(startPosition.x, startPosition.y, chargeLineEnd2.x, chargeLineEnd2.y);
         } else { // Laser phase
-            stroke(255, 0, 255); // Laser color (purple)
-            strokeWeight(40); // You can adjust the laser thickness here
+            stroke(200, 0, 200, 140); 
+            strokeWeight(40);
             PVector directionToPlayer = PVector.sub(player.position, startPosition);
             directionToPlayer.normalize();
             directionToPlayer.mult(width);
             PVector endPoint = PVector.add(startPosition, directionToPlayer);
             line(startPosition.x, startPosition.y, endPoint.x, endPoint.y);
+            battleView.currentLevel.boss.enemyColor = ORANGE;
         }
 
         noStroke();

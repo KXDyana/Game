@@ -1,3 +1,5 @@
+import ddf.minim.*;
+
 // color configs
 static final int DARK_GREY = #292929;
 static final int DARK_BLUE = #2f3948;
@@ -20,6 +22,10 @@ static final int STATE_GAMEPAUSE = 5;
 static final int STATE_LEVEL_CREATOR = 6;
 static final int STATE_SHOP = 7;
 static int state = 0;  // initial state
+
+public PImage bullet1;
+public PImage bullet2;
+public float bulletRadius;
 
 
 
@@ -55,6 +61,8 @@ String message;
 int messageStartTime, messageLastTime;
 PVector messagePos;
 
+Minim minim;
+public AudioSample bullet1Spawn, bullet1Arrive;
 
 
 void settings() {
@@ -64,7 +72,7 @@ void settings() {
 void setup() {
     background(DARK_GREY);
     frameRate(60);
-    player = new Player(new PVector(0,0), proportion * width * 0.05);
+    player = new Player(new PVector(0,0), proportion * width * 0.1);
     player.position.x = width / 2;
     player.position.y = height * 4 / 5;
     menu = new Menu(this);
@@ -72,9 +80,20 @@ void setup() {
     levelCreator = new LevelCreator(this);
     battleView = new BattleView(this);
     
+    minim = new Minim(this);
+    bullet1Arrive = minim.loadSample("res/audioEffect/bullet1Spawn.mp3");
+    bullet1Arrive.setGain(50);
+    bullet1Spawn = minim.loadSample("res/audioEffect/bullet1Spawn.mp3");
+    
     shop = new Shop();
-    money = loadImage("shoppic/money.png");
-    SANimg = loadImage("shoppic/SAN.png");
+    money = loadImage("res/sprites/shoppic/money.png");
+    SANimg = loadImage("res/sprites/shoppic/SAN.png");
+    
+    bulletRadius = player.playerRadius / 10;
+    bullet1 = loadImage("res/sprites/bullet/bullet1.png");
+    bullet2 = loadImage("res/sprites/bullet/bullet2.png");
+    bullet1.resize((int)bulletRadius  * 5 / 2,(int)bulletRadius * 5 / 2);
+    bullet2.resize((int)bulletRadius * 2,(int)bulletRadius * 2);
 }
 
 void draw() {
@@ -99,15 +118,15 @@ void draw() {
     prevMousePressed = mousePressed;
     prevSpacePressed = keys[' '];
     prevEnterPressed = enterpressed;
-
+    
     if (message != null && millis() < messageStartTime + messageLastTime) {
-    textSize(60);
-    textAlign(CENTER);
-    fill(ORANGE);
-    text(message, width/2, height/4);
-  } else {
-    message = null;
-  }
+        textSize(60);
+        textAlign(CENTER);
+        fill(ORANGE);
+        text(message, width / 2, height / 4);
+    } else {
+        message = null;
+    }
 }
 
 void showShop() {
@@ -132,8 +151,13 @@ void showLoading() {
 }
 
 void showInGame() {
-    player.drawPlayer();
+
+    player.updatePlayer();
+
     battleView.drawBattle();
+
+
+    
 }
 
 void showGameover() {
@@ -184,9 +208,11 @@ void switchState(int targetState) {
             levelSelect.resetAlphaValues();
             break;
         case STATE_LEVEL:
-            player.targetPosition = levelSelect.levelSelectPlayerPosition; break;
+            player.targetPosition = levelSelect.levelSelectPlayerPosition; 
+            break;
         case STATE_INGAME:
-            player.targetPosition = levelSelect.levels[0].battlePlayerPosition; break;
+            player.targetPosition = levelSelect.levels[0].battlePlayerPosition; 
+            break;
         
     }
 }
@@ -232,9 +258,9 @@ void drawMouse() {
 }
 
 void showMessage(String message, int time) {
-  this.message = message;
-  messageStartTime = millis();
-  messageLastTime = time;
+    this.message = message;
+    messageStartTime = millis();
+    messageLastTime = time;
 }
 
 void mousePressed() {

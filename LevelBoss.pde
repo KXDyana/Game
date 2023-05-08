@@ -25,7 +25,7 @@ public class LevelBoss {
     
     
     private float rotationSpeed = 0.01f; // Adjust the value to change the rotation speed of the orb
-
+    
     public int timestampStart = 0;
     public int timestampCurrent = 0;
     
@@ -46,7 +46,7 @@ public class LevelBoss {
         this.game = game;
         this.beats = new ArrayList<>();
         this.radius = proportion * width * 0.05;
-        this.position = new PVector(width * 0.8, height * 0.8);
+        this.position = new PVector(width * 4 / 5, height * 4 / 5);
         this.targetPosition = position;
         this.levelFileName = levelFileName;
         this.beatGenerationDelay = beatGenerationDelay;
@@ -54,10 +54,10 @@ public class LevelBoss {
         minim = new Minim(game);
         audioPlayer = minim.loadFile(musicFile, 2048);
         
-        centerOfBulletSpawns = position.copy().add(0, -radius * 1.5f);
-        bulletSpawnRadius = radius * 0.5f;
-                initializeBulletSpawnPositions();
-
+        centerOfBulletSpawns = position.copy().add(0, -radius * 4f);
+        bulletSpawnRadius = radius * 2;
+        initializeBulletSpawnPositions();
+        
         
     }
     
@@ -87,9 +87,9 @@ public class LevelBoss {
     }
     
     public void updateBoss() {
-
-            rotateBulletSpawnPositions();
-
+        
+        rotateBulletSpawnPositions();
+        
         
         timestampCurrent = game.millis() - timestampStart;
         
@@ -108,8 +108,8 @@ public class LevelBoss {
         if (currentBeat.timestampGeneration <= timestampCurrent) {            
             if (!currentBeat.hold) {
                 int flightTime = currentBeat.timestampArrival - currentBeat.timestampGeneration;
-                if (currentBeat.type == 1) shootBullet1(currentBeat.ID, flightTime, bulletSpawnPos[currentBeat.ID%numberOfBulletSpawns]);
-                if (currentBeat.type == 2) shootBullet2(currentBeat.ID, flightTime, bulletSpawnPos[currentBeat.ID%numberOfBulletSpawns]);
+                if (currentBeat.type == 1) shootBullet1(currentBeat.ID, flightTime, bulletSpawnPos[currentBeat.ID % numberOfBulletSpawns]);
+                if (currentBeat.type == 2) shootBullet2(currentBeat.ID, flightTime, bulletSpawnPos[currentBeat.ID % numberOfBulletSpawns]);
             } else {
                 shootLaser(currentBeat.ID, currentBeat.duration);
             }
@@ -133,8 +133,8 @@ public class LevelBoss {
             l.drawLaser();
         }
         lasers.removeIf(Laser ::  isFinished);
-
-         float visualRadiusMultiplier = 0.5f; // Adjust this value to control the visual distance of bulletSpawnPos from the center
+        
+        float visualRadiusMultiplier = 0.5f; // Adjust this value to control the visual distance of bulletSpawnPos from the center
         for (PVector p : bulletSpawnPos) {
             PVector visualPos = PVector.lerp(centerOfBulletSpawns, p, visualRadiusMultiplier);
             fill(255);
@@ -160,7 +160,6 @@ public class LevelBoss {
         PVector targetPos = player.position;
         Laser laser = new Laser(ID, centerOfBulletSpawns, duration);
         lasers.add(laser);
-        enemyColor = ORANGE;
     }
     
     // load the json file
@@ -191,13 +190,13 @@ public class LevelBoss {
         
         for (int i = 0; i < beats.size(); i++) {
             if (!beats.get(i).hold) {
-                beats.get(i).timestampGeneration -= beatGenerationDelay - 150;
+                beats.get(i).timestampGeneration -= beatGenerationDelay - 20;
                 if (beats.get(i).timestampGeneration < 0) {
                     beats.get(i).timestampGeneration = 0;
                 }
             } else {
-
-                beats.get(i).timestampGeneration -= laserCharingTime - 150;
+                
+                beats.get(i).timestampGeneration -= laserCharingTime - 20;
                 
             }
         }
@@ -224,20 +223,21 @@ public class LevelBoss {
             bulletSpawnPos[i] = new PVector(x, y);
         }
     }
-
+    
     private void rotateBulletSpawnPositions() {
-    float angleStep = rotationSpeed;
-
-    for (int i = 0; i < numberOfBulletSpawns; i++) {
-        PVector relativePos = PVector.sub(bulletSpawnPos[i], centerOfBulletSpawns);
-
-        float x = relativePos.x * cos(angleStep) - relativePos.y * sin(angleStep);
-        float y = relativePos.x * sin(angleStep) + relativePos.y * cos(angleStep);
-
-        bulletSpawnPos[i] = PVector.add(centerOfBulletSpawns, new PVector(x, y));
-    }
-}
+        float angleStep = rotationSpeed;
         
-        
+        for (int i = 0; i < numberOfBulletSpawns; i++) {
+            PVector relativePos = PVector.sub(bulletSpawnPos[i], centerOfBulletSpawns);
+            
+            float x = relativePos.x * cos(angleStep) - relativePos.y * sin(angleStep);
+            float y = relativePos.x * sin(angleStep) + relativePos.y * cos(angleStep);
+            
+            bulletSpawnPos[i] = PVector.add(centerOfBulletSpawns, new PVector(x, y));
+        }
     }
         
+        
+    }
+    
+    
