@@ -2,7 +2,7 @@ class Menu {
     
     //Constants for menu appearance
     int menuX, menuY;
-    int optionWidth = 300;
+    int optionWidth = 400;
     int optionHeight = 60;
     int optionSpacing = 0;
     final MenuOption[] rootOptions;
