@@ -122,29 +122,34 @@ final class Shop{
         switch(itemstate) {
             case 1:
                 temp = addtotalsan;
+                text("COST: 15",displayWidth / 2 - rectW * 0.4 - temp.width / 2,displayHeight / 2 - rectH * 0.1);
                 text("Mysterious Medicine",textX,textY);
                 text("Increase your total SAN.",textX,textY + rectH * 0.1);
          break;
             case 2:
                 temp = addgain;
+                text("COST: 10",displayWidth / 2 - rectW * 0.4 - temp.width / 2,displayHeight / 2 - rectH * 0.1);
                 text("Headphone Plugin Chip A:",textX,textY);
                 text("Increase the san gain",textX,textY + rectH * 0.1);
                 text("of per parry.",textX,textY + rectH * 0.2);
          break; 
             case 3:
                 temp = easeloss;
+                text("COST: 10",displayWidth / 2 - rectW * 0.4 - temp.width / 2,displayHeight / 2 - rectH * 0.1);
                 text("Headphone Plugin Chip B:",textX,textY);
                 text("Decrease the san loss",textX,textY + rectH * 0.1);
                 text("of per miss.",textX,textY + rectH * 0.2);
          break;
             case 4:
                 temp = addsan;
+                text("COST: 10",displayWidth / 2 - rectW * 0.4 - temp.width / 2,displayHeight / 2 - rectH * 0.1);
                 text("IFIB Sedative:",textX,textY);
                 text("Increase the san value ",textX,textY + rectH * 0.1);
                 text("of thenext battle.",textX,textY + rectH * 0.2);
          break;
             case 5:
                 temp = sanToM;
+                text("1 SAN = 2 COIN",displayWidth / 2 - rectW * 0.5 - temp.width / 2,displayHeight / 2 - rectH * 0.1);
                 text("\"Greedy Human\":",textX + rectW * 0.1,textY);
                 text("Transform your SAN",textX + rectW * 0.1,textY + rectH * 0.1);
                 text("into money.",textX + rectW * 0.1,textY + rectH * 0.2);
@@ -162,12 +167,13 @@ final class Shop{
      int mIncre = 2;
         switch(itemstate) {
           case 1 :
-                if (player.globalSan + sIncre <= 100 && player.money - mDecre >= 0) {
+                if (player.globalSan + sIncre > 100 ) {
+                    showMessage("You can't buy more SAN.",3000,new PVector(width/2, height/4));
+                } else if(player.money - mDecre < 0) {
+                    showMessage("You don't have enough money.",3000,new PVector(width/2, height/4));
+                } else{
                     player.globalSan += sIncre;
                     player.money -= mDecre;
-                } else{
-                    startTime = millis();
-                    errorState = true;
                 }     
              break;
           case 2 :
@@ -176,21 +182,38 @@ final class Shop{
                 }else{
                     Item item = new Item(2,addgain);
                     player.itemList.add(item);
+                    player.money -= 10;
                     showMessage("Plugin chip A +1",3000,new PVector(width/2, height/4));
                 }
              break; 
           case 3 :
+                if(player.hasItem(3)){
+                    showMessage("You can only get 1 chip B now",3000,new PVector(width/2, height/4));
+                }else{
+                    Item item = new Item(3,easeloss);
+                    player.itemList.add(item);
+                    player.money -= 10;
+                    showMessage("Plugin chip B +1",3000,new PVector(width/2, height/4));
+                }
              break;
           case 4 :
+                if(player.hasItem(4)){
+                    showMessage("You can only get 1 IFIB sedative now",3000,new PVector(width/2, height/4));
+                }else{
+                    Item item = new Item(4,addsan);
+                    player.itemList.add(item);
+                    player.money -= 10;
+                    showMessage("IFIB Sedative +1",3000,new PVector(width/2, height/4));
+                }
              break;
           case 5 :
-                if (player.globalSan - sDecre >= 10) {
+                if(player.globalSan - sDecre < 10){
+                    showMessage("You're losing your mind. ",3000,new PVector(width/2, height/4));
+                    showMessage("Stop trading your SAN for money. ",3000,new PVector(width/2, height*0.3));
+                } else {
                     player.globalSan -= sDecre;
                     player.money += mIncre;
-                } else{
-                    startTime = millis();
-                    errorState = true;
-             }     
+                }
              break;
       }
   }
