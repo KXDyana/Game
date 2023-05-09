@@ -7,7 +7,6 @@ class LevelSelect {
     int hoverButtonColor = RED;
     int levelCreatorButtonColor = BLUE;
     int shopButtonColor = ORANGE;
-    boolean prevMousePressed = false;
     public PVector levelSelectPlayerPosition = new PVector(0, 0);
     public Level[] levels;
     public LSButton menuButton = new LSButton(40, 40, 60, 60, menuButtonColor, hoverButtonColor, 0);
@@ -73,7 +72,6 @@ class LevelSelect {
                 break;
             }
         }
-        prevMousePressed = game.mousePressed;
     }
     
     class LSButton extends Button {

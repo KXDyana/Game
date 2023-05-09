@@ -46,6 +46,7 @@ PImage bossPic1,bossPic2,bossPic3,bossPic4,bossPic5;
 PImage icon1,icon2,icon3,icon4,icon5;
 
 PlotView story;
+Result resultWindow;
 
 int centerx,centery;
 
@@ -165,6 +166,7 @@ void setup() {
     levelCreator = new LevelCreator(this);
     battleView = new BattleView(this);
     story = new PlotView(this, menubg);
+    resultWindow = new Result(this);
     
 }
 
@@ -181,7 +183,8 @@ void draw() {
         case STATE_INGAME:
             showInGame(); break;
         case STATE_GAMEOVER:
-            showGameover(); break;
+            showGameover(); 
+            break;
         case STATE_LEVEL_CREATOR:
             showLevelCreator(); break;
         case STATE_SHOP:
@@ -238,9 +241,7 @@ void showInGame() {
 }
 
 void showGameover() {
-    fill(ORANGE);
-    textSize(50);
-    text("Gameover", width / 2, height / 2);
+    resultWindow.drawResult();
 }
 
 
@@ -296,6 +297,10 @@ void switchState(int targetState) {
             break;
         case STATE_STORY:
             levelSelect.resetAlphaValues();
+            break;
+        case STATE_GAMEOVER:
+            player.targetPosition = levelSelect.levelSelectPlayerPosition; 
+            break;
     }
 }
 

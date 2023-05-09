@@ -5,11 +5,13 @@ public class Laser {
     private float chargeProgress;
     public int ID;
     
+    public float laserMag = 1;
+    
     private int laserFadeOutDuration = 300; // Add this line to set the fade out duration
     
     
     public float laserAlpha = 0;
-
+    
     public boolean audioTriggered = false;
     
     public Laser(int ID, PVector startPosition, int duration) {
@@ -53,7 +55,7 @@ public class Laser {
             line(adjustedStartPosition.x, adjustedStartPosition.y, chargeLineEnd1.x, chargeLineEnd1.y);
             line(adjustedStartPosition.x, adjustedStartPosition.y, chargeLineEnd2.x, chargeLineEnd2.y);
         } else { // Laser phase
-
+            
             if (!audioTriggered) {
                 laserShoot.trigger();
                 audioTriggered = true;
@@ -67,7 +69,10 @@ public class Laser {
             strokeWeight(40);
             stroke(CYAN, laserAlpha);
             
-            if (!player.isParrying) player.isHitByLaser = true;
+            if (!player.isParrying) {
+                player.isHitByLaser = true;
+                
+            }
             else {
                 player.isHitByLaser = false;
                 player.tempHealth += 0.01;
@@ -82,6 +87,20 @@ public class Laser {
             float length = adjustedStartPosition.dist(player.position);
             directionToPlayer.mult(length);
             
+            
+            if (player.isParrying) {
+                laserMag = lerp(laserMag, directionToPlayer.mag() - player.perfectRadius / 2, 0.2f);
+                if (laserMag < 0) {
+                    laserMag = 0;
+                }
+                
+            } else {
+                laserMag = lerp(laserMag, directionToPlayer.mag(), 0.2f);
+            }
+            
+            
+            directionToPlayer.setMag(laserMag);
+            
             PVector endPoint = PVector.add(adjustedStartPosition, directionToPlayer);
             line(adjustedStartPosition.x, adjustedStartPosition.y, endPoint.x, endPoint.y);
             battleView.currentLevel.boss.enemyColor = ORANGE;
@@ -89,7 +108,7 @@ public class Laser {
         
         noStroke();
         
-        text(ID, startPosition.x, startPosition.y - 10);
+        // text(ID, startPosition.x, startPosition.y - 10);
     }
     
     

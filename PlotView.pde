@@ -26,7 +26,7 @@ public class PlotView {
         game.textAlign(game.LEFT, game.TOP);
         
         float textX = game.width * 0.1f;
-        float textY = game.height * 0.1f;
+        float textY = game.height * 0.2f;
         float textLeading = textSize * 1.2f;
         float textWidth = game.width * 0.8f; // Set the text area width to 80% of the screen width
         

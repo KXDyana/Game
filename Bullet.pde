@@ -86,7 +86,14 @@ public class Bullet {
                 player.fineParry();
                 if (!audioTriggered) bullet1Arrive.trigger();
                 
-            } 
+            } else if (player.withinMissRange(position) && player.isParrying && !prevSpacePressed) {
+                prevSpacePressed = true;
+                this.isParried = true;
+                player.isParrying = false;
+                earlyMiss();
+                if (!audioTriggered) bullet1Arrive.trigger();
+                
+            }  
         } else if (this.type == 2) {
             if (player.withinPerfectParryRange(position) && player.isDodging && !prevEnterPressed) {
                 prevEnterPressed = true;
@@ -95,20 +102,31 @@ public class Bullet {
                 player.perfectDodge();
                 if (!audioTriggered) bullet1Arrive.trigger();
                 
-            } if (player.withinParryRange(position) && player.isDodging && !prevEnterPressed) {
+            } else if (player.withinParryRange(position) && player.isDodging && !prevEnterPressed) {
                 prevEnterPressed = true;
                 this.isParried = true;
                 player.isDodging = false;
                 player.fineDodge();
                 if (!audioTriggered) bullet1Arrive.trigger();
                 
-            }
+            } else if (player.withinMissRange(position) && player.isParrying && !prevSpacePressed) {
+                prevSpacePressed = true;
+                this.isParried = true;
+                player.isParrying = false;
+                earlyMiss();
+                if (!audioTriggered) bullet1Arrive.trigger();
+            } 
         }
         if (player.withinPlayerHitBox(position)) {
             this.isParried = true;
             player.isParrying = false;
             player.gotHit();
         }
+    }
+    
+    public void earlyMiss() {
+        showMessage("Miss!", 700, new PVector(width / 2, height / 4));
+        battleView.currentLevel.boss.miss++;
     }
     
     public void drawBullet() {
