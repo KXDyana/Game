@@ -125,11 +125,20 @@ public class LevelBoss {
     }
     
     public void updateBoss() {
+
         
-        rotateBulletSpawnPositions();
+        
         
         
         timestampCurrent = game.millis() - timestampStart;
+                rotateBulletSpawnPositions();
+
+
+        if (msgIndex >= tutorials.length) return;
+        if (tutorialTimes[msgIndex] * 1000 < timestampCurrent) {
+            showMessage(tutorials[msgIndex], 4500, new PVector(width / 2, height / 2), ORANGE);
+            msgIndex++;
+        }
         
         updateAvatarPosition();
         
@@ -172,11 +181,7 @@ public class LevelBoss {
         }
         
 
-        if (msgIndex >= tutorials.length) return;
-        if (tutorialTimes[msgIndex] * 1000 < timestampCurrent) {
-            showMessage(tutorials[msgIndex], 3000, new PVector(width / 2, height / 2), ORANGE);
-            msgIndex++;
-        }
+        
         
         
     }
@@ -187,11 +192,11 @@ public class LevelBoss {
         "The outer purple ring\nis your personal\ndefence energy shield.",
         "When a purple bullet\nis approaching the shield,\npress SPACE to\nactivate the shield.", 
         "When a red bullet is\napproaching the shield,\npress ENTER.", 
-        "When you hear a laser\nguiding towards you,\nhold SPACE to\ndefend yourself.", 
+        "When you see a laser\nguiding towards you,\nhold SPACE to\ndefend yourself.", 
         "Beware that the\ninner ring is your\nhealth bar. If it\nreaches zero, you will die.", 
         "Congratulations!\nYou are now a certified\nSiren Investigator!"};
     
-    int[] tutorialTimes = {2, 6, 10, 14, 33, 58, 64, 70};
+    int[] tutorialTimes = {2, 6, 10, 14, 33, 55, 70, 77};
     
     
     public void drawBoss() {
