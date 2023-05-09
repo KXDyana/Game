@@ -145,7 +145,7 @@ class Player {
     
     
     void perfectParry() {
-        showMessage("Perfect!", 700, new PVector(width / 2, height / 4));
+        showMessage("Perfect!", 700, new PVector(width / 2, height / 4), GREEN);
         battleView.currentLevel.boss.perfect++;
         
         tempHealth += 0.5;
@@ -153,14 +153,14 @@ class Player {
     }
     
     void fineParry() {
-        showMessage("Fine!", 700, new PVector(width / 2, height / 4));
+        showMessage("Fine!", 700, new PVector(width / 2, height / 4), ORANGE);
         
         tempHealth += 0.2;
         if (tempHealth >= 100) tempHealth = 100;
     }
     
     void perfectDodge() {
-        showMessage("Perfect!", 700, new PVector(width / 2, height / 4));
+        showMessage("Perfect!", 700, new PVector(width / 2, height / 4), GREEN);
         
         tempHealth += 0.5;
         if (tempHealth >= 100) tempHealth = 100;
@@ -168,7 +168,7 @@ class Player {
     }
     
     void fineDodge() {
-        showMessage("Fine!", 700, new PVector(width / 2, height / 4));
+        showMessage("Fine!", 700, new PVector(width / 2, height / 4), ORANGE);
         
         tempHealth += 0.2;
         if (tempHealth >= 100) tempHealth = 100;
@@ -177,7 +177,7 @@ class Player {
     void gotHit() {
             gotHitTime = millis();
 
-        showMessage("Hit!", 700, new PVector(width / 2, height / 4));
+        showMessage("Hit!", 700, new PVector(width / 2, height / 4), RED);
         
         tempHealth -= 10;
         if (tempHealth <= 0) {

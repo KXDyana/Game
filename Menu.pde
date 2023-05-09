@@ -23,7 +23,7 @@ class Menu {
         this.menuX = game.width * 1 / 8;
         this.menuY = game.height * 1 / 10;
         
-        this.menuPlayerPosition = new PVector(game.width / 2,  game.height * 4 / 5);
+        this.menuPlayerPosition = new PVector(game.width  * 6 / 8,  game.height * 5 / 8);
         
         int spaceCounter = 0;
         this.rootOptions = new MenuOption[] {

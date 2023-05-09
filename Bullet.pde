@@ -133,7 +133,7 @@ public class Bullet {
     }
     
     public void earlyMiss() {
-        showMessage("Miss!", 700, new PVector(width / 2, height / 4));
+        showMessage("Miss!", 700, new PVector(width / 2, height / 4), RED);
         battleView.currentLevel.boss.miss++;
     }
     

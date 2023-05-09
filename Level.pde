@@ -16,7 +16,7 @@ public class Level {
     
     int menuButtonColor = LIGHT_PURPLE;
     int hoverButtonColor = RED;
-    public LButton back = new LButton(40, 40, 60, 60, menuButtonColor, hoverButtonColor, 0);
+    public LButton back = new LButton(40, 40, 60, 60, menuButtonColor, hoverButtonColor, 0, "Back");
     
     float x = 0;
     float y = 0;
@@ -100,8 +100,8 @@ public class Level {
     
     class LButton extends Button {
         int type;
-        LButton(float x, float y, float w, float h, int defaultColor, int hoverColor, int type) {
-            super(x, y, w, h, defaultColor, hoverColor);
+        LButton(float x, float y, float w, float h, int defaultColor, int hoverColor, int type, String text) {
+            super(x, y, w, h, defaultColor, hoverColor, text);
             this.type = type;
         }
         void onPressAction() {

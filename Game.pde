@@ -171,6 +171,7 @@ void setup() {
     story = new PlotView(this, menubg);
     resultWindow = new Result(this);
     
+    switchState(STATE_MENU);
 }
 
 void draw() {
@@ -178,7 +179,8 @@ void draw() {
     
     switch(state) {                                            
         case STATE_MENU:
-            showMenu(); break;
+            showMenu();
+            break;
         case STATE_LEVEL:
             showLevel(); break;
         case STATE_GAMELOADING:
@@ -212,13 +214,24 @@ void draw() {
 
 void showShop() {
     shop.draw();
+    player.updatePlayer();
+    player.drawPlayer();
     
 }
 
 void showMenu() {
+    drawTitle();
+    image(shipbg, width * 0.9, height * 0.9);
     player.updatePlayer();
     player.drawPlayer();
     menu.drawMenu();
+}
+
+void drawTitle() {
+    textAlign(CENTER, CENTER);
+    textSize(100);
+    fill(LIGHT_PURPLE);
+    text("Sirens\nin the Sky", width / 2, height / 2 - 150);
 }
 
 void showLevel() {
@@ -244,7 +257,10 @@ void showInGame() {
 }
 
 void showGameover() {
+    
     resultWindow.drawResult();
+    player.updatePlayer();
+    player.drawPlayer();
 }
 
 
@@ -289,13 +305,16 @@ void switchState(int targetState) {
     state = targetState;
     switch(state) {
         case STATE_MENU:
+            player.currentAvatar = player.faceLeftAvatar;
             player.targetPosition = menu.menuPlayerPosition;
             levelSelect.resetAlphaValues();
             break;
         case STATE_LEVEL:
+            player.currentAvatar = player.avatar;
             player.targetPosition = levelSelect.levelSelectPlayerPosition; 
             break;
         case STATE_INGAME:
+            player.currentAvatar = player.faceRightAvatar;
             player.targetPosition = levelSelect.levels[0].battlePlayerPosition; 
             bgm.pause();
             break;
@@ -303,8 +322,15 @@ void switchState(int targetState) {
             levelSelect.resetAlphaValues();
             break;
         case STATE_GAMEOVER:
-            player.targetPosition = levelSelect.levelSelectPlayerPosition; 
+            player.targetPosition = menu.menuPlayerPosition; 
+            player.currentAvatar = player.faceLeftAvatar;
             break;
+        case STATE_SHOP:
+            player.targetPosition = PVector.add(levelSelect.levels[0].battlePlayerPosition, new PVector(-100, 0));
+            player.currentAvatar = player.faceRightAvatar;
+            break;
+        
+        
     }
 }
 
@@ -353,8 +379,8 @@ void drawMouse() {
 }
 
 // Add a new parameter to showMessage for the position
-void showMessage(String text, int duration, PVector position) {
-    Message message = new Message(text, duration, position);
+void showMessage(String text, int duration, PVector position, int msgColor) {
+    Message message = new Message(text, duration, position, msgColor);
     messages.add(message);
 }
 
@@ -364,13 +390,15 @@ class Message {
     int duration;
     PVector position;
     float alpha;
+    int msgColor;
     
-    Message(String text, int duration, PVector position) {
+    Message(String text, int duration, PVector position, int msgColor) {
         this.text = text;
         this.startTime = millis();
         this.duration = duration;
         this.position = position.copy();
         this.alpha = 0;
+        this.msgColor = msgColor;
     }
     
     void display() {
@@ -392,8 +420,18 @@ class Message {
         } else {
             alpha = 255;
         }
-        fill(ORANGE, alpha);
+        fill(msgColor, alpha);
         text(text, position.x, yPos);
+    }
+    
+    void earlyShow() {
+        // Set the start time to the current time, making the progress 0
+        startTime = millis();
+    }
+    
+    void removeMsg() {
+        // Set the start time to a value that makes the progress > 0.75
+        startTime = millis() - (int)(duration * 0.76);
     }
 }
 

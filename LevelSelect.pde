@@ -9,9 +9,9 @@ class LevelSelect {
     int shopButtonColor = ORANGE;
     public PVector levelSelectPlayerPosition = new PVector(0, 0);
     public Level[] levels;
-    public LSButton menuButton = new LSButton(40, 40, 60, 60, menuButtonColor, hoverButtonColor, 0);
-    public LSButton shopButton = new LSButton(110, 40, 60, 60, shopButtonColor, hoverButtonColor, 1); 
-    public LSButton levelCreatorButton = new LSButton(displayWidth - 40, 40, 60, 60, levelCreatorButtonColor, hoverButtonColor, 2);
+    public LSButton menuButton = new LSButton(40, 40, 60, 60, menuButtonColor, hoverButtonColor, 0, "Menu");
+    public LSButton shopButton = new LSButton(110, 40, 60, 60, shopButtonColor, hoverButtonColor, 1, "Shop"); 
+    public LSButton levelCreatorButton = new LSButton(displayWidth - 40, 40, 60, 60, levelCreatorButtonColor, hoverButtonColor, 2, "New");
     
 
     float angleOffset; // rotation speed of the levels
@@ -76,8 +76,8 @@ class LevelSelect {
     
     class LSButton extends Button {
         int type;
-        LSButton(float x, float y, float w, float h, int defaultColor, int hoverColor, int type) {
-            super(x, y, w, h, defaultColor, hoverColor);
+        LSButton(float x, float y, float w, float h, int defaultColor, int hoverColor, int type, String text) {
+            super(x, y, w, h, defaultColor, hoverColor, text);
             this.type = type;
         }
         void onPressAction() {

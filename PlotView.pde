@@ -9,7 +9,7 @@ public class PlotView {
     
      int menuButtonColor = LIGHT_PURPLE;
     int hoverButtonColor = RED;
-        public BackButton back = new BackButton(40, 40, 60, 60, menuButtonColor, hoverButtonColor, 0);
+        public BackButton back = new BackButton(40, 40, 60, 60, menuButtonColor, hoverButtonColor, 0, "Back");
 
     
     PlotView(PApplet game, PImage bg) {
@@ -69,8 +69,8 @@ public class PlotView {
     
     class BackButton extends Button {
         int type;
-        BackButton(float x, float y, float w, float h, int defaultColor, int hoverColor, int type) {
-            super(x, y, w, h, defaultColor, hoverColor);
+        BackButton(float x, float y, float w, float h, int defaultColor, int hoverColor, int type, String text) {
+            super(x, y, w, h, defaultColor, hoverColor, text);
             this.type = type;
         }
         void onPressAction() {

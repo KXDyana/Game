@@ -4,8 +4,9 @@ class Button {
     int buttonColor;
     int defaultColor;
     int hoverColor;
+    String text;
     
-    Button(float x, float y, float w, float h, int defaultColor, int hoverColor) {
+    Button(float x, float y, float w, float h, int defaultColor, int hoverColor, String text) {
         this.x = x;
         this.y = y;
         this.w = w;
@@ -13,6 +14,7 @@ class Button {
         this.defaultColor = defaultColor;
         this.buttonColor = defaultColor;
         this.hoverColor = hoverColor;
+        this.text = text;
     }
     
     void drawButton() {
@@ -21,6 +23,11 @@ class Button {
         noStroke();
         rectMode(CENTER);
         rect(x, y, w, h, 5, 5, 5, 5);
+
+        fill(255);
+        textAlign(CENTER, CENTER);
+        textSize(18);
+        text(text, x, y);
     }
     
     void updateButton() {
