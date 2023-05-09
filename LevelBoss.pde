@@ -94,7 +94,7 @@ public class LevelBoss {
         bullets.clear();
         lasers.clear();
         beats.clear();
-        resultWindow.loadResult(total, perfect, fine, miss, playerDead);
+        resultWindow.loadResult(total, perfect, fine, miss, playerDead, this);
         switchState(STATE_GAMEOVER);
     }
     
@@ -128,6 +128,11 @@ public class LevelBoss {
 
         if (player.tempHealth <= 0) {
             playerDead = true;
+            endBattle();
+            return;
+        }
+
+        if (mousePressed && mouseButton == LEFT && !prevMousePressed && keys['e']) {
             endBattle();
             return;
         }

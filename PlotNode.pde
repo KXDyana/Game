@@ -84,7 +84,6 @@ class PlotNode {
     
     void drawNode() {
         
-        
         if (!unlocked && !unLockAllLevels) return;
         // Draw line connecting the node to its parent level
         game.stroke(currentColor, currentAlpha); // Set the stroke color and transparency to match the node
@@ -92,10 +91,10 @@ class PlotNode {
         game.line(x, y, parentLevel.x, parentLevel.y);
         
         for (PlotNode connectedNode : nextNodes) {
+            if (!connectedNode.unlocked) continue;
             game.stroke(currentColor, currentAlpha); // Set the stroke color and transparency to match the node
             game.strokeWeight(2);
             game.line(x, y, connectedNode.x, connectedNode.y);
-            println("Drawing line");
         }
         
         game.fill(currentColor, currentAlpha);
@@ -120,7 +119,17 @@ class PlotNode {
     
     void onPressAction() {
         story.loadStory(this.text, this.background);
+        unlockNextLevel();
         switchState(STATE_STORY);
+    }
+    
+    void unlockNextLevel() {
+        if (this.type == 0) {
+            levelSelect.levels[this.parentLevel.levelNumber].unlocked = true;       //unlock the level
+        } else if (this.type == 1 || this.type == 2) {  
+            if (this.parentLevel.levelNumber < 5)         
+            levelSelect.levels[this.parentLevel.levelNumber + 1].plotNodes.get(0).unlocked = true;  //unlock the next plotnode
+        }
     }
     
     

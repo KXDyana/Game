@@ -53,6 +53,7 @@ public class Level {
             }
         } else {
             plotNodes.add(new PlotNode(game, TWO_PI  / 3, radius / 1.3, background, this, 2));
+            unlocked = true;
             
         }
         
@@ -122,6 +123,11 @@ public class Level {
     }
     
     void drawButton() {
+
+        for (int i = 0; i < plotNodes.size(); i++) {
+            plotNodes.get(i).updateNode(x, y);
+            plotNodes.get(i).drawNode();
+        }
         if (!unlocked && !unLockAllLevels) return;
         
         if (isMouseHovering()) {
@@ -137,14 +143,9 @@ public class Level {
         game.ellipse(x, y, radius, radius); // Draw the circle for the level
         game.fill(255);
         textAlign(CENTER, CENTER);
-        textSize(radius * 0.3);
+        textSize(radius * 0.2);
         game.text(levelNumber, x, y + this.radius * 0.35); // Draw the level number
         image(this.icon,x,y);
-        
-        for (int i = 0; i < plotNodes.size(); i++) {
-            plotNodes.get(i).updateNode(x, y);
-            plotNodes.get(i).drawNode();
-        }
     }
     
     boolean isMouseHovering() {
