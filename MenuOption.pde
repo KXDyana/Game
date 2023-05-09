@@ -9,7 +9,6 @@ class MenuOption {
     float optionColorOpa;
     int optionColor = LIGHT_PURPLE;
     Menu menu;
-    boolean prevMousePressed = false;
     
     MenuOption(String optionText, int menuOptionX, int menuOptionY, int optionWidth, int optionHeight, Menu menu) {
         this.menuOptionX = menuOptionX;
@@ -58,25 +57,44 @@ class MenuOption {
             if (mousePressed && mouseButton == LEFT && !prevMousePressed) {
                 switch(optionText) {
                     case "Settings":
-                        menu.menuState = Menu.STATE_SETTING; break;
+                        prevMousePressed = true;
+                        
+                        menu.menuState = Menu.STATE_SETTING;
+                        break;
                     case "Back":
                         menu.menuState = Menu.STATE_ROOT; 
                         player.targetPosition = menu.menuPlayerPosition;
+                        prevMousePressed = true;
+                        
                         break;
                     case "Quit Game":
                         exit(); break;
                     case "Load Game":
-                        menu.menuState = Menu.STATE_LOAD; break;
+                        menu.menuState = Menu.STATE_LOAD;
+                        prevMousePressed = true;
+                        
+                        break;
                     case "Start New Game":
                         Game.state = STATE_LEVEL;
                         player.targetPosition = levelSelect.levelSelectPlayerPosition;
+                        prevMousePressed = true;
+                        
                         break; 
+                    case "Unlock Content":
+                        unLockAllLevels = true;
+                        prevMousePressed = true;
+                        
+                        break;
+                    case "Show Game Info":
+                        showInfo = !showInfo;
+                        prevMousePressed = true;
+                        
+                        break;
                 }
             }
         }
         else {
             selected = false;
         }
-        prevMousePressed = mousePressed;
     }
 }

@@ -34,6 +34,7 @@ class Player {
     float perfectRadius;
     PVector position, targetPosition;
     int playerColor;
+    color healthColor = GREEN;
     boolean isParrying;
     boolean isDodging;
 
@@ -98,7 +99,10 @@ class Player {
         
         if (isHitByLaser) {
             playState = STATE_HIT;
-            tempHealth -= 0.1;
+            tempHealth -= 0.3;
+            if (tempHealth <= 0) {
+            tempHealth = 0;
+            }
         }
         
         if (state == STATE_INGAME) {
@@ -192,7 +196,7 @@ class Player {
     float healthRatio = prevTempHealth / 100;
 
     // Interpolate between GREEN and DARK_RED based on the health ratio
-    color healthColor = lerpColor(DARK_RED, GREEN, healthRatio);
+    healthColor = lerpColor(DARK_RED, GREEN, healthRatio);
 
     strokeWeight(ringStrokeWeight);
     stroke(healthColor, parryCircleAlpha); // Color for the health ring

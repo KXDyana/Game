@@ -1,29 +1,122 @@
 class PlotNode {
-
+    
     PImage background;
-    String text;
+    String textPath;
+    String[] text; 
     Level parentLevel;
-
+    
     PApplet game;
-    PVector position;
     int fillColor = GREEN;
-
-    PlotNode(PApplet game, PVector center, float angle, PImage background, String text, Level parentLevel) {
+    
+    float x, y, angle, distance;
+    float radius = 20;
+    
+    float rotationSpeed = 0.002f; 
+    
+    float buttonSize = player.playerRadius / 2.4; 
+    
+    float currentAlpha = 20;
+    float hoverAlpha = 190;
+    float defaultAlpha = 20;
+    
+    int defaultColor;
+    int currentColor;
+    int hoverColor;
+    
+    ArrayList<PlotNode> nextNodes = new ArrayList<PlotNode>();
+    
+    
+    
+    
+    int type;//0 = pre, 1 = lowSan, 2 = highSan
+    boolean unlocked = false;
+    
+    PlotNode(PApplet game, float angle, float distance, PImage background, Level parentLevel, int type) {
         this.game = game;
         this.background = background;
-        this.text = text;
         this.parentLevel = parentLevel;
-    }
-
-    void updateNode() {
+        this.angle = angle;
+        this.distance = distance;
+        
+        defaultColor = parentLevel.defaultColor;
+        hoverColor = parentLevel.hoverColor;
+        currentColor = defaultColor;
+        
+        this.textPath = "res/levels/" + parentLevel.levelNumber + "/";
+        
+        if (type == 0) {
+            textPath += "preText.txt";
+        } else if (type == 1) {
+            textPath += "lowSanText.txt";
+            
+        } else if (type == 2) {
+            textPath += "highSanText.txt";
+        }
+        
+        this.text = game.loadStrings(textPath);
+        this.type = type;
         
     }
-
-    void drawNode() {
-        updateNode();
-        game.fill(fillColor);
-        game.noStroke();
-        game.ellipse(position.x, position.y, 20, 20); // adjust the size of the button as needed
+    
+    void updateNode(float levelX, float levelY) {
+        angle += rotationSpeed; // Add rotation by incrementing the angle
+        
+        x = levelX + cos(angle) * distance;
+        y = levelY + sin(angle) * distance;
+        
+        if (isMouseHovering()) {
+            currentAlpha = game.lerp(currentAlpha, hoverAlpha, 0.05f);
+            currentColor = game.lerpColor(currentColor, hoverColor, 0.05f);
+            
+            // Check for mouse press
+            if (game.mousePressed) {
+                onPressAction();
+            }
+        } else {
+            currentAlpha = game.lerp(currentAlpha, defaultAlpha, 0.05f);
+            currentColor = game.lerpColor(currentColor, hoverColor, 0.05f);
+        }
     }
-
+    
+    
+    void drawNode() {
+        
+        // Draw line connecting the node to its parent level
+        game.stroke(currentColor, currentAlpha); // Set the stroke color and transparency to match the node
+        game.strokeWeight(2); // Set the stroke weight
+        game.line(x, y, parentLevel.x, parentLevel.y);
+        
+        for (PlotNode connectedNode : nextNodes) {
+            game.stroke(currentColor, currentAlpha); // Set the stroke color and transparency to match the node
+            game.strokeWeight(2);
+            game.line(x, y, connectedNode.x, connectedNode.y);
+            println("Drawing line");
+        }
+        
+        game.fill(currentColor, currentAlpha);
+        game.noStroke();
+        game.ellipse(x, y, buttonSize, buttonSize); 
+    }
+    
+    
+    
+    
+    void connectNodes() {
+        if (parentLevel.levelNumber < 5) {
+            if (type == 1 || type == 2) {          
+                nextNodes.add(levelSelect.levels[parentLevel.levelNumber + 1].plotNodes.get(0));
+            }
+        }
+    }
+    
+    boolean isMouseHovering() {
+        return game.dist(game.mouseX, game.mouseY, x, y) <= buttonSize / 2;
+    }
+    
+    void onPressAction() {
+        story.loadStory(this.text, this.background);
+        switchState(STATE_STORY);
+    }
+    
+    
 }

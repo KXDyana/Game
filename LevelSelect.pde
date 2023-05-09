@@ -28,7 +28,16 @@ class LevelSelect {
         levels[3] = new Level(game, 3,bgpic3,icon3);
         levels[4] = new Level(game, 4,bgpic0,icon4);
         levels[5] = new Level(game, 5,bgpic5,icon5);
+
         
+    }
+
+    void connectNodes(){
+        for (Level l: levels) {
+            for (PlotNode p: l.plotNodes){
+                p.connectNodes();
+            }
+        }
     }
     
     void drawLevelView() {
@@ -50,14 +59,14 @@ class LevelSelect {
         for (int i = 0; i < levels.length; i++) {
             float x = game.width / 2 + distributionRadius * cos(angle * i + angleOffset - HALF_PI);
             float y = game.height / 2 + distributionRadius * sin(angle * i + angleOffset - HALF_PI);
-            levels[i].lb.setPosition(x, y); // Update the position of the level button
-            levels[i].lb.draw();
+            levels[i].setPosition(x, y); // Update the position of the level button
+            levels[i].drawButton();
         }
     }
     
     void updateLevelView() {
         for (Level l : levels) {
-            if (l.lb.isMouseHovering() && game.mousePressed && game.mouseButton == LEFT && !prevMousePressed) {
+            if (l.isMouseHovering() && game.mousePressed && game.mouseButton == LEFT && !prevMousePressed) {
                 Game.state = Game.STATE_INGAME;
                 battleView.startBattle(l);
                 resetAlphaValues();
@@ -91,7 +100,7 @@ class LevelSelect {
     
     void resetAlphaValues() {
         for (Level l : levels) {
-            l.lb.alpha = 0;
+            l.alpha = 0;
         }
     }
 }

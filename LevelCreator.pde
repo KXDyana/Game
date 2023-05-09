@@ -268,7 +268,6 @@ class SongButton {
     String songName;
     float x,y;
     int textColor;
-    PFont font;
     String resourcePath;
     
     SongButton(PApplet game, String songName, float x, float y, String resourcePath) {
@@ -277,7 +276,6 @@ class SongButton {
         this.x = x;
         this.y = y;
         this.textColor = game.color(255);
-        this.font = game.createFont("Arial", 16);
         this.resourcePath = resourcePath;
     }
     
@@ -290,14 +288,13 @@ class SongButton {
         }
         
         game.fill(textColor);
-        game.textFont(font);
         game.textAlign(PConstants.LEFT, PConstants.CENTER); // Add this line to center the text vertically
         game.text(songName, x, y);
     }
     
     
     boolean isMouseHovering() {
-        float halfTextSize = font.getSize() / 2;
+        float halfTextSize = ft.getSize() / 2;
         return game.mouseX >= x && game.mouseX <= x + game.textWidth(songName) && game.mouseY >= y - halfTextSize && game.mouseY <= y + halfTextSize;
     }
     

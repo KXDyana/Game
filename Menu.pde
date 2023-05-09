@@ -36,8 +36,8 @@ class Menu {
         spaceCounter = 0;
         this.settingOptions = new MenuOption[] {
             new MenuOption("Back", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight, this),
-                new MenuOption("Effect Volumn", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight, this),
-                new MenuOption("Music Volumn", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight, this),
+                new MenuOption("Unlock Content", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight, this),
+                new MenuOption("Show Game Info", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight, this),
             };
         
         spaceCounter = 0;

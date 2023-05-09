@@ -26,6 +26,7 @@ static final int STATE_GAMEOVER = 4;
 static final int STATE_GAMEPAUSE = 5;
 static final int STATE_LEVEL_CREATOR = 6;
 static final int STATE_SHOP = 7;
+static final int STATE_STORY = 8;
 static int state = 0;  // initial state
 
 public PImage bullet1;
@@ -44,11 +45,12 @@ PImage bgpic0,bgpic1,bgpic2,bgpic3,bgpic4,bgpic5;
 PImage bossPic1,bossPic2,bossPic3,bossPic4,bossPic5;
 PImage icon1,icon2,icon3,icon4,icon5;
 
+PlotView story;
+
 int centerx,centery;
 
-
-
-
+boolean unLockAllLevels = false;
+boolean showInfo = false;
 
 // use a boolean array to register key presses
 boolean[] keys = new boolean[128];
@@ -96,9 +98,7 @@ void setup() {
     player.position.x = width / 2;
     player.position.y = height * 4 / 5;
     menu = new Menu(this);
-    // levelSelect = new LevelSelect(this);
-    // levelCreator = new LevelCreator(this);
-    // battleView = new BattleView(this);
+
     
     minim = new Minim(this);
     bullet1Arrive = minim.loadSample("res/audioEffect/bullet1Spawn.mp3");
@@ -107,26 +107,26 @@ void setup() {
     laserCharge = minim.loadSample("res/audioEffect/laserCharge.mp3");
     laserCharge.setGain(4);
     laserShoot = minim.loadSample("res/audioEffect/laserShoot.mp3");
-
-    centerx = width/2;
-    centery = height/2;
+    
+    centerx = width / 2;
+    centery = height / 2;
     
     shop = new Shop();
     money = loadImage("res/sprites/shoppic/money.png");
     SANimg = loadImage("res/sprites/shoppic/SAN.png");
-
+    
     menubg = loadImage("res/sprites/bgpic/menubg.png");
     shipbg = loadImage("res/sprites/bgpic/ship.png");
-
-
-
+    
+    
+    
     bgpic0 = loadImage("res/sprites/bgpic/tutorial.png");
     bgpic1 = loadImage("res/sprites/bgpic/1-shuttle.png");
     bgpic2 = loadImage("res/sprites/bgpic/2-room.png");
     bgpic3 = loadImage("res/sprites/bgpic/3-castle.png");
     bgpic4 = loadImage("res/sprites/bgpic/4-cabin.png");
     bgpic5 = loadImage("res/sprites/bgpic/5-venue.png");
-
+    
     menubg.resize(width,height);
     bgpic0.resize(width,height);
     bgpic1.resize(width,height);
@@ -134,40 +134,43 @@ void setup() {
     bgpic3.resize(width,height);
     bgpic4.resize(width,height);
     bgpic5.resize(width,height);
-
-
-
-
+    
+    
+    
+    
     bossPic1 = loadImage("res/sprites/1-bloatedwoman-monster.png");
     bossPic2 = loadImage("res/sprites/2-floatinghorror.png");
     bossPic3 = loadImage("res/sprites/3-night.png");
     bossPic4 = loadImage("res/sprites/4-howler.png");
     bossPic5 = loadImage("res/sprites/5-blackPharaoh.png");
-
-
-
+    
+    
+    
     icon1 = loadImage("res/sprites/icon/1-icon.png");
     icon2 = loadImage("res/sprites/icon/2-icon.png");
     icon3 = loadImage("res/sprites/icon/3-icon.png");
     icon4 = loadImage("res/sprites/icon/4-icon.png");
     icon5 = loadImage("res/sprites/icon/5-icon.png");
     
-
+    
     bulletRadius = player.playerRadius / 10;
     bullet1 = loadImage("res/sprites/bullet/bullet1.png");
     bullet2 = loadImage("res/sprites/bullet/bullet1.png");
     bullet1.resize((int)bulletRadius  * 5 / 2,(int)bulletRadius * 5 / 2);
     bullet2.resize((int)bulletRadius * 5 / 2,(int)bulletRadius * 5 / 2);
-
-
+    
+    
     levelSelect = new LevelSelect(this);
+    levelSelect.connectNodes();
     levelCreator = new LevelCreator(this);
     battleView = new BattleView(this);
+    story = new PlotView(this, menubg);
+    
 }
 
 void draw() {
     background(DARK_GREY);
-
+    
     switch(state) {                                            
         case STATE_MENU:
             showMenu(); break;
@@ -183,6 +186,8 @@ void draw() {
             showLevelCreator(); break;
         case STATE_SHOP:
             showShop(); break;
+        case STATE_STORY:
+            showStory(); break;
     }
     drawMouse();
     prevMousePressed = mousePressed;
@@ -207,7 +212,7 @@ void showShop() {
 void showMenu() {
     player.updatePlayer();
     player.drawPlayer();
-        menu.drawMenu();
+    menu.drawMenu();
 }
 
 void showLevel() {
@@ -248,6 +253,10 @@ void showLevelCreator() {
     levelCreator.display();
 }
 
+void showStory() {
+    story.drawStory();
+}
+
 void keyPressed() {
     if (key >= 0 && key < keys.length) {
         keys[key] = true;
@@ -285,7 +294,8 @@ void switchState(int targetState) {
         case STATE_INGAME:
             player.targetPosition = levelSelect.levels[0].battlePlayerPosition; 
             break;
-        
+        case STATE_STORY:
+            levelSelect.resetAlphaValues();
     }
 }
 
@@ -299,6 +309,8 @@ void drawMouse() {
     rectMode(CENTER);
     rect(mouseX, mouseY, 14, 14);
     fill(ORANGE); // Reset fill color to white for text
+
+    if (!showInfo) return;
     
     textSize(15);
     textAlign(LEFT);
@@ -343,7 +355,7 @@ class Message {
     int duration;
     PVector position;
     float alpha;
-
+    
     Message(String text, int duration, PVector position) {
         this.text = text;
         this.startTime = millis();
@@ -351,18 +363,18 @@ class Message {
         this.position = position.copy();
         this.alpha = 0;
     }
-
+    
     void display() {
         textSize(60);
         textAlign(CENTER);
-
+        
         // Calculate elapsed time
         float elapsedTime = millis() - startTime;
         float progress = elapsedTime / duration;
-
+        
         // Calculate Y position based on progress
         float yPos = position.y + map(progress, 0, 1, -100, 100);
-
+        
         // Calculate alpha based on progress
         if (progress < 0.25) {
             alpha = map(progress, 0, 0.25, 0, 255);
@@ -376,32 +388,3 @@ class Message {
     }
 }
 
-// void mousePressed() {
-//     float rectW = displayWidth * 0.4;
-//     float rectH = displayHeight * 0.45;
-//     //type select
-//     if (!(mouseX > displayWidth / 2 - displayWidth * 0.2 && mouseX < displayWidth / 2 + displayWidth * 0.2 && mouseY > displayHeight / 2 - displayHeight * 0.22 && mouseY < displayHeight / 2 + displayHeight * 0.22)) {
-//         shop.shopstate = 0;
-//     }
-//     if (shop.shopstate == 0) {
-//         shop.itemstate = shop.typeSelect(mouseX, mouseY);      
-//     }
-    
-//     if (shop.itemstate != 0) {
-//         shop.shopstate = 1;
-        
-//     }
-    
-//     if (shop.shopstate == 1) {
-        
-//         if (mouseX > displayWidth / 2 - rectW * 0.35 && mouseX < displayWidth / 2 - rectW * 0.05 && mouseY > displayHeight / 2 + rectH * 0.2 && mouseY < displayHeight / 2 + rectH * 0.4) {
-//             //buy
-//             shop.buystate = true;
-//         }
-//         if (mouseX > displayWidth / 2 + rectW * 0.05 && mouseX < displayWidth / 2 + rectW * 0.35 && mouseY > displayHeight / 2 + rectH * 0.2 && mouseY < displayHeight / 2 + rectH * 0.4) {
-//             //cancel
-//             shop.shopstate = 0;
-//             shop.errorState = false;
-//         }
-//     }
-// }
