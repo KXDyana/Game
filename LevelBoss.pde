@@ -30,6 +30,8 @@ public class LevelBoss {
     
     
     Boolean isAttacking = false;
+    private float bulletSpawnRadiusLerpValue = 0; // The lerp value for the bullet spawn radius
+    
     
     private ArrayList<Beat> beats;
     private int currentBeatIndex = 0;
@@ -38,12 +40,19 @@ public class LevelBoss {
     ArrayList<Laser> lasers = new ArrayList<>();
     public int beatGenerationDelay = 3400;        // based on the bpm of the music
     
+    private float avatarMoveDuration; // Duration for the avatar to complete a full cycle (from top to bottom and back)
+    private float avatarStartPosition; // The initial y position of the avatar
+    private float avatarEndPosition; // The final y position of the avatar
+    private float avatarLerpValue = 0; // The lerp value for the avatar's position
+    private int lastUpdateTime = 0; // The time when the avatar's position was last updated
+    
+    
     String levelFileName;
     PImage bossImage;
     PVector avatarPos;
     
     public int levelNumber;
-
+    
     public int total, perfect, fine, miss;
     boolean playerDead = false;
     
@@ -57,7 +66,7 @@ public class LevelBoss {
         this.beatGenerationDelay = beatGenerationDelay;
         this.levelNumber = levelNumber;
         this.bossImage = img;
-
+        
         
         loadLevelData(levelFileName);
         minim = new Minim(game);
@@ -66,7 +75,10 @@ public class LevelBoss {
         bulletSpawnRadius = radius * 2;
         initializeBulletSpawnPositions();
         
-        avatarPos = position.copy();
+        
+        avatarStartPosition = position.y - radius / 4;
+        avatarEndPosition = position.y + radius / 4;
+        avatarMoveDuration = beatGenerationDelay; // A full cycle in half of beatGenerationDelay
         
         
     }
@@ -75,9 +87,9 @@ public class LevelBoss {
         
         this.beats = new ArrayList<>();
         loadLevelData(levelFileName);
-
+        
         player.tempHealth = player.globalSan;
-
+        
         total = beats.size();
         perfect = 0;
         fine = 0;
@@ -112,6 +124,8 @@ public class LevelBoss {
         
         timestampCurrent = game.millis() - timestampStart;
         
+        updateAvatarPosition();
+        
         enemyColor = lerpColor(enemyColor, RED, 0.1);
         // transform boss position
         position.x = lerp(position.x, targetPosition.x, 0.01);
@@ -125,13 +139,13 @@ public class LevelBoss {
             return;
             
         }
-
+        
         if (player.tempHealth <= 0) {
             playerDead = true;
             endBattle();
             return;
         }
-
+        
         if (mousePressed && mouseButton == LEFT && !prevMousePressed && keys['e']) {
             endBattle();
             return;
@@ -154,7 +168,7 @@ public class LevelBoss {
     
     
     public void drawBoss() {
-        image(bossImage, avatarPos.x, avatarPos.y);
+        image(bossImage, position.x, position.y);
         updateBoss();
         ellipseMode(CENTER);    
         fill(enemyColor, 190);
@@ -261,18 +275,61 @@ public class LevelBoss {
         }
     }
     
-    private void rotateBulletSpawnPositions() {
-        float angleStep = rotationSpeed;
+    private void updateAvatarPosition() {
+        int elapsedTime = millis();
+        float deltaTime = elapsedTime - lastUpdateTime;
+        lastUpdateTime = elapsedTime;
         
-        for (int i = 0; i < numberOfBulletSpawns; i++) {
-            PVector relativePos = PVector.sub(bulletSpawnPos[i], position);
-            
-            float x = relativePos.x * cos(angleStep) - relativePos.y * sin(angleStep);
-            float y = relativePos.x * sin(angleStep) + relativePos.y * cos(angleStep);
-            
-            bulletSpawnPos[i] = PVector.add(position, new PVector(x, y));
+        // Update avatar position
+        avatarLerpValue += deltaTime / avatarMoveDuration;
+        avatarLerpValue %= 2; // Reset the lerp value after a full cycle
+        
+        if (avatarLerpValue <= 1) {
+            position.y = lerp(avatarStartPosition, avatarEndPosition, avatarLerpValue);
+        } else {
+            position.y = lerp(avatarEndPosition, avatarStartPosition, avatarLerpValue - 1);
+        }
+        
+        // Update bulletSpawnRadius
+        bulletSpawnRadiusLerpValue += deltaTime / avatarMoveDuration;
+        bulletSpawnRadiusLerpValue %= 2; // Reset the lerp value after a full cycle
+        
+        float minBulletSpawnRadius = radius * 2;
+        float maxBulletSpawnRadius = radius * 4;
+        
+        if (bulletSpawnRadiusLerpValue <= 1) {
+            bulletSpawnRadius = lerp(minBulletSpawnRadius, maxBulletSpawnRadius, bulletSpawnRadiusLerpValue);
+        } else {
+            bulletSpawnRadius = lerp(maxBulletSpawnRadius, minBulletSpawnRadius, bulletSpawnRadiusLerpValue - 1);
         }
     }
+    
+    
+    
+    
+    private float rotationAngle = 0;
+    
+    private void rotateBulletSpawnPositions() {
+        rotationAngle += rotationSpeed; // Increase the rotation angle by the rotation speed
+        if (rotationAngle > 2 * PI) { // Reset the rotation angle after a full circle
+            rotationAngle -= 2 * PI;
+        }
+        
+        float angleStep = 2 * PI / numberOfBulletSpawns;
+        
+        for (int i = 0; i < numberOfBulletSpawns; i++) {
+            float currentAngle = i * angleStep + rotationAngle;
+            
+            // Calculate the position of the spawn point using trigonometry
+            float x = position.x + bulletSpawnRadius * cos(currentAngle);
+            float y = position.y + bulletSpawnRadius * sin(currentAngle);
+            
+            bulletSpawnPos[i] = new PVector(x, y);
+        }
+    }
+    
+    
+    
     
     
 }

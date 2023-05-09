@@ -31,8 +31,8 @@ class Result {
     void updateResult() {
         
         if (mousePressed && mouseButton == LEFT && !prevMousePressed) {
-            
-            switchState(STATE_LEVEL); // Uncomment and modify this line according to your game logic
+            bgm.loop();
+            switchState(STATE_LEVEL); 
         }
     }
     
@@ -51,19 +51,12 @@ class Result {
                     println("level 0 unlocked");
                 }
             } else {
+                if (player.tempHealth >= 50){
                 levelSelect.levels[boss.levelNumber].plotNodes.get(1).unlocked = true;
-                levelSelect.levels[boss.levelNumber].plotNodes.get(2).unlocked = true;
-                println("level " + boss.levelNumber + " unlocked");
+
+                }
+                else levelSelect.levels[boss.levelNumber].plotNodes.get(2).unlocked = true;
             }
-            
-            // if (boss.levelNumber < 5) {
-            //     levelSelect.levels[boss.levelNumber + 1].plotNodes.get(0).unlocked = true;
-        // }
         }
     }
-    
-    
-    
-    
-    
 }
