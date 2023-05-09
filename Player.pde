@@ -14,9 +14,15 @@ class Player {
     
     PImage[] avatar = new PImage[4];
     PImage hitAvatar = new PImage();
+    PImage[] faceLeftAvatar = new PImage[4];
+    PImage[] faceRightAvatar = new PImage[4];
+    PImage[] currentAvatar;
     int currentFrame = 0;
     int animationInterval = 400;
     int lastAnimationUpdate;
+
+    int gotHitTime = -1;
+
     
     
     boolean isAtLeftBorder, isAtRightBorder, isAtTopBorder, isAtBottomBorder; // to control movement
@@ -58,15 +64,23 @@ class Player {
         ringStrokeWeight = playerRadius / 10;
         
         
-        avatar[0] = loadImage("res/sprites/player/main-character.png");
-        avatar[1] = loadImage("res/sprites/player/main-character2.png");
-        avatar[2] = loadImage("res/sprites/player/main-character3.png");
-        avatar[3] = loadImage("res/sprites/player/main-character4.png");
+ 
         hitAvatar = loadImage("res/sprites/player/main-character-hit.png");
-        
-        for (PImage img : avatar) {
-            img.resize((int)playerRadius,(int)playerRadius * 3 / 2);
+        for (int i = 0; i < 4; i++) {
+            avatar[i] = loadImage("res/sprites/player/main-character" + (i + 1) + ".png");
+            faceLeftAvatar[i] = loadImage("res/sprites/player/left" + (i + 1) + ".png");
+            faceRightAvatar[i] = loadImage("res/sprites/player/right" + (i + 1) + ".png");
         }
+    
+        for (int i = 0; i < 4; i++) {
+            avatar[i].resize((int)playerRadius,(int)playerRadius * 3 / 2);
+            faceLeftAvatar[i].resize((int)playerRadius,(int)playerRadius * 3 / 2);
+            faceRightAvatar[i].resize((int)playerRadius,(int)playerRadius * 3 / 2);
+        }
+
+        hitAvatar.resize((int)playerRadius,(int)playerRadius * 3 / 2);
+
+        currentAvatar = faceRightAvatar;
         
         lastAnimationUpdate = millis();
         
@@ -74,16 +88,21 @@ class Player {
         
     }
     
-    void drawPlayer() { 
-        drawParryCircle();
-        
-        imageMode(CENTER);
-        image(avatar[currentFrame], position.x, position.y);
-        
+    void drawPlayer() {
+    drawParryCircle();
 
-        // drawPlayerHitbox();
-        // drawDetectionZone();
+    imageMode(CENTER);
+
+    if (millis() - gotHitTime < 200) {
+        image(hitAvatar, position.x, position.y);
+    } else {
+        image(currentAvatar[currentFrame], position.x, position.y);
     }
+
+    // drawPlayerHitbox();
+    // drawDetectionZone();
+}
+
     
     void updatePlayer() {
         if (!isParrying && !isDodging) playerColor = lerpColor(playerColor, LIGHT_PURPLE, 0.1);
@@ -117,7 +136,7 @@ class Player {
         }
         
         if (millis() - lastAnimationUpdate > animationInterval) {
-            currentFrame = (currentFrame + 1) % avatar.length;
+            currentFrame = (currentFrame + 1) % currentAvatar.length;
             lastAnimationUpdate = millis();
         }
         
@@ -156,7 +175,8 @@ class Player {
     }
     
     void gotHit() {
-        
+            gotHitTime = millis();
+
         showMessage("Hit!", 700, new PVector(width / 2, height / 4));
         
         tempHealth -= 10;

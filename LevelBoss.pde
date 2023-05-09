@@ -60,13 +60,12 @@ public class LevelBoss {
         this.game = game;
         this.beats = new ArrayList<>();
         this.radius = proportion * width * 0.05;
-        this.position = new PVector(width * 4 / 5, height / 2);
+        this.position = new PVector(width * 4 / 5, height * 2 / 5);
         this.targetPosition = position;
         this.levelFileName = levelFileName;
         this.beatGenerationDelay = beatGenerationDelay;
         this.levelNumber = levelNumber;
         this.bossImage = img;
-        
         
         loadLevelData(levelFileName);
         minim = new Minim(game);
@@ -89,6 +88,7 @@ public class LevelBoss {
         loadLevelData(levelFileName);
         
         player.tempHealth = player.globalSan;
+        player.prevTempHealth = player.tempHealth;
         
         total = beats.size();
         perfect = 0;
