@@ -60,7 +60,7 @@ public class LevelBoss {
         this.game = game;
         this.beats = new ArrayList<>();
         this.radius = proportion * width * 0.05;
-        this.position = new PVector(width * 4 / 5, height * 2 / 5);
+        this.position = new PVector(width * 4 / 5, height / 2);
         this.targetPosition = position;
         this.levelFileName = levelFileName;
         this.beatGenerationDelay = beatGenerationDelay;
