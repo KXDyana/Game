@@ -3,78 +3,307 @@
     {
       "ID": 1,
       "type": 1,
-      "timestamp": 15161,
+      "timestamp": 18525,
       "hold": false
     },
     {
       "ID": 2,
       "type": 1,
-      "timestamp": 15568,
+      "timestamp": 18927,
       "hold": false
     },
     {
       "ID": 3,
       "type": 1,
-      "timestamp": 15977,
+      "timestamp": 19360,
       "hold": false
     },
     {
       "ID": 4,
       "type": 1,
-      "timestamp": 16417,
+      "timestamp": 19810,
       "hold": false
     },
     {
       "ID": 5,
       "type": 1,
-      "timestamp": 16840,
+      "timestamp": 20259,
       "hold": false
     },
     {
       "ID": 6,
-      "type": 2,
-      "timestamp": 17232
+      "type": 1,
+      "timestamp": 20691,
+      "hold": false
     },
     {
       "ID": 7,
       "type": 1,
-      "timestamp": 18080,
+      "timestamp": 21109,
       "hold": false
     },
     {
       "ID": 8,
       "type": 1,
-      "timestamp": 18520,
+      "timestamp": 21526,
       "hold": false
     },
     {
       "ID": 9,
       "type": 1,
-      "timestamp": 18960,
+      "timestamp": 25393,
       "hold": false
     },
     {
       "ID": 10,
       "type": 1,
-      "timestamp": 19385,
+      "timestamp": 25809,
       "hold": false
     },
     {
       "ID": 11,
       "type": 1,
-      "timestamp": 19761,
+      "timestamp": 26227,
       "hold": false
     },
     {
       "ID": 12,
       "type": 1,
-      "timestamp": 20251,
+      "timestamp": 26660,
       "hold": false
     },
     {
       "ID": 13,
+      "type": 1,
+      "timestamp": 27093,
+      "hold": false
+    },
+    {
+      "ID": 14,
+      "type": 1,
+      "timestamp": 27526,
+      "hold": false
+    },
+    {
+      "ID": 15,
+      "type": 1,
+      "timestamp": 27975,
+      "hold": false
+    },
+    {
+      "ID": 16,
+      "type": 1,
+      "timestamp": 28360,
+      "hold": false
+    },
+    {
+      "ID": 17,
       "type": 2,
-      "timestamp": 20658
+      "timestamp": 39078
+    },
+    {
+      "ID": 18,
+      "type": 2,
+      "timestamp": 39526
+    },
+    {
+      "ID": 19,
+      "type": 2,
+      "timestamp": 39976
+    },
+    {
+      "ID": 20,
+      "type": 2,
+      "timestamp": 40409
+    },
+    {
+      "ID": 21,
+      "type": 2,
+      "timestamp": 40860
+    },
+    {
+      "ID": 22,
+      "type": 2,
+      "timestamp": 41310
+    },
+    {
+      "ID": 23,
+      "type": 2,
+      "timestamp": 41709
+    },
+    {
+      "ID": 24,
+      "type": 2,
+      "timestamp": 42109
+    },
+    {
+      "ID": 25,
+      "type": 2,
+      "timestamp": 46009
+    },
+    {
+      "ID": 26,
+      "type": 2,
+      "timestamp": 46410
+    },
+    {
+      "ID": 27,
+      "type": 2,
+      "timestamp": 46826
+    },
+    {
+      "ID": 28,
+      "type": 2,
+      "timestamp": 47259
+    },
+    {
+      "ID": 29,
+      "type": 2,
+      "timestamp": 47676
+    },
+    {
+      "ID": 30,
+      "type": 2,
+      "timestamp": 48093
+    },
+    {
+      "ID": 31,
+      "type": 2,
+      "timestamp": 48559
+    },
+    {
+      "ID": 32,
+      "type": 2,
+      "timestamp": 48943
+    },
+    {
+      "ID": 33,
+      "type": 1,
+      "timestamp": 59678,
+      "hold": false
+    },
+    {
+      "ID": 34,
+      "type": 1,
+      "timestamp": 60093,
+      "hold": false
+    },
+    {
+      "ID": 35,
+      "type": 1,
+      "timestamp": 60560,
+      "hold": false
+    },
+    {
+      "ID": 36,
+      "type": 1,
+      "timestamp": 60960,
+      "hold": false
+    },
+    {
+      "ID": 37,
+      "type": 1,
+      "timestamp": 61395,
+      "hold": false
+    },
+    {
+      "ID": 38,
+      "type": 1,
+      "timestamp": 61810,
+      "hold": false
+    },
+    {
+      "duration": 567,
+      "ID": 39,
+      "type": 1,
+      "timestamp": 62210,
+      "hold": true
+    },
+    {
+      "ID": 40,
+      "type": 1,
+      "timestamp": 63143,
+      "hold": false
+    },
+    {
+      "ID": 41,
+      "type": 1,
+      "timestamp": 63560,
+      "hold": false
+    },
+    {
+      "ID": 42,
+      "type": 1,
+      "timestamp": 63977,
+      "hold": false
+    },
+    {
+      "ID": 43,
+      "type": 1,
+      "timestamp": 64410,
+      "hold": false
+    },
+    {
+      "ID": 44,
+      "type": 1,
+      "timestamp": 64810,
+      "hold": false
+    },
+    {
+      "ID": 45,
+      "type": 1,
+      "timestamp": 65211,
+      "hold": false
+    },
+    {
+      "duration": 499,
+      "ID": 46,
+      "type": 1,
+      "timestamp": 65643,
+      "hold": true
+    },
+    {
+      "ID": 47,
+      "type": 1,
+      "timestamp": 66543,
+      "hold": false
+    },
+    {
+      "ID": 48,
+      "type": 1,
+      "timestamp": 66960,
+      "hold": false
+    },
+    {
+      "ID": 49,
+      "type": 1,
+      "timestamp": 67360,
+      "hold": false
+    },
+    {
+      "ID": 50,
+      "type": 1,
+      "timestamp": 67810,
+      "hold": false
+    },
+    {
+      "ID": 51,
+      "type": 1,
+      "timestamp": 68243,
+      "hold": false
+    },
+    {
+      "ID": 52,
+      "type": 1,
+      "timestamp": 68693,
+      "hold": false
+    },
+    {
+      "duration": 465,
+      "ID": 53,
+      "type": 1,
+      "timestamp": 69096,
+      "hold": true
     }
   ],
   "level_name": "2. FFXIV - stasis loop.mp3",
