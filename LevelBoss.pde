@@ -43,6 +43,9 @@ public class LevelBoss {
     PVector avatarPos;
     
     public int levelNumber;
+
+    public int total, perfect, fine, miss;
+    boolean playerDead = false;
     
     public LevelBoss(PApplet game, String levelFileName, int beatGenerationDelay, int levelNumber,PImage img) {
         this.game = game;
@@ -54,6 +57,7 @@ public class LevelBoss {
         this.beatGenerationDelay = beatGenerationDelay;
         this.levelNumber = levelNumber;
         this.bossImage = img;
+
         
         loadLevelData(levelFileName);
         minim = new Minim(game);
@@ -71,7 +75,14 @@ public class LevelBoss {
         
         this.beats = new ArrayList<>();
         loadLevelData(levelFileName);
+
         player.tempHealth = player.globalSan;
+
+        total = beats.size();
+        perfect = 0;
+        fine = 0;
+        miss = 0;
+        playerDead = false;
         
         timestampStart = millis();
         audioPlayer.play();
@@ -83,7 +94,8 @@ public class LevelBoss {
         bullets.clear();
         lasers.clear();
         beats.clear();
-        switchState(STATE_LEVEL);
+        resultWindow.loadResult(total, perfect, fine, miss, playerDead);
+        switchState(STATE_GAMEOVER);
     }
     
     public void playMusic() {
@@ -112,6 +124,12 @@ public class LevelBoss {
             }
             return;
             
+        }
+
+        if (player.tempHealth <= 0) {
+            playerDead = true;
+            endBattle();
+            return;
         }
         
         currentBeat = beats.get(currentBeatIndex);

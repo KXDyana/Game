@@ -18,8 +18,6 @@ public class Level {
     int hoverButtonColor = RED;
     public LButton back = new LButton(40, 40, 60, 60, menuButtonColor, hoverButtonColor, 0);
     
-    
-    
     float x = 0;
     float y = 0;
     float radius = player.playerRadius;
@@ -44,7 +42,7 @@ public class Level {
         
         imgx = game.width / 2;
         imgy = game.height / 2;
-
+        
         plotNodes = new ArrayList<PlotNode>();
         
         if (levelNumber != 0) {
@@ -55,7 +53,7 @@ public class Level {
             }
         } else {
             plotNodes.add(new PlotNode(game, TWO_PI  / 3, radius / 1.3, background, this, 2));
-
+            
         }
         
         
@@ -89,6 +87,7 @@ public class Level {
     }
     
     public void drawLevel() {
+        if (!unlocked && !unLockAllLevels) return;
         image(background,imgx, imgy);
         boss.drawBoss();
         back.drawButton();
@@ -123,6 +122,8 @@ public class Level {
     }
     
     void drawButton() {
+        if (!unlocked && !unLockAllLevels) return;
+        
         if (isMouseHovering()) {
             alpha = lerp(alpha, 190, 0.05f); 
             currentColor = game.lerpColor(currentColor, hoverColor, 0.05f); 

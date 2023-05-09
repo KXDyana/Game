@@ -59,6 +59,9 @@ class PlotNode {
     }
     
     void updateNode(float levelX, float levelY) {
+        
+        if (!unlocked && !unLockAllLevels) return;
+        
         angle += rotationSpeed; // Add rotation by incrementing the angle
         
         x = levelX + cos(angle) * distance;
@@ -81,6 +84,8 @@ class PlotNode {
     
     void drawNode() {
         
+        
+        if (!unlocked && !unLockAllLevels) return;
         // Draw line connecting the node to its parent level
         game.stroke(currentColor, currentAlpha); // Set the stroke color and transparency to match the node
         game.strokeWeight(2); // Set the stroke weight

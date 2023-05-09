@@ -124,6 +124,7 @@ class Player {
     
     void perfectParry() {
         showMessage("Perfect!", 700, new PVector(width / 2, height / 4));
+        battleView.currentLevel.boss.perfect++;
         
         tempHealth += 0.5;
         if (tempHealth >= 100) tempHealth = 100;
