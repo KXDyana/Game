@@ -135,21 +135,21 @@ final class Shop{
                         text("COST: 10",displayWidth / 2 - rectW * 0.4 - temp.width / 2,displayHeight / 2 - rectH * 0.1);
                         text("Headphone Plugin Chip A:",textX,textY);
                         text("Increase the san gain",textX,textY + rectH * 0.1);
-                        text("ofper parry.",textX,textY + rectH * 0.2);
+                        text("per parry.",textX,textY + rectH * 0.2);
                         break; 
                    case 3:
                        temp = easeloss;
                         text("COST: 10",displayWidth / 2 - rectW * 0.4 - temp.width / 2,displayHeight / 2 - rectH * 0.1);
                         text("Headphone Plugin Chip B:",textX,textY);
                         text("Decrease the san loss",textX,textY + rectH * 0.1);
-                        text("ofper miss.",textX,textY + rectH * 0.2);
+                        text("per miss.",textX,textY + rectH * 0.2);
                         break;
                    case 4:
                        temp = addsan;
                         text("COST: 10",displayWidth / 2 - rectW * 0.4 - temp.width / 2,displayHeight / 2 - rectH * 0.1);
                         text("IFIB Sedative:",textX,textY);
-                        text("Increase the san value ",textX,textY + rectH * 0.1);
-                        text("ofthenext battle.",textX,textY + rectH * 0.2);
+                        text("Increase the san value",textX,textY + rectH * 0.1);
+                        text("of the next battle, temporarily.",textX,textY + rectH * 0.2);
                         break;
                    case 5:
                        temp = sanToM;
@@ -235,6 +235,8 @@ final class Shop{
                     super.drawButton();
                     fill(255);
                     textAlign(CENTER, CENTER);
+                    textSize(vdmH * 0.05);
+
                     text(name,x,y);
                 }
                 

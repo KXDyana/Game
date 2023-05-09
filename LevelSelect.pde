@@ -43,7 +43,7 @@ class LevelSelect {
         updateLevelView();
         drawLevels();
         menuButton.drawButton();
-        levelCreatorButton.drawButton();
+        if (showInfo) levelCreatorButton.drawButton();
         shopButton.drawButton();
     }
     
