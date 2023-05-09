@@ -72,7 +72,7 @@ class PlotNode {
             currentColor = game.lerpColor(currentColor, hoverColor, 0.05f);
             
             // Check for mouse press
-            if (game.mousePressed) {
+            if (game.mousePressed && !prevMousePressed) {
                 onPressAction();
             }
         } else {
