@@ -20,12 +20,12 @@ class Result {
         game.textAlign(game.CENTER, game.CENTER);
         
         // Display result text
-        game.text((levelCleared ? "You survived...for now" : "another one bites the dust..."), game.width / 2, game.height * 0.2f);
+        game.text((levelCleared ? "You survived...for now" : "Go back to earth, human!"), game.width / 2, game.height * 0.2f);
         game.textSize(24);
         game.text("Hits: " + numberOfHit, game.width / 2, game.height * 0.35f);
-        game.text("Perfect: " + numberOfPerfect + "/" + str(numberOfHit), game.width / 2, game.height * 0.45f);
-        game.text("Fine: " + numberOfFine + "/" + str(numberOfHit), game.width / 2, game.height * 0.55f);
-        game.text("Miss: " + numberOfMiss + "/" + str(numberOfHit), game.width / 2, game.height * 0.65f);
+        game.text("Perfect: " + numberOfPerfect, game.width / 2, game.height * 0.45f);
+        game.text("Fine: " + numberOfFine, game.width / 2, game.height * 0.55f);
+        game.text("Miss: " + numberOfMiss, game.width / 2, game.height * 0.65f);
     }
     
     void updateResult() {

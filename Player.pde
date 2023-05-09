@@ -20,9 +20,9 @@ class Player {
     int currentFrame = 0;
     int animationInterval = 400;
     int lastAnimationUpdate;
-    
+
     int gotHitTime = -1;
-    
+
     
     
     boolean isAtLeftBorder, isAtRightBorder, isAtTopBorder, isAtBottomBorder; // to control movement
@@ -64,22 +64,22 @@ class Player {
         ringStrokeWeight = playerRadius / 10;
         
         
-        
+ 
         hitAvatar = loadImage("res/sprites/player/main-character-hit.png");
         for (int i = 0; i < 4; i++) {
             avatar[i] = loadImage("res/sprites/player/main-character" + (i + 1) + ".png");
             faceLeftAvatar[i] = loadImage("res/sprites/player/left" + (i + 1) + ".png");
             faceRightAvatar[i] = loadImage("res/sprites/player/right" + (i + 1) + ".png");
         }
-        
+    
         for (int i = 0; i < 4; i++) {
             avatar[i].resize((int)playerRadius,(int)playerRadius * 3 / 2);
             faceLeftAvatar[i].resize((int)playerRadius,(int)playerRadius * 3 / 2);
             faceRightAvatar[i].resize((int)playerRadius,(int)playerRadius * 3 / 2);
         }
-        
+
         hitAvatar.resize((int)playerRadius,(int)playerRadius * 3 / 2);
-        
+
         currentAvatar = faceRightAvatar;
         
         lastAnimationUpdate = millis();
@@ -89,20 +89,20 @@ class Player {
     }
     
     void drawPlayer() {
-        drawParryCircle();
-        
-        imageMode(CENTER);
-        
-        if (millis() - gotHitTime < 200) {
-            image(hitAvatar, position.x, position.y);
-        } else {
-            image(currentAvatar[currentFrame], position.x, position.y);
-        }
-        
-        // drawPlayerHitbox();
-        // drawDetectionZone();
+    drawParryCircle();
+
+    imageMode(CENTER);
+
+    if (millis() - gotHitTime < 200) {
+        image(hitAvatar, position.x, position.y);
+    } else {
+        image(currentAvatar[currentFrame], position.x, position.y);
     }
-    
+
+    // drawPlayerHitbox();
+    // drawDetectionZone();
+}
+
     
     void updatePlayer() {
         if (!isParrying && !isDodging) playerColor = lerpColor(playerColor, LIGHT_PURPLE, 0.1);
@@ -149,50 +149,37 @@ class Player {
         battleView.currentLevel.boss.perfect++;
         
         tempHealth += 0.5;
-        if (player.hasItem(2)) tempHealth += 0.5;
         if (tempHealth >= 100) tempHealth = 100;
     }
     
     void fineParry() {
         showMessage("Fine!", 700, new PVector(width / 2, height / 4), ORANGE);
-        battleView.currentLevel.boss.fine++;
-        
         
         tempHealth += 0.2;
-        if (player.hasItem(2)) tempHealth += 0.3;
-        
         if (tempHealth >= 100) tempHealth = 100;
     }
     
     void perfectDodge() {
         showMessage("Perfect!", 700, new PVector(width / 2, height / 4), GREEN);
-        battleView.currentLevel.boss.perfect++;
-        
         
         tempHealth += 0.5;
-        if (player.hasItem(2)) tempHealth += 0.5;
-        
         if (tempHealth >= 100) tempHealth = 100;
         
     }
     
     void fineDodge() {
         showMessage("Fine!", 700, new PVector(width / 2, height / 4), ORANGE);
-        battleView.currentLevel.boss.fine++;
-        
         
         tempHealth += 0.2;
-        if (player.hasItem(2)) tempHealth += 0.3;
         if (tempHealth >= 100) tempHealth = 100;
     }
     
     void gotHit() {
-        gotHitTime = millis();
-        
+            gotHitTime = millis();
+
         showMessage("Hit!", 700, new PVector(width / 2, height / 4), RED);
         
-        if (player.hasItem(3)) tempHealth -= 7;
-        else tempHealth -= 10;
+        tempHealth -= 10;
         if (tempHealth <= 0) {
             tempHealth = 0;
             // game over
@@ -297,14 +284,5 @@ class Player {
             return false;
         }
         
-    }
-    
-    void removeItem(int type) {
-        for (int i = 0; i < itemList.size(); i++) {
-            if (itemList.get(i).type == type) {
-                itemList.remove(i);
-                break;
-            }
-        }
     }
 }

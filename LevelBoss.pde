@@ -90,13 +90,6 @@ public class LevelBoss {
         player.tempHealth = player.globalSan;
         player.prevTempHealth = player.tempHealth;
         
-        if (player.hasItem(4)) {
-            player.tempHealth += 20;
-            player.prevTempHealth += 20;
-        }
-
-        player.removeItem(4);
-        
         total = beats.size();
         perfect = 0;
         fine = 0;
