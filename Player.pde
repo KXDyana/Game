@@ -89,18 +89,22 @@ class Player {
     }
     
     void drawPlayer() {
-    drawParryCircle();
+        
+        drawParryCircle();
 
-    imageMode(CENTER);
+        imageMode(CENTER);
 
-    if (millis() - gotHitTime < 200) {
-        image(hitAvatar, position.x, position.y);
-    } else {
-        image(currentAvatar[currentFrame], position.x, position.y);
-    }
+        if (millis() - gotHitTime < 200) {
+            image(hitAvatar, position.x, position.y);
+        } else {
+            image(currentAvatar[currentFrame], position.x, position.y);
+        }
 
-    // drawPlayerHitbox();
-    // drawDetectionZone();
+
+
+        // drawPlayerHitbox();
+        // drawDetectionZone();
+
 }
 
     
@@ -139,9 +143,19 @@ class Player {
             currentFrame = (currentFrame + 1) % currentAvatar.length;
             lastAnimationUpdate = millis();
         }
+
+            updateDetectionRadius3();
+
         
         
     }
+
+    void updateDetectionRadius3() {
+    float healthRatio = tempHealth / 100;
+    float detectionRadiusMultiplier = lerp(1.15f, 0.85f, healthRatio);
+    detectionRadius3 = playerRadius * 4 * detectionRadiusMultiplier;
+}
+
     
     
     void perfectParry() {
@@ -154,14 +168,16 @@ class Player {
     
     void fineParry() {
         showMessage("Fine!", 700, new PVector(width / 2, height / 4), ORANGE);
-        
+                battleView.currentLevel.boss.fine++;
+
         tempHealth += 0.2;
         if (tempHealth >= 100) tempHealth = 100;
     }
     
     void perfectDodge() {
         showMessage("Perfect!", 700, new PVector(width / 2, height / 4), GREEN);
-        
+                battleView.currentLevel.boss.perfect++;
+
         tempHealth += 0.5;
         if (tempHealth >= 100) tempHealth = 100;
         
@@ -169,7 +185,8 @@ class Player {
     
     void fineDodge() {
         showMessage("Fine!", 700, new PVector(width / 2, height / 4), ORANGE);
-        
+                battleView.currentLevel.boss.fine++;
+
         tempHealth += 0.2;
         if (tempHealth >= 100) tempHealth = 100;
     }
@@ -178,6 +195,7 @@ class Player {
             gotHitTime = millis();
 
         showMessage("Hit!", 700, new PVector(width / 2, height / 4), RED);
+        battleView.currentLevel.boss.miss++;
         
         tempHealth -= 10;
         if (tempHealth <= 0) {
@@ -210,6 +228,10 @@ class Player {
     }
     
     void drawParryCircle() {
+
+        fill(YELLOW, parryCircleAlpha / 4);
+        noStroke();
+        ellipse(position.x, position.y, detectionRadius3, detectionRadius3); 
         
         strokeWeight(ringStrokeWeight);
         stroke(playerColor, parryCircleAlpha);

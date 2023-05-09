@@ -53,7 +53,11 @@ public class LevelBoss {
     
     public int levelNumber;
     
-    public int total, perfect, fine, miss;
+    public int msgIndex = 0;
+    
+    
+    
+    public int total, perfect, fine, miss, numberOfLaserHits;
     boolean playerDead = false;
     
     public LevelBoss(PApplet game, String levelFileName, int beatGenerationDelay, int levelNumber,PImage img) {
@@ -83,14 +87,17 @@ public class LevelBoss {
     }
     
     public void startBattle() {
+        msgIndex = 0;
         
+        numberOfLaserHits = 0;
         this.beats = new ArrayList<>();
         loadLevelData(levelFileName);
         
-        player.tempHealth = player.globalSan;
-        player.prevTempHealth = player.tempHealth;
         
-        total = beats.size();
+        player.tempHealth = player.globalSan;
+        player.prevTempHealth = player.globalSan;
+        
+        total = beats.size() - numberOfLaserHits;
         perfect = 0;
         fine = 0;
         miss = 0;
@@ -164,7 +171,27 @@ public class LevelBoss {
             currentBeatIndex++;
         }
         
+
+        if (msgIndex >= tutorials.length) return;
+        if (tutorialTimes[msgIndex] * 1000 < timestampCurrent) {
+            showMessage(tutorials[msgIndex], 3000, new PVector(width / 2, height / 2), ORANGE);
+            msgIndex++;
+        }
+        
+        
     }
+    
+    String[] tutorials = {
+        "Welcome. I am your\npersonal AI assistant.", 
+        "I am here to tell you what to do,\nshould you encounter\na Siren in the nature", 
+        "The outer purple ring\nis your personal\ndefence energy shield.",
+        "When a purple bullet\nis approaching the shield,\npress SPACE to\nactivate the shield.", 
+        "When a red bullet is\napproaching the shield,\npress ENTER.", 
+        "When you hear a laser\nguiding towards you,\nhold SPACE to\ndefend yourself.", 
+        "Beware that the\ninner ring is your\nhealth bar. If it\nreaches zero, you will die.", 
+        "Congratulations!\nYou are now a certified\nSiren Investigator!"};
+    
+    int[] tutorialTimes = {2, 6, 10, 14, 33, 58, 64, 70};
     
     
     public void drawBoss() {
@@ -248,6 +275,7 @@ public class LevelBoss {
             } else {
                 
                 beats.get(i).timestampGeneration -= laserCharingTime - 20;
+                numberOfLaserHits++;
                 
             }
         }

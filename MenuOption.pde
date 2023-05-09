@@ -37,7 +37,7 @@ class MenuOption {
             fill(YELLOW);
             text(optionText, menuOptionX - optionWidth / 2.2, menuOptionY);
             
-        } else{
+        } else {
             optionColorOpa = lerp(optionColorOpa, 0.0, 0.1);
             optionTextSize = lerp(optionTextSize, notSelectedOptionTextSize, 0.1);
             fill(optionColor, optionColorOpa);
@@ -81,6 +81,7 @@ class MenuOption {
                         
                         break; 
                     case "Unlock Content":
+                    showMessage("All levels unlocked!", 3000, new PVector(width / 2, height / 2), ORANGE);
                         unLockAllLevels = true;
                         prevMousePressed = true;
                         

@@ -119,7 +119,7 @@ void setup() {
     money = loadImage("res/sprites/shoppic/money.png");
     SANimg = loadImage("res/sprites/shoppic/SAN.png");
     
-    menubg = loadImage("res/sprites/bgpic/menubg.png");
+    menubg = loadImage("res/sprites/bgpic/menubg.jpg");
     shipbg = loadImage("res/sprites/bgpic/ship.png");
     
     
@@ -213,6 +213,8 @@ void draw() {
 }
 
 void showShop() {
+        image(menubg, width / 2, height / 2);
+
     shop.draw();
     player.updatePlayer();
     player.drawPlayer();
@@ -220,6 +222,7 @@ void showShop() {
 }
 
 void showMenu() {
+    image(menubg, width / 2, height / 2);
     drawTitle();
     image(shipbg, width * 0.9, height * 0.9);
     player.updatePlayer();
@@ -235,6 +238,8 @@ void drawTitle() {
 }
 
 void showLevel() {
+        image(menubg, width / 2, height / 2);
+
     player.updatePlayer();
     player.drawPlayer();
     levelSelect.drawLevelView();
@@ -257,6 +262,8 @@ void showInGame() {
 }
 
 void showGameover() {
+        image(menubg, width / 2, height / 2);
+
     
     resultWindow.drawResult();
     player.updatePlayer();
@@ -265,6 +272,8 @@ void showGameover() {
 
 
 void showLevelCreator() {
+        image(menubg, width / 2, height / 2);
+
     fill(ORANGE);
     textSize(50);
     textAlign(CENTER);
