@@ -80,6 +80,9 @@ public class Bullet {
                 if (!audioTriggered) bullet1Arrive.trigger();
                 
             } else if (player.withinParryRange(position) && player.isParrying && !prevSpacePressed) {
+                if (battleView.currentLevel.boss.lasers.size() != 0) {
+                    return;
+                }
                 prevSpacePressed = true;
                 this.isParried = true;
                 player.isParrying = false;
@@ -87,6 +90,9 @@ public class Bullet {
                 if (!audioTriggered) bullet1Arrive.trigger();
                 
             } else if (player.withinMissRange(position) && player.isParrying && !prevSpacePressed) {
+                if (battleView.currentLevel.boss.lasers.size() != 0) {
+                    return;
+                }
                 prevSpacePressed = true;
                 this.isParried = true;
                 player.isParrying = false;
@@ -103,6 +109,9 @@ public class Bullet {
                 if (!audioTriggered) bullet1Arrive.trigger();
                 
             } else if (player.withinParryRange(position) && player.isDodging && !prevEnterPressed) {
+                if (battleView.currentLevel.boss.lasers.size() != 0) {
+                    return;
+                }
                 prevEnterPressed = true;
                 this.isParried = true;
                 player.isDodging = false;
@@ -110,6 +119,9 @@ public class Bullet {
                 if (!audioTriggered) bullet1Arrive.trigger();
                 
             } else if (player.withinMissRange(position) && player.isParrying && !prevSpacePressed) {
+                if (battleView.currentLevel.boss.lasers.size() != 0) {
+                    return;
+                }
                 prevSpacePressed = true;
                 this.isParried = true;
                 player.isParrying = false;
