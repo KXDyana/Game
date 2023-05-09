@@ -74,7 +74,7 @@ class MenuOption {
                         prevMousePressed = true;
                         
                         break;
-                    case "Start New Game":
+                    case "Start Game":
                         Game.state = STATE_LEVEL;
                         player.targetPosition = levelSelect.levelSelectPlayerPosition;
                         prevMousePressed = true;

@@ -84,6 +84,7 @@ PVector messagePos;
 
 Minim minim;
 public AudioSample bullet1Spawn, bullet1Arrive, laserCharge, laserShoot;
+public AudioPlayer bgm;
 
 
 void settings() {
@@ -99,7 +100,7 @@ void setup() {
     player.position.x = width / 2;
     player.position.y = height * 4 / 5;
     menu = new Menu(this);
-
+    
     
     minim = new Minim(this);
     bullet1Arrive = minim.loadSample("res/audioEffect/bullet1Spawn.mp3");
@@ -108,6 +109,8 @@ void setup() {
     laserCharge = minim.loadSample("res/audioEffect/laserCharge.mp3");
     laserCharge.setGain(4);
     laserShoot = minim.loadSample("res/audioEffect/laserShoot.mp3");
+    bgm = minim.loadFile("res/songs/background.mp3");
+    bgm.loop();
     
     centerx = width / 2;
     centery = height / 2;
@@ -294,6 +297,7 @@ void switchState(int targetState) {
             break;
         case STATE_INGAME:
             player.targetPosition = levelSelect.levels[0].battlePlayerPosition; 
+            bgm.pause();
             break;
         case STATE_STORY:
             levelSelect.resetAlphaValues();
@@ -314,7 +318,7 @@ void drawMouse() {
     rectMode(CENTER);
     rect(mouseX, mouseY, 14, 14);
     fill(ORANGE); // Reset fill color to white for text
-
+    
     if (!showInfo) return;
     
     textSize(15);

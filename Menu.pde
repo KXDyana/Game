@@ -27,8 +27,8 @@ class Menu {
         
         int spaceCounter = 0;
         this.rootOptions = new MenuOption[] {
-            new MenuOption("Start New Game", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight, this),
-                new MenuOption("Load Game", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight, this),
+            new MenuOption("Start Game", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight, this),
+                // new MenuOption("Load Game", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight, this),
                 new MenuOption("Settings", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight, this),
                 new MenuOption("Quit Game", menuX, menuY + spaceCounter++ * (optionHeight + optionSpacing), optionWidth, optionHeight, this)
             };
