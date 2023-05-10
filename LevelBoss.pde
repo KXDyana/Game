@@ -134,11 +134,16 @@ public class LevelBoss {
                 rotateBulletSpawnPositions();
 
 
-        if (msgIndex >= tutorials.length) return;
-        if (tutorialTimes[msgIndex] * 1000 < timestampCurrent) {
-            showMessage(tutorials[msgIndex], 4500, new PVector(width / 2, height / 2), ORANGE);
-            msgIndex++;
+        if (levelNumber == 0) {
+          if (msgIndex < tutorials.length) {
+            if (tutorialTimes[msgIndex] * 1000 < timestampCurrent) {
+              showMessage(tutorials[msgIndex], 4500, new PVector(width / 2, height / 2), ORANGE);
+               msgIndex++;
+            }
+          }
+        
         }
+        
         
         updateAvatarPosition();
         
@@ -366,4 +371,3 @@ public class LevelBoss {
     
     
 }
-

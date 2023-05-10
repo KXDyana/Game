@@ -184,30 +184,43 @@ final class Shop{
                         if (player.hasItem(2)) {
                             showMessage("You can only get 1 chip A now",3000,new PVector(width / 2, height / 4), ORANGE);
                     } else{
+                      if (player.money - mDecre < 0) {
+                            showMessage("You don't have enough money.",3000,new PVector(width / 2, height / 4), ORANGE);
+                    } else {
+                      
                            Item item = new Item(2,addgain);
                             player.itemList.add(item);
                             player.money -= 10;
                             showMessage("Plugin chip A +1",3000,new PVector(width / 2, height / 4), ORANGE);
+                    }
                         }
                         break; 
                    case 3 :
                         if (player.hasItem(3)) {
                             showMessage("You can only get 1 chip B now",3000,new PVector(width / 2, height / 4), ORANGE);
                     } else{
+                      if (player.money - mDecre < 0) {
+                            showMessage("You don't have enough money.",3000,new PVector(width / 2, height / 4), ORANGE);
+                    } else {
                            Item item = new Item(3,easeloss);
                             player.itemList.add(item);
                             player.money -= 10;
                             showMessage("Plugin chip B +1",3000,new PVector(width / 2, height / 4), ORANGE);
+                    }
                         }
                         break;
                    case 4 :
                         if (player.hasItem(4)) {
                             showMessage("You can only get 1 IFIB sedative now",3000,new PVector(width / 2, height / 4), ORANGE);
                     } else{
+                      if (player.money - mDecre < 0) {
+                            showMessage("You don't have enough money.",3000,new PVector(width / 2, height / 4), ORANGE);
+                    } else {
                            Item item = new Item(4,addsan);
                             player.itemList.add(item);
                             player.money -= 10;
                             showMessage("IFIB Sedative +1",3000,new PVector(width / 2, height / 4), ORANGE);
+                    }
                         }
                         break;
                    case 5 :
