@@ -107,8 +107,7 @@ public class Level {
         void onPressAction() {
             switch(type) {
                 case 0:
-                    switchState(STATE_LEVEL);
-                    battleView.currentLevel.boss.endBattle();
+                    battleView.currentLevel.boss.quitBattle();
                     break;
             }
             

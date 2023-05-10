@@ -116,6 +116,16 @@ public class LevelBoss {
         resultWindow.loadResult(total, perfect, fine, miss, playerDead, this);
         switchState(STATE_GAMEOVER);
     }
+
+    public void quitBattle() {
+        audioPlayer.pause();
+        currentBeatIndex = 0;
+        bullets.clear();
+        lasers.clear();
+        beats.clear();
+        resultWindow.loadResult(total, perfect, fine, miss, playerDead, this);
+        switchState(STATE_LEVEL);
+    }
     
     public void playMusic() {
         if (audioPlayer != null && !audioPlayer.isPlaying()) {

@@ -46,7 +46,7 @@ public class Bullet {
         PVector targetDirection = PVector.sub(destination, startPosition);
         targetDirection.normalize();
         
-        float flightTimeFrames = (flightTime / 1000.0f) * 60.0f;
+        float flightTimeFrames = (flightTime / 1000.0f) * frameRate;
         float distance = startPosition.dist(destination);
         float bulletSpeed = distance / flightTimeFrames;
         this.velocity = PVector.mult(targetDirection, bulletSpeed);
